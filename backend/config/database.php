@@ -23,7 +23,7 @@ return [
             // 排序规则
             'collate' => 'utf8mb4_general_ci',
             // 表前缀
-            'prefix' => 'sys_',
+            'prefix' => 'fy_',
             // 断线重连
             'break_reconnect' => true,
             // 是否JWT

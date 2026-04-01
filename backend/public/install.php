@@ -228,7 +228,7 @@ function doInstall($post) {
     $database = trim($post['db_name'] ?? '');
     $username = trim($post['db_user'] ?? '');
     $password = $post['db_pwd'] ?? '';
-    $prefix = trim($post['db_prefix'] ?? 'sys_');
+    $prefix = trim($post['db_prefix'] ?? 'fy_');
     $adminUser = trim($post['admin_user'] ?? '');
     $adminPwd = $post['admin_pwd'] ?? '';
     $adminPwd2 = $post['admin_pwd2'] ?? '';
@@ -508,7 +508,7 @@ function renderInstaller($step, $error, $checks = null, $postData = []) {
         $dbName = $postData['db_name'] ?? 'feiyuadmin';
         $dbUser = $postData['db_user'] ?? 'root';
         $dbPwd = $postData['db_pwd'] ?? '';
-        $dbPrefix = $postData['db_prefix'] ?? 'sys_';
+        $dbPrefix = $postData['db_prefix'] ?? 'fy_';
 
         $content = "
         <div class=\"card\">
