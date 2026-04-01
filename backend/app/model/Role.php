@@ -40,7 +40,7 @@ class Role extends Model
      */
     public function getMenuIds(): array
     {
-        return $this->menus()->column('sys_menu.id');
+        return $this->menus()->column('menu.id');
     }
 
     /**
@@ -68,6 +68,6 @@ class Role extends Model
      */
     public function users(): \think\model\relation\BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'sys_user_role', 'user_id', 'role_id');
+        return $this->belongsToMany(User::class, 'user_role', 'user_id', 'role_id');
     }
 }

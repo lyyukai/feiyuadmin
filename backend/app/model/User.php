@@ -68,7 +68,7 @@ class User extends Model
      */
     public function getRoleIds(): array
     {
-        return $this->roles()->column('sys_role.id');
+        return $this->roles()->column('role.id');
     }
 
     /**
@@ -97,7 +97,7 @@ class User extends Model
 
         $menuIds = [];
         foreach ($roles as $role) {
-            $menuIds = array_merge($menuIds, $role->menus()->column('sys_menu.id'));
+            $menuIds = array_merge($menuIds, $role->menus()->column('menu.id'));
         }
         $menuIds = array_unique($menuIds);
 
@@ -144,7 +144,7 @@ class User extends Model
 
         $menuIds = [];
         foreach ($roles as $role) {
-            $menuIds = array_merge($menuIds, $role->menus()->column('sys_menu.id'));
+            $menuIds = array_merge($menuIds, $role->menus()->column('menu.id'));
         }
         $menuIds = array_unique(array_filter($menuIds));
 

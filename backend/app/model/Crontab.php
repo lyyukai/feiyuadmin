@@ -10,7 +10,7 @@ use think\Model;
  */
 class Crontab extends Model
 {
-    protected $name = 'cron_task';
+    protected $name = 'crontab';
     protected $pk = 'id';
 
     protected $autoWriteTimestamp = 'datetime';
