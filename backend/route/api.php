@@ -12,11 +12,11 @@ Route::group('api', function () {
     Route::post('wechat/callback/:account_id', 'api/wechat.Callback/receive');
 
     // 消息通知（调用 adminapi 模块）
-    Route::get('notice/lists', 'adminapi/Notice/lists');
-    Route::get('notice/detail', 'adminapi/Notice/detail');
-    Route::post('notice/send', 'adminapi/Notice/send');
-    Route::post('notice/edit', 'adminapi/Notice/edit');
-    Route::post('notice/delete', 'adminapi/Notice/delete');
-    Route::post('notice/read', 'adminapi/Notice/read');
-    Route::get('notice/unread_count', 'adminapi/Notice/unreadCount');
+    Route::get('notice/lists', 'app\adminapi\controller\NoticeController::lists');
+    Route::get('notice/detail', 'app\adminapi\controller\NoticeController::detail');
+    Route::post('notice/send', 'app\adminapi\controller\NoticeController::send');
+    Route::post('notice/edit', 'app\adminapi\controller\NoticeController::edit');
+    Route::post('notice/delete', 'app\adminapi\controller\NoticeController::delete');
+    Route::post('notice/read', 'app\adminapi\controller\NoticeController::read');
+    Route::get('notice/unread_count', 'app\adminapi\controller\NoticeController::unreadCount');
 });
