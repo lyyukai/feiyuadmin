@@ -1,5 +1,7 @@
-node_modules/
-dist/
+# Build artifacts
+backend/public/admin/
+frontend/dist/
+frontend/node_modules/
 *.log
 .DS_Store
 .env
@@ -7,6 +9,4 @@ dist/
 .vscode/
 .idea/
 *.swp
-*.swo
 runtime/
-vendor/
