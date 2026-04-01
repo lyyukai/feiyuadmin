@@ -1,11 +1,11 @@
 <?php
 /**
- * 飞羽后台管理系统 - 安装向导
- * 独立运行，不依赖框架 autoload
+ * 飞羽后台管理系统 - 安装向导 V2.0
+ * 基于设计文档完整重写
  */
 
 // ============================================================
-// 防止直接访问（通过锁文件检测）
+// 防止直接访问 + 安装锁检测
 // ============================================================
 define('IN_INSTALL', true);
 $lockFile = __DIR__ . '/install.lock';
@@ -16,31 +16,31 @@ if (file_exists($lockFile)) {
 }
 
 // ============================================================
-// 安装步骤控制
+// 步骤控制
 // ============================================================
 $step = isset($_GET['step']) ? intval($_GET['step']) : 1;
 $error = '';
-$success = '';
 
 // POST 处理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($step === 2) {
-        // 测试数据库连接
+    $action = $_POST['action'] ?? '';
+
+    if ($action === 'test_db') {
+        // AJAX: 测试数据库连接
+        header('Content-Type: application/json');
         $result = testDatabase($_POST);
-        if ($result !== true) {
-            $error = $result;
-            $step = 1;
-        } else {
-            $step = 2;
-        }
-    } elseif ($step === 3) {
+        echo json_encode($result);
+        exit;
+    }
+
+    if ($action === 'install') {
         // 执行安装
         $result = doInstall($_POST);
         if ($result !== true) {
             $error = $result;
-            $step = 2;
-        } else {
             $step = 3;
+        } else {
+            $step = 4;
         }
     }
 }
@@ -59,7 +59,8 @@ function checkEnvironment() {
         'name' => 'PHP 版本',
         'current' => $phpVersion,
         'required' => '>= 8.0.0',
-        'pass' => $phpPass
+        'pass' => $phpPass,
+        'level' => $phpPass ? 'pass' : 'fail'
     ];
     if (!$phpPass) $allPass = false;
 
@@ -67,9 +68,10 @@ function checkEnvironment() {
     $pdoPass = extension_loaded('pdo') && extension_loaded('pdo_mysql');
     $checks['pdo'] = [
         'name' => 'PDO MySQL 扩展',
-        'current' => $pdoPass ? '已开启' : '未开启',
+        'current' => $pdoPass ? '已安装' : '未安装',
         'required' => '必须',
-        'pass' => $pdoPass
+        'pass' => $pdoPass,
+        'level' => $pdoPass ? 'pass' : 'fail'
     ];
     if (!$pdoPass) $allPass = false;
 
@@ -77,9 +79,10 @@ function checkEnvironment() {
     $fileinfoPass = extension_loaded('fileinfo');
     $checks['fileinfo'] = [
         'name' => 'fileinfo 扩展',
-        'current' => $fileinfoPass ? '已开启' : '未开启',
+        'current' => $fileinfoPass ? '已安装' : '未安装',
         'required' => '必须',
-        'pass' => $fileinfoPass
+        'pass' => $fileinfoPass,
+        'level' => $fileinfoPass ? 'pass' : 'fail'
     ];
     if (!$fileinfoPass) $allPass = false;
 
@@ -87,9 +90,10 @@ function checkEnvironment() {
     $curlPass = extension_loaded('curl');
     $checks['curl'] = [
         'name' => 'cURL 扩展',
-        'current' => $curlPass ? '已开启' : '未开启',
+        'current' => $curlPass ? '已安装' : '未安装',
         'required' => '必须',
-        'pass' => $curlPass
+        'pass' => $curlPass,
+        'level' => $curlPass ? 'pass' : 'warn'
     ];
     if (!$curlPass) $allPass = false;
 
@@ -97,29 +101,59 @@ function checkEnvironment() {
     $mbstringPass = extension_loaded('mbstring');
     $checks['mbstring'] = [
         'name' => 'mbstring 扩展',
-        'current' => $mbstringPass ? '已开启' : '未开启',
+        'current' => $mbstringPass ? '已安装' : '未安装',
         'required' => '必须',
-        'pass' => $mbstringPass
+        'pass' => $mbstringPass,
+        'level' => $mbstringPass ? 'pass' : 'fail'
     ];
     if (!$mbstringPass) $allPass = false;
 
+    // openssl 扩展
+    $opensslPass = extension_loaded('openssl');
+    $checks['openssl'] = [
+        'name' => 'openssl 扩展',
+        'current' => $opensslPass ? '已安装' : '未安装',
+        'required' => '必须',
+        'pass' => $opensslPass,
+        'level' => $opensslPass ? 'pass' : 'warn'
+    ];
+    if (!$opensslPass) $allPass = false;
+
+    // json 扩展
+    $jsonPass = extension_loaded('json');
+    $checks['json'] = [
+        'name' => 'json 扩展',
+        'current' => $jsonPass ? '已安装' : '未安装',
+        'required' => '必须',
+        'pass' => $jsonPass,
+        'level' => $jsonPass ? 'pass' : 'fail'
+    ];
+    if (!$jsonPass) $allPass = false;
+
     // 目录权限检测
     $basePath = dirname(__DIR__);
-    $configDir = $basePath . '/config';
-    $runtimeDir = $basePath . '/runtime';
-
     $dirs = [
-        'config' => $configDir,
-        'runtime' => $runtimeDir,
+        'config'      => $basePath . '/config',
+        'runtime'     => $basePath . '/runtime',
+        'uploads'     => $basePath . '/uploads',
+        'backup'      => $basePath . '/backup',
+        'public/uploads' => $basePath . '/public/uploads',
     ];
 
     foreach ($dirs as $key => $dir) {
-        $writable = is_dir($dir) && is_writable($dir);
-        $checks['dir_' . $key] = [
-            'name' => $key . ' 目录可写',
-            'current' => $writable ? '可写' : (is_dir($dir) ? '不可写' : '不存在'),
+        $exists = is_dir($dir);
+        $writable = $exists && is_writable($dir);
+        if (!$exists) {
+            // 尝试创建
+            @mkdir($dir, 0755, true);
+            $writable = is_dir($dir) && is_writable($dir);
+        }
+        $checks['dir_' . str_replace('/', '_', $key)] = [
+            'name' => $key . ' 目录',
+            'current' => !$exists ? '不存在(已创建)' : ($writable ? '可写' : '不可写'),
             'required' => '必须',
-            'pass' => $writable
+            'pass' => $writable,
+            'level' => $writable ? 'pass' : ($exists ? 'fail' : 'warn')
         ];
         if (!$writable) $allPass = false;
     }
@@ -128,27 +162,60 @@ function checkEnvironment() {
 }
 
 // ============================================================
-// 数据库连接测试
+// 生成随机安全密码
+// ============================================================
+function generatePassword($length = 16) {
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+    $password = '';
+    $strlen = strlen($chars);
+    for ($i = 0; $i < $length; $i++) {
+        $password .= $chars[random_int(0, $strlen - 1)];
+    }
+    return $password;
+}
+
+// ============================================================
+// 测试数据库连接 (AJAX)
 // ============================================================
 function testDatabase($post) {
-    $host = trim($post['db_host']);
-    $port = trim($post['db_port']);
-    $database = trim($post['db_name']);
-    $username = trim($post['db_user']);
-    $password = $post['db_pwd'];
-    $prefix = trim($post['db_prefix']);
+    $host = trim($post['db_host'] ?? '');
+    $port = trim($post['db_port'] ?? '');
+    $database = trim($post['db_name'] ?? '');
+    $username = trim($post['db_user'] ?? '');
+    $password = $post['db_pwd'] ?? '';
 
     if (empty($host) || empty($database) || empty($username)) {
-        return '请填写完整的数据库信息';
+        return ['success' => false, 'message' => '请填写完整的数据库信息'];
     }
+
+    $timeout = 3;
+    $start = microtime(true);
 
     try {
         $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4";
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return true;
+        $pdo = new PDO($dsn, $username, $password, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_TIMEOUT => $timeout,
+        ]);
+        $duration = round((microtime(true) - $start) * 1000);
+        return [
+            'success' => true,
+            'message' => "数据库连接成功 ({$duration}ms)",
+            'duration' => $duration
+        ];
     } catch (PDOException $e) {
-        return '数据库连接失败：' . $e->getMessage();
+        $msg = $e->getMessage();
+        // 友好错误提示
+        if (strpos($msg, 'Access denied') !== false) {
+            $msg = '用户名或密码错误，请检查数据库账号密码';
+        } elseif (strpos($msg, 'Unknown database') !== false) {
+            $msg = '数据库不存在，请先在宝塔/数据库管理中创建该数据库';
+        } elseif (strpos($msg, 'Connection refused') !== false) {
+            $msg = 'MySQL服务未启动或端口被拒绝，请检查MySQL服务状态';
+        } elseif (strpos($msg, 'No such file') !== false) {
+            $msg = 'MySQL socket文件不存在，请检查MySQL是否正常运行';
+        }
+        return ['success' => false, 'message' => '数据库连接失败：' . $msg];
     }
 }
 
@@ -156,63 +223,61 @@ function testDatabase($post) {
 // 执行安装
 // ============================================================
 function doInstall($post) {
-    $host = trim($post['db_host']);
-    $port = trim($post['db_port']);
-    $database = trim($post['db_name']);
-    $username = trim($post['db_user']);
-    $password = $post['db_pwd'];
-    $prefix = trim($post['db_prefix']);
-    $adminUser = trim($post['admin_user']);
-    $adminPwd = $post['admin_pwd'];
-    $adminPwd2 = $post['admin_pwd2'];
+    $host = trim($post['db_host'] ?? '');
+    $port = trim($post['db_port'] ?? '');
+    $database = trim($post['db_name'] ?? '');
+    $username = trim($post['db_user'] ?? '');
+    $password = $post['db_pwd'] ?? '';
+    $prefix = trim($post['db_prefix'] ?? 'sys_');
+    $adminUser = trim($post['admin_user'] ?? '');
+    $adminPwd = $post['admin_pwd'] ?? '';
+    $adminPwd2 = $post['admin_pwd2'] ?? '';
 
-    // 验证管理员密码
-    if (empty($adminUser) || empty($adminPwd) || empty($adminPwd2)) {
-        return '请填写完整的管理员信息';
-    }
-    if ($adminPwd !== $adminPwd2) {
-        return '两次输入的密码不一致';
-    }
-    if (strlen($adminPwd) < 6) {
-        return '密码长度不能少于6位';
-    }
+    // 验证
+    if (empty($adminUser)) return '请填写管理员用户名';
+    if (strlen($adminUser) < 4 || strlen($adminUser) > 20) return '用户名长度需在4-20位之间';
+    if (!preg_match('/^[a-zA-Z0-9]+$/', $adminUser)) return '用户名只能包含字母和数字';
+    if (empty($adminPwd)) return '请填写管理员密码';
+    if ($adminPwd !== $adminPwd2) return '两次输入的密码不一致';
+    if (strlen($adminPwd) < 8) return '密码长度不能少于8位';
 
     try {
         // 1. 连接数据库
         $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4";
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo = new PDO($dsn, $username, $password, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ]);
 
-        // 2. 生成加密盐值
+        // 2. 读取并执行安装SQL
+        $sqlFile = dirname(__DIR__) . '/database/install.sql';
+        if (!file_exists($sqlFile)) {
+            return '安装SQL文件不存在，请检查 database/install.sql';
+        }
+
+        $sqlContent = file_get_contents($sqlFile);
+        // 替换表前缀
+        $sqlContent = str_replace('{PREFIX}', $prefix, $sqlContent);
+
+        // 分割并执行SQL
+        $statements = array_filter(array_map('trim', explode(';', $sqlContent)), function($s) {
+            return !empty($s) && strpos($s, '--') !== 0;
+        });
+
+        foreach ($statements as $statement) {
+            if (!empty($statement)) {
+                $pdo->exec($statement);
+            }
+        }
+
+        // 3. 创建管理员账号
         $salt = bin2hex(random_bytes(16));
+        // 密码: md5(salt + password) 兼容前端
         $encryptedPwd = md5($salt . $adminPwd);
+        $now = date('Y-m-d H:i:s');
 
-        // 3. 创建 sys_user 表
-        $sql = "CREATE TABLE IF NOT EXISTS `{$prefix}user` (
-            `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `username` varchar(50) NOT NULL DEFAULT '' COMMENT '用户名',
-            `password` varchar(64) NOT NULL DEFAULT '' COMMENT '密码',
-            `salt` varchar(32) NOT NULL DEFAULT '' COMMENT '盐值',
-            `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',
-            `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
-            `email` varchar(100) NOT NULL DEFAULT '' COMMENT '邮箱',
-            `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
-            `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态 1启用 0禁用',
-            `login_time` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '最后登录时间',
-            `login_ip` varchar(50) NOT NULL DEFAULT '' COMMENT '最后登录IP',
-            `create_time` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-            `update_time` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
-            `delete_time` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除时间',
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `idx_username` (`username`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表'";
-        $pdo->exec($sql);
-
-        // 4. 插入管理员账号
-        $now = time();
-        $insertSql = "INSERT INTO `{$prefix}user` 
-            (`username`, `password`, `salt`, `nickname`, `status`, `create_time`, `update_time`) 
-            VALUES 
+        $insertSql = "INSERT INTO `{$prefix}user`
+            (`username`, `password`, `salt`, `nickname`, `status`, `create_time`, `update_time`)
+            VALUES
             (:username, :password, :salt, :nickname, 1, :create_time, :update_time)";
         $stmt = $pdo->prepare($insertSql);
         $stmt->execute([
@@ -224,10 +289,13 @@ function doInstall($post) {
             ':update_time' => $now,
         ]);
 
-        // 5. 写入 database.php 配置
+        // 给管理员分配超级管理员角色
+        $pdo->exec("INSERT INTO `{$prefix}user_role` (`user_id`, `role_id`) VALUES (1, 1)");
+
+        // 4. 写入数据库配置文件
         $configPath = dirname(__DIR__) . '/config/database.php';
         $configContent = "<?php
-// Database configuration - Generated by installer
+// Database configuration - Generated by installer at " . date('Y-m-d H:i:s') . "
 return [
     'default' => 'mysql',
     'connections' => [
@@ -257,24 +325,34 @@ return [
             return '配置文件写入失败，请检查 config 目录权限';
         }
 
-        // 6. 创建 install.lock
-        $lockFile = __DIR__ . '/install.lock';
-        file_put_contents($lockFile, date('Y-m-d H:i:s'));
+        // 5. 创建 install.lock
+        $lockData = [
+            'version' => '1.0.0',
+            'installed_at' => $now,
+            'admin_account' => $adminUser,
+            'install_hash' => hash('sha256', $adminUser . $salt . $encryptedPwd),
+        ];
+        file_put_contents(__DIR__ . '/install.lock', json_encode($lockData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
         return true;
 
     } catch (PDOException $e) {
-        return '安装失败：' . $e->getMessage();
+        return '数据库错误：' . $e->getMessage();
     } catch (Exception $e) {
         return '安装异常：' . $e->getMessage();
     }
 }
 
 // ============================================================
-// 显示已安装页面
+// 已安装页面
 // ============================================================
 function showLocked() {
-    echo '<!DOCTYPE html>
+    $lockContent = @file_get_contents(__DIR__ . '/install.lock');
+    $lockData = $lockContent ? json_decode($lockContent, true) : [];
+    $version = $lockData['version'] ?? 'unknown';
+    $installedAt = $lockData['installed_at'] ?? 'unknown';
+    ?>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -289,40 +367,68 @@ function showLocked() {
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
         .locked-box {
             background: #fff;
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 48px 40px;
             max-width: 480px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
         }
         .locked-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 28px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .locked-icon svg { width: 40px; height: 40px; fill: #fff; }
-        h1 { font-size: 24px; color: #333; margin-bottom: 12px; }
-        p { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+        .locked-icon svg { width: 44px; height: 44px; fill: #fff; }
+        h1 { font-size: 24px; color: #333; margin-bottom: 12px; font-weight: 600; }
+        p { color: #666; font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+        .info-grid {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 13px;
+        }
+        .info-row .label { color: #888; }
+        .info-row .value { color: #333; font-weight: 500; }
         .btn {
             display: inline-block;
-            padding: 12px 32px;
+            padding: 14px 36px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: #fff;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: opacity 0.3s;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 12px;
         }
-        .btn:hover { opacity: 0.9; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102,126,234,0.4); }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-top: 20px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -332,32 +438,46 @@ function showLocked() {
         </div>
         <h1>系统已安装</h1>
         <p>飞羽后台管理系统已经完成安装，如需重新安装请删除根目录下的 <strong>install.lock</strong> 文件，然后重新访问安装向导。</p>
+        <div class="info-grid">
+            <div class="info-row"><span class="label">版本</span><span class="value">v<?= htmlspecialchars($version) ?></span></div>
+            <div class="info-row"><span class="label">安装时间</span><span class="value"><?= htmlspecialchars($installedAt) ?></span></div>
+        </div>
         <a href="admin.php" class="btn">进入后台管理</a>
+        <div class="warning">⚠️ 如需重装，请先删除 <code>public/install.lock</code> 文件</div>
     </div>
 </body>
-</html>';
+</html>
+    <?php
+    exit;
 }
 
 // ============================================================
-// 渲染安装向导 HTML
+// 渲染安装向导
 // ============================================================
 function renderInstaller($step, $error, $checks = null, $postData = []) {
     $stepTitles = ['', '环境检测', '数据库配置', '管理员设置', '安装完成'];
     $title = $stepTitles[$step] ?? '安装向导';
     $progress = $step * 25;
 
-    // 错误提示 HTML
+    // 错误提示
     $errorHtml = $error ? '<div class="error-msg"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>' . htmlspecialchars($error) . '</div>' : '';
 
-    // 步骤1：环境检测
+    // 步骤1: 环境检测
     if ($step === 1) {
         $checksHtml = '';
+        $levelOrder = ['fail' => 0, 'warn' => 1, 'pass' => 2];
+        uasort($checks['checks'], function($a, $b) use ($levelOrder) {
+            return ($levelOrder[$a['level']] ?? 0) - ($levelOrder[$b['level']] ?? 0);
+        });
+
         foreach ($checks['checks'] as $check) {
-            $statusIcon = $check['pass'] 
-                ? '<svg viewBox="0 0 24 24" class="icon-pass"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' 
-                : '<svg viewBox="0 0 24 24" class="icon-fail"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-            $rowClass = $check['pass'] ? 'pass' : 'fail';
-            $checksHtml .= "<tr class=\"{$rowClass}\">
+            $levelClass = $check['level'] ?? 'warn';
+            $statusIcon = $levelClass === 'pass'
+                ? '<svg viewBox="0 0 24 24" class="icon-pass"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'
+                : ($levelClass === 'warn'
+                ? '<svg viewBox="0 0 24 24" class="icon-warn"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
+                : '<svg viewBox="0 0 24 24" class="icon-fail"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>');
+            $checksHtml .= "<tr class=\"{$levelClass}\">
                 <td>{$check['name']}</td>
                 <td>{$check['current']}</td>
                 <td>{$check['required']}</td>
@@ -365,13 +485,13 @@ function renderInstaller($step, $error, $checks = null, $postData = []) {
             </tr>";
         }
 
-        $nextBtn = $checks['allPass'] 
-            ? '<a href="?step=2" class="btn btn-primary">下一步：配置数据库</a>'
+        $nextBtn = $checks['allPass']
+            ? '<a href="?step=2" class="btn btn-primary">下一步：配置数据库 →</a>'
             : '<button class="btn btn-disabled" disabled>请修复以上问题后继续</button>';
 
         $content = "
         <div class=\"card\">
-            <h3 class=\"card-title\">服务器环境检测</h3>
+            <h3 class=\"card-title\"><span class=\"step-num\">1</span> 服务器环境检测</h3>
             <table class=\"check-table\">
                 <thead><tr><th>检测项</th><th>当前状态</th><th>要求</th><th>状态</th></tr></thead>
                 <tbody>{$checksHtml}</tbody>
@@ -381,102 +501,150 @@ function renderInstaller($step, $error, $checks = null, $postData = []) {
             {$nextBtn}
         </div>";
 
-    // 步骤2：数据库配置
+    // 步骤2: 数据库配置
     } elseif ($step === 2) {
+        $dbHost = $postData['db_host'] ?? '127.0.0.1';
+        $dbPort = $postData['db_port'] ?? '3306';
+        $dbName = $postData['db_name'] ?? 'feiyuadmin';
+        $dbUser = $postData['db_user'] ?? 'root';
+        $dbPwd = $postData['db_pwd'] ?? '';
+        $dbPrefix = $postData['db_prefix'] ?? 'sys_';
+
         $content = "
-        <form method=\"post\" action=\"?step=3\">
-            <input type=\"hidden\" name=\"step\" value=\"2\">
-            <div class=\"card\">
-                <h3 class=\"card-title\">数据库配置</h3>
-                <div class=\"form-grid\">
-                    <div class=\"form-group\">
-                        <label>数据库主机</label>
-                        <input type=\"text\" name=\"db_host\" value=\"" . ($postData['db_host'] ?? '127.0.0.1') . "\" placeholder=\"127.0.0.1\" required>
-                    </div>
-                    <div class=\"form-group\">
-                        <label>端口号</label>
-                        <input type=\"number\" name=\"db_port\" value=\"" . ($postData['db_port'] ?? '3306') . "\" placeholder=\"3306\" required>
-                    </div>
-                    <div class=\"form-group full\">
-                        <label>数据库名</label>
-                        <input type=\"text\" name=\"db_name\" value=\"" . ($postData['db_name'] ?? 'feiyuadmin') . "\" placeholder=\"请输入数据库名\" required>
-                    </div>
-                    <div class=\"form-group\">
-                        <label>数据库用户名</label>
-                        <input type=\"text\" name=\"db_user\" value=\"" . ($postData['db_user'] ?? 'root') . "\" placeholder=\"root\" required>
-                    </div>
-                    <div class=\"form-group\">
-                        <label>数据库密码</label>
-                        <input type=\"password\" name=\"db_pwd\" value=\"" . ($postData['db_pwd'] ?? '') . "\" placeholder=\"请输入密码\">
-                    </div>
-                    <div class=\"form-group full\">
-                        <label>表前缀</label>
-                        <input type=\"text\" name=\"db_prefix\" value=\"" . ($postData['db_prefix'] ?? 'sys_') . "\" placeholder=\"sys_\">
-                        <span class=\"hint\">建议使用带下划线的前缀，如 sys_</span>
-                    </div>
+        <div class=\"card\">
+            <h3 class=\"card-title\"><span class=\"step-num\">2</span> 数据库配置</h3>
+            <div class=\"form-grid\">
+                <div class=\"form-group\">
+                    <label>数据库主机</label>
+                    <input type=\"text\" name=\"db_host\" id=\"db_host\" value=\"{$dbHost}\" placeholder=\"127.0.0.1\" required>
+                </div>
+                <div class=\"form-group\">
+                    <label>端口号</label>
+                    <input type=\"number\" name=\"db_port\" id=\"db_port\" value=\"{$dbPort}\" placeholder=\"3306\" required>
+                </div>
+                <div class=\"form-group full\">
+                    <label>数据库名</label>
+                    <input type=\"text\" name=\"db_name\" id=\"db_name\" value=\"{$dbName}\" placeholder=\"请输入数据库名（需提前创建）\" required>
+                    <span class=\"hint\">💡 请先在宝塔面板创建数据库</span>
+                </div>
+                <div class=\"form-group\">
+                    <label>用户名</label>
+                    <input type=\"text\" name=\"db_user\" id=\"db_user\" value=\"{$dbUser}\" placeholder=\"root\" required>
+                </div>
+                <div class=\"form-group\">
+                    <label>密码</label>
+                    <input type=\"password\" name=\"db_pwd\" id=\"db_pwd\" value=\"{$dbPwd}\" placeholder=\"数据库密码\">
+                </div>
+                <div class=\"form-group full\">
+                    <label>表前缀</label>
+                    <input type=\"text\" name=\"db_prefix\" id=\"db_prefix\" value=\"{$dbPrefix}\" placeholder=\"sys_\">
+                    <span class=\"hint\">建议使用带下划线的前缀，如 sys_，用于区分多套系统</span>
                 </div>
             </div>
-            <div class=\"action-row\">
-                <a href=\"?step=1\" class=\"btn btn-secondary\">上一步</a>
-                <button type=\"submit\" class=\"btn btn-primary\">下一步：创建管理员</button>
+            <div class=\"db-test-row\">
+                <button type=\"button\" class=\"btn btn-outline\" id=\"testDbBtn\" onclick=\"testDbConnection()\">🔌 测试数据库连接</button>
+                <span class=\"db-test-result\" id=\"dbTestResult\"></span>
             </div>
-        </form>";
+        </div>
+        <div class=\"action-row\">
+            <a href=\"?step=1\" class=\"btn btn-secondary\">← 上一步</a>
+            <button type=\"button\" class=\"btn btn-primary\" onclick=\"goToStep3()\">下一步：创建管理员 →</button>
+        </div>";
 
-    // 步骤3：管理员设置
+    // 步骤3: 管理员设置
     } elseif ($step === 3) {
-        // 从 step2 的 post 数据中提取 db 配置
-        $dbFields = '';
-        foreach (['db_host', 'db_port', 'db_name', 'db_user', 'db_pwd', 'db_prefix'] as $f) {
-            $v = isset($_POST[$f]) ? htmlspecialchars($_POST[$f]) : '';
-            $dbFields .= '<input type="hidden" name="'.$f.'" value="'.$v.'">';
-        }
+        $adminUser = htmlspecialchars($postData['admin_user'] ?? 'admin');
+        $randomPwd = generatePassword();
 
         $content = "
-        <form method=\"post\" action=\"?step=4\" onsubmit=\"return validateForm()\">
-            {$dbFields}
+        <form method=\"post\" action=\"?step=4\" id=\"installForm\">
+            <input type=\"hidden\" name=\"action\" value=\"install\">
+            <input type=\"hidden\" name=\"db_host\" id=\"db_host\" value=\"{$postData['db_host'] ?? ''}\">
+            <input type=\"hidden\" name=\"db_port\" id=\"db_port\" value=\"{$postData['db_port'] ?? ''}\">
+            <input type=\"hidden\" name=\"db_name\" id=\"db_name\" value=\"{$postData['db_name'] ?? ''}\">
+            <input type=\"hidden\" name=\"db_user\" id=\"db_user\" value=\"{$postData['db_user'] ?? ''}\">
+            <input type=\"hidden\" name=\"db_pwd\" id=\"db_pwd\" value=\"{$postData['db_pwd'] ?? ''}\">
+            <input type=\"hidden\" name=\"db_prefix\" id=\"db_prefix\" value=\"{$postData['db_prefix'] ?? ''}\">
+            <input type=\"hidden\" name=\"admin_user\" id=\"form_admin_user\" value=\"{$adminUser}\">
+
             <div class=\"card\">
-                <h3 class=\"card-title\">创建管理员账号</h3>
+                <h3 class=\"card-title\"><span class=\"step-num\">3</span> 创建管理员账号</h3>
                 <div class=\"form-grid\">
                     <div class=\"form-group full\">
                         <label>管理员用户名</label>
-                        <input type=\"text\" name=\"admin_user\" id=\"admin_user\" value=\"admin\" placeholder=\"请输入管理员用户名\" required>
+                        <input type=\"text\" name=\"admin_user_display\" id=\"admin_user_display\" value=\"{$adminUser}\" placeholder=\"4-20位，字母或数字\" required pattern=\"[a-zA-Z0-9]{4,20}\" oninput=\"syncAdminUser()\">
+                        <span class=\"hint\">4-20位，只能包含字母和数字，不能纯数字</span>
                     </div>
                     <div class=\"form-group\">
                         <label>设置密码</label>
-                        <input type=\"password\" name=\"admin_pwd\" id=\"admin_pwd\" placeholder=\"请输入密码（至少6位）\" required minlength=\"6\">
+                        <input type=\"password\" name=\"admin_pwd\" id=\"admin_pwd\" placeholder=\"请输入密码\" required minlength=\"8\" oninput=\"checkPasswordStrength()\">
+                        <div class=\"password-strength\" id=\"pwdStrength\">
+                            <div class=\"strength-bar\"><div class=\"strength-fill\" id=\"strengthFill\"></div></div>
+                            <span class=\"strength-text\" id=\"strengthText\">请输入密码</span>
+                        </div>
                     </div>
                     <div class=\"form-group\">
                         <label>确认密码</label>
-                        <input type=\"password\" name=\"admin_pwd2\" id=\"admin_pwd2\" placeholder=\"请再次输入密码\" required minlength=\"6\">
+                        <input type=\"password\" name=\"admin_pwd2\" id=\"admin_pwd2\" placeholder=\"请再次输入密码\" required minlength=\"8\" oninput=\"checkPwdMatch()\">
+                        <span class=\"hint\" id=\"pwdMatchHint\"></span>
                     </div>
                 </div>
             </div>
+
+            <div class=\"card tip-card\">
+                <h3 class=\"card-title\">💡 密码安全建议</h3>
+                <div class=\"tip-grid\">
+                    <div class=\"tip-item\">✓ 长度至少 8 位</div>
+                    <div class=\"tip-item\">✓ 包含大写字母 (A-Z)</div>
+                    <div class=\"tip-item\">✓ 包含小写字母 (a-z)</div>
+                    <div class=\"tip-item\">✓ 包含数字 (0-9)</div>
+                    <div class=\"tip-item\">✓ 包含特殊字符 (!@#$%^&*)</div>
+                </div>
+            </div>
+
             <div class=\"action-row\">
-                <a href=\"?step=2\" class=\"btn btn-secondary\">上一步</a>
-                <button type=\"submit\" class=\"btn btn-primary\">开始安装</button>
+                <a href=\"?step=2\" class=\"btn btn-secondary\">← 上一步</a>
+                <button type=\"submit\" class=\"btn btn-primary btn-install\" id=\"installBtn\">🚀 开始安装</button>
             </div>
         </form>";
 
-    // 步骤4：完成
+    // 步骤4: 完成
     } elseif ($step === 4) {
+        $lockContent = @file_get_contents(__DIR__ . '/install.lock');
+        $lockData = $lockContent ? json_decode($lockContent, true) : [];
+        $version = $lockData['version'] ?? '1.0.0';
+        $adminAccount = $lockData['admin_account'] ?? 'admin';
+
         $content = "
         <div class=\"card success-card\">
             <div class=\"success-icon\">
                 <svg viewBox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\"/></svg>
             </div>
-            <h3>安装成功！</h3>
-            <p>飞羽后台管理系统已安装完成，请妥善保管您的管理员账号信息。</p>
+            <h3>🎉 安装成功！</h3>
+            <p>飞羽后台管理系统已成功安装，请妥善保管您的账号信息</p>
             <div class=\"account-info\">
-                <div class=\"info-row\"><span>用户名：</span><strong>admin</strong> <span class=\"badge\">可自行修改</span></div>
-                <div class=\"info-row\"><span>密码：</span><strong>刚才设置的管理员密码</strong></div>
+                <div class=\"info-row\"><span>后台地址</span><strong id=\"backendUrl\"></strong></div>
+                <div class=\"info-row\"><span>管理员账号</span><strong>{$adminAccount}</strong></div>
+                <div class=\"info-row\"><span>系统版本</span><strong>v{$version}</strong></div>
             </div>
         </div>
+
+        <div class=\"card next-steps-card\">
+            <h3 class=\"card-title\">📋 下一步</h3>
+            <div class=\"steps-list\">
+                <div class=\"step-item\"><span class=\"step-check\">✓</span> 牢记管理员账号密码</div>
+                <div class=\"step-item\"><span class=\"step-check\">✓</span> 访问后台管理系统</div>
+                <div class=\"step-item\"><span class=\"step-check\">○</span> 根据需要调整系统配置</div>
+                <div class=\"step-item\"><span class=\"step-check\">○</span> 配置菜单和权限</div>
+            </div>
+        </div>
+
         <div class=\"action-row\">
-            <a href=\"admin.php\" class=\"btn btn-primary\">立即进入后台</a>
+            <a href=\"admin.php\" class=\"btn btn-primary btn-lg\">立即进入后台 →</a>
         </div>";
     }
 
-    // 组装完整页面
+    // 输出完整页面
     echo '<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -491,230 +659,261 @@ function renderInstaller($step, $error, $checks = null, $postData = []) {
             min-height: 100vh;
             padding: 40px 20px;
         }
-        .installer-wrapper {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-        .header h1 {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 600;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
-        .header p {
-            color: rgba(255,255,255,0.8);
-            margin-top: 8px;
-            font-size: 14px;
-        }
-        .progress-bar {
-            background: rgba(255,255,255,0.2);
-            border-radius: 50px;
-            height: 8px;
-            margin-bottom: 32px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: #fff;
-            border-radius: 50px;
-            transition: width 0.5s ease;
-        }
-        .step-indicators {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .step-indicator {
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-        }
+        .installer-wrapper { max-width: 720px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 32px; }
+        .header h1 { color: #fff; font-size: 30px; font-weight: 600; text-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .header p { color: rgba(255,255,255,0.8); margin-top: 8px; font-size: 14px; }
+        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 50px; height: 8px; margin-bottom: 24px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #fff; border-radius: 50px; transition: width 0.5s ease; }
+        .step-indicators { display: flex; justify-content: space-between; margin-bottom: 32px; padding: 0 20px; }
+        .step-indicator { font-size: 13px; color: rgba(255,255,255,0.6); transition: all 0.3s; }
         .step-indicator.active { color: #fff; font-weight: 600; }
-        .card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-        .card-title {
-            font-size: 16px;
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #eee;
-        }
-        .check-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .check-table th, .check-table td {
-            text-align: left;
-            padding: 12px 8px;
-            font-size: 14px;
-        }
-        .check-table th {
-            color: #888;
-            font-weight: 500;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .check-table tr.pass td { color: #333; }
+        .step-indicator.done { color: rgba(255,255,255,0.9); }
+
+        .card { background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .card-title { font-size: 16px; color: #333; font-weight: 600; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; }
+        .step-num { width: 28px; height: 28px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
+
+        .check-table { width: 100%; border-collapse: collapse; }
+        .check-table th, .check-table td { text-align: left; padding: 12px 8px; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
+        .check-table th { color: #888; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .check-table tr.pass td { }
         .check-table tr.fail td { color: #f56c6c; }
+        .check-table tr.warn td { color: #e6a23c; }
         .icon-pass { width: 20px; height: 20px; fill: #67c23a; vertical-align: middle; }
         .icon-fail { width: 20px; height: 20px; fill: #f56c6c; vertical-align: middle; }
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
+        .icon-warn { width: 20px; height: 20px; fill: #e6a23c; vertical-align: middle; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .form-group { display: flex; flex-direction: column; }
         .form-group.full { grid-column: 1 / -1; }
-        .form-group label {
-            font-size: 14px;
-            color: #333;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-        .form-group input {
-            padding: 10px 14px;
-            border: 1px solid #dcdfe6;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
-        }
-        .form-group .hint {
-            font-size: 12px;
-            color: #999;
-            margin-top: 4px;
-        }
-        .error-msg {
-            background: #fef0f0;
-            border: 1px solid #fde2e2;
-            color: #f56c6c;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .error-msg svg { width: 18px; height: 18px; fill: #f56c6c; flex-shrink: 0; }
-        .action-row {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 8px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-        }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #666;
-        }
+        .form-group label { font-size: 14px; color: #333; font-weight: 500; margin-bottom: 8px; }
+        .form-group input { padding: 12px 14px; border: 1px solid #dcdfe6; border-radius: 8px; font-size: 14px; transition: all 0.3s; }
+        .form-group input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+        .form-group .hint { font-size: 12px; color: #999; margin-top: 6px; }
+
+        .db-test-row { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #eee; display: flex; align-items: center; gap: 16px; }
+        .db-test-result { font-size: 14px; font-weight: 500; }
+        .db-test-result.success { color: #67c23a; }
+        .db-test-result.error { color: #f56c6c; }
+
+        .password-strength { margin-top: 8px; }
+        .strength-bar { height: 4px; background: #eee; border-radius: 2px; overflow: hidden; }
+        .strength-fill { height: 100%; border-radius: 2px; transition: all 0.3s; width: 0; }
+        .strength-fill.weak { width: 25%; background: #f56c6c; }
+        .strength-fill.medium { width: 50%; background: #e6a23c; }
+        .strength-fill.strong { width: 75%; background: #67c23a; }
+        .strength-fill.very-strong { width: 100%; background: #67c23a; }
+        .strength-text { font-size: 12px; color: #999; margin-top: 4px; display: block; }
+
+        .tip-card { background: #f8f9fa; }
+        .tip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .tip-item { font-size: 13px; color: #666; padding: 4px 0; }
+
+        .error-msg { background: #fef0f0; border: 1px solid #fde2e2; color: #f56c6c; padding: 14px 18px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+        .error-msg svg { width: 20px; height: 20px; fill: #f56c6c; flex-shrink: 0; }
+
+        .action-row { display: flex; justify-content: center; gap: 12px; margin-top: 8px; }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; border: none; transition: all 0.3s; gap: 6px; }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102,126,234,0.4); }
+        .btn-secondary { background: #f5f5f5; color: #666; }
         .btn-secondary:hover { background: #e8e8e8; }
-        .btn-disabled {
-            background: #ccc;
-            color: #fff;
-            cursor: not-allowed;
-        }
-        .success-card { text-align: center; }
-        .success-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #67c23a, #85ce61);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-        .success-icon svg { width: 32px; height: 32px; fill: #fff; }
-        .success-card h3 { font-size: 20px; color: #333; margin-bottom: 8px; }
-        .success-card p { color: #666; font-size: 14px; margin-bottom: 20px; }
-        .account-info {
-            background: #f5f7fa;
-            border-radius: 8px;
-            padding: 16px 20px;
-            text-align: left;
-            margin-top: 12px;
-        }
-        .info-row { font-size: 14px; color: #333; margin-bottom: 8px; }
-        .info-row:last-child { margin-bottom: 0; }
+        .btn-outline { background: transparent; border: 2px solid #667eea; color: #667eea; }
+        .btn-outline:hover { background: rgba(102,126,234,0.05); }
+        .btn-disabled { background: #ccc; color: #fff; cursor: not-allowed; }
+        .btn-install { padding: 14px 40px; font-size: 15px; }
+        .btn-lg { padding: 16px 48px; font-size: 16px; }
+
+        .success-card { text-align: center; padding: 40px 32px; }
+        .success-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #67c23a, #85ce61); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+        .success-icon svg { width: 40px; height: 40px; fill: #fff; }
+        .success-card h3 { font-size: 22px; color: #333; margin-bottom: 8px; }
+        .success-card > p { color: #666; font-size: 14px; margin-bottom: 24px; }
+        .account-info { background: #f5f7fa; border-radius: 12px; padding: 20px; text-align: left; margin-top: 12px; }
+        .info-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; border-bottom: 1px solid #eee; }
+        .info-row:last-child { border-bottom: none; }
         .info-row span { color: #888; }
         .info-row strong { color: #333; }
-        .badge {
-            background: #667eea;
-            color: #fff;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
+
+        .next-steps-card { }
+        .steps-list { }
+        .step-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 14px; color: #666; }
+        .step-check { width: 24px; height: 24px; border-radius: 50%; background: #67c23a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+        .step-item:nth-child(3) .step-check, .step-item:nth-child(4) .step-check { background: #ddd; color: #999; }
+
         @media (max-width: 600px) {
             .form-grid { grid-template-columns: 1fr; }
             .form-group.full { grid-column: 1; }
+            .tip-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 <div class="installer-wrapper">
     <div class="header">
-        <h1>飞羽后台管理系统</h1>
-        <p>安装向导</p>
+        <h1>🐟 飞羽后台管理系统</h1>
+        <p>安装向导 - V1.0</p>
     </div>
     <div class="progress-bar">
         <div class="progress-fill" style="width:' . $progress . '%"></div>
     </div>
     <div class="step-indicators">
-        <span class="step-indicator ' . ($step >= 1 ? 'active' : '') . '">1 环境检测</span>
-        <span class="step-indicator ' . ($step >= 2 ? 'active' : '') . '">2 数据库配置</span>
-        <span class="step-indicator ' . ($step >= 3 ? 'active' : '') . '">3 管理员设置</span>
-        <span class="step-indicator ' . ($step >= 4 ? 'active' : '') . '">4 安装完成</span>
+        <span class="step-indicator ' . ($step >= 1 ? ($step > 1 ? 'done' : 'active') : '') . '">① 环境检测</span>
+        <span class="step-indicator ' . ($step >= 2 ? ($step > 2 ? 'done' : 'active') : '') . '">② 数据库配置</span>
+        <span class="step-indicator ' . ($step >= 3 ? ($step > 3 ? 'done' : 'active') : '') . '">③ 管理员设置</span>
+        <span class="step-indicator ' . ($step >= 4 ? 'active' : '') . '">④ 安装完成</span>
     </div>
     ' . $errorHtml . '
     ' . $content . '
 </div>
 <script>
-function validateForm() {
+function testDbConnection() {
+    var btn = document.getElementById("testDbBtn");
+    var result = document.getElementById("dbTestResult");
+    btn.disabled = true;
+    btn.textContent = "测试中...";
+    result.textContent = "";
+    result.className = "db-test-result";
+
+    var data = new FormData();
+    data.append("action", "test_db");
+    data.append("db_host", document.getElementById("db_host").value);
+    data.append("db_port", document.getElementById("db_port").value);
+    data.append("db_name", document.getElementById("db_name").value);
+    data.append("db_user", document.getElementById("db_user").value);
+    data.append("db_pwd", document.getElementById("db_pwd").value);
+
+    fetch("?step=2", { method: "POST", body: data })
+        .then(r => r.json())
+        .then(d => {
+            btn.disabled = false;
+            btn.textContent = "🔌 测试数据库连接";
+            if (d.success) {
+                result.textContent = "✓ " + d.message;
+                result.className = "db-test-result success";
+            } else {
+                result.textContent = "✗ " + d.message;
+                result.className = "db-test-result error";
+            }
+        })
+        .catch(e => {
+            btn.disabled = false;
+            btn.textContent = "🔌 测试数据库连接";
+            result.textContent = "测试失败：" + e.message;
+            result.className = "db-test-result error";
+        });
+}
+
+function goToStep3() {
+    // 先同步表单数据
+    document.getElementById("db_host").value = document.getElementById("db_host").value;
+    document.getElementById("db_port").value = document.getElementById("db_port").value;
+    document.getElementById("db_name").value = document.getElementById("db_name").value;
+    document.getElementById("db_user").value = document.getElementById("db_user").value;
+    document.getElementById("db_pwd").value = document.getElementById("db_pwd").value;
+    document.getElementById("db_prefix").value = document.getElementById("db_prefix").value;
+
+    // 检查必填项
+    var dbHost = document.getElementById("db_host").value;
+    var dbName = document.getElementById("db_name").value;
+    var dbUser = document.getElementById("db_user").value;
+
+    if (!dbHost || !dbName || !dbUser) {
+        alert("请填写完整的数据库信息");
+        return;
+    }
+
+    // 跳转到 step3，携带数据库配置
+    var params = new URLSearchParams({
+        step: 3,
+        db_host: dbHost,
+        db_port: document.getElementById("db_port").value,
+        db_name: dbName,
+        db_user: dbUser,
+        db_pwd: document.getElementById("db_pwd").value,
+        db_prefix: document.getElementById("db_prefix").value
+    });
+    window.location.href = "?" + params.toString();
+}
+
+// 从URL恢复step3的数据
+(function restoreStep3Data() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("step") == 3) {
+        if (params.get("db_host")) document.getElementById("db_host").value = params.get("db_host");
+        if (params.get("db_port")) document.getElementById("db_port").value = params.get("db_port");
+        if (params.get("db_name")) document.getElementById("db_name").value = params.get("db_name");
+        if (params.get("db_user")) document.getElementById("db_user").value = params.get("db_user");
+        if (params.get("db_pwd")) document.getElementById("db_pwd").value = params.get("db_pwd");
+        if (params.get("db_prefix")) document.getElementById("db_prefix").value = params.get("db_prefix");
+    }
+})();
+
+function syncAdminUser() {
+    document.getElementById("form_admin_user").value = document.getElementById("admin_user_display").value;
+}
+
+function checkPasswordStrength() {
+    var pwd = document.getElementById("admin_pwd").value;
+    var fill = document.getElementById("strengthFill");
+    var text = document.getElementById("strengthText");
+
+    fill.className = "strength-fill";
+    if (pwd.length === 0) {
+        text.textContent = "请输入密码";
+        fill.style.width = "0";
+        return;
+    }
+
+    var strength = 0;
+    if (pwd.length >= 8) strength++;
+    if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) strength++;
+    if (/[0-9]/.test(pwd)) strength++;
+    if (/[!@#$%^&*]/.test(pwd)) strength++;
+    if (pwd.length >= 12) strength++;
+
+    if (strength <= 1) {
+        fill.classList.add("weak");
+        text.textContent = "弱 - 建议加强";
+        text.style.color = "#f56c6c";
+    } else if (strength <= 2) {
+        fill.classList.add("medium");
+        text.textContent = "中 - 可以使用";
+        text.style.color = "#e6a23c";
+    } else if (strength <= 3) {
+        fill.classList.add("strong");
+        text.textContent = "强 - 很好";
+        text.style.color = "#67c23a";
+    } else {
+        fill.classList.add("very-strong");
+        text.textContent = "非常强 - 完美";
+        text.style.color = "#67c23a";
+    }
+}
+
+function checkPwdMatch() {
     var pwd = document.getElementById("admin_pwd").value;
     var pwd2 = document.getElementById("admin_pwd2").value;
-    if (pwd.length < 6) {
-        alert("密码长度不能少于6位");
-        return false;
+    var hint = document.getElementById("pwdMatchHint");
+    if (pwd2 && pwd !== pwd2) {
+        hint.textContent = "✗ 两次密码不一致";
+        hint.style.color = "#f56c6c";
+    } else if (pwd2 && pwd === pwd2) {
+        hint.textContent = "✓ 密码一致";
+        hint.style.color = "#67c23a";
+    } else {
+        hint.textContent = "";
     }
-    if (pwd !== pwd2) {
-        alert("两次输入的密码不一致");
-        return false;
-    }
-    return true;
 }
+
+// 步骤4显示后台地址
+(function setBackendUrl() {
+    if (document.getElementById("backendUrl")) {
+        document.getElementById("backendUrl").textContent = window.location.host + "/admin.php";
+    }
+})();
 </script>
 </body>
 </html>';
@@ -727,9 +926,9 @@ if ($step === 1) {
     $env = checkEnvironment();
     renderInstaller(1, $error, $env);
 } elseif ($step === 2) {
-    renderInstaller(2, $error, null, $_POST);
+    renderInstaller(2, $error, null, $_GET);
 } elseif ($step === 3) {
-    renderInstaller(3, $error, null, $_POST);
+    renderInstaller(3, $error, null, $_GET);
 } elseif ($step === 4) {
     renderInstaller(4, $error);
 }

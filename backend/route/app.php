@@ -69,16 +69,16 @@ Route::group('adminapi', function () {
     Route::get('log/detail', [\app\adminapi\controller\admin\LogController::class, 'detail']);
 
     // 字典管理
-    Route::get('dict/type/lists', [\app\adminapi\controller\admin\DictTypeController::class, 'lists']);
-    Route::get('dict/type/all', [\app\adminapi\controller\admin\DictTypeController::class, 'all']);
-    Route::post('dict/type/add', [\app\adminapi\controller\admin\DictTypeController::class, 'add']);
-    Route::post('dict/type/edit', [\app\adminapi\controller\admin\DictTypeController::class, 'edit']);
-    Route::post('dict/type/delete', [\app\adminapi\controller\admin\DictTypeController::class, 'delete']);
-    Route::get('dict/data/lists', [\app\adminapi\controller\admin\DictDataController::class, 'lists']);
-    Route::get('dict/data/all', [\app\adminapi\controller\admin\DictDataController::class, 'all']);
-    Route::post('dict/data/add', [\app\adminapi\controller\admin\DictDataController::class, 'add']);
-    Route::post('dict/data/edit', [\app\adminapi\controller\admin\DictDataController::class, 'edit']);
-    Route::post('dict/data/delete', [\app\adminapi\controller\admin\DictDataController::class, 'delete']);
+    Route::get('dict/type/lists', [\app\adminapi\controller\dict\DictTypeController::class, 'lists']);
+    Route::get('dict/type/all', [\app\adminapi\controller\dict\DictTypeController::class, 'all']);
+    Route::post('dict/type/add', [\app\adminapi\controller\dict\DictTypeController::class, 'add']);
+    Route::post('dict/type/edit', [\app\adminapi\controller\dict\DictTypeController::class, 'edit']);
+    Route::post('dict/type/delete', [\app\adminapi\controller\dict\DictTypeController::class, 'delete']);
+    Route::get('dict/data/lists', [\app\adminapi\controller\dict\DictDataController::class, 'lists']);
+    Route::get('dict/data/all', [\app\adminapi\controller\dict\DictDataController::class, 'all']);
+    Route::post('dict/data/add', [\app\adminapi\controller\dict\DictDataController::class, 'add']);
+    Route::post('dict/data/edit', [\app\adminapi\controller\dict\DictDataController::class, 'edit']);
+    Route::post('dict/data/delete', [\app\adminapi\controller\dict\DictDataController::class, 'delete']);
 
     // 系统配置
     Route::get('config/lists', [\app\adminapi\controller\admin\SystemConfigController::class, 'lists']);

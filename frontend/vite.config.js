@@ -19,7 +19,15 @@ export default defineConfig({
         target: 'http://localhost:8088',
         changeOrigin: true
       },
-      '/admin/api': {
+      '/adminapi': {
+        target: 'http://localhost:8088',
+        changeOrigin: true
+      },
+      '/pcapi': {
+        target: 'http://localhost:8088',
+        changeOrigin: true
+      },
+      '/mobileapi': {
         target: 'http://localhost:8088',
         changeOrigin: true
       }
@@ -27,19 +35,20 @@ export default defineConfig({
   },
   build: {
     outDir: '/www/wwwroot/feiyuadmin/backend/public/admin',
-    // 生产构建 chunk 策略：限制单个文件大小，避免碎片化
+    // 生产构建 chunk 策略
     rollupOptions: {
       output: {
-        manualChunks: {
-          'element-plus': ['element-plus'],
-          'echarts': ['echarts'],
-          'monaco-editor': ['monaco-editor'],
-          'wang-editor': ['@wangeditor/editor', '@wangeditor/editor-for-vue'],
-        },
-        // 禁止 Vite 生成超过 500KB 的 chunk
-        chunkSizeWarningLimit: 500,
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('element-plus')) return 'element-plus'
+            if (id.includes('echarts')) return 'echarts'
+            if (id.includes('monaco-editor')) return 'monaco-editor'
+            if (id.includes('@wangeditor')) return 'wang-editor'
+          }
+        }
       }
     },
+    chunkSizeWarningLimit: 500,
     // 关闭 sourcemap 减小体积
     sourcemap: false,
     // 清理旧构建

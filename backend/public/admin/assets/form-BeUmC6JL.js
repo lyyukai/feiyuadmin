@@ -1,1 +1,0 @@
-import{t as e}from"./request-CqDAY2Nz.js";var t=t=>e.get(`/form/lists`,{params:t}),n=t=>e.get(`/form/info`,{params:t}),r=t=>e.post(`/form/add`,t),i=t=>e.post(`/form/edit`,t),a=t=>e.post(`/form/delete`,t),o=t=>e.post(`/form/toggle_status`,t),s=t=>e.get(`/form/data_list`,{params:t}),c=t=>e.post(`/form/delete_data`,t);export{s as a,o as c,i,a as n,n as o,c as r,t as s,r as t};
