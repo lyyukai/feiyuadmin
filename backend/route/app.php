@@ -111,6 +111,15 @@ Route::group('adminapi', function () {
     Route::get('notice_record/detail', [\app\adminapi\controller\NoticeRecordController::class, 'detail']);
     Route::get('notice_record/statistics', [\app\adminapi\controller\NoticeRecordController::class, 'statistics']);
 
+    // 消息通知
+    Route::get('notice/lists', [\app\adminapi\controller\NoticeController::class, 'lists']);
+    Route::get('notice/detail', [\app\adminapi\controller\NoticeController::class, 'detail']);
+    Route::post('notice/send', [\app\adminapi\controller\NoticeController::class, 'send']);
+    Route::post('notice/edit', [\app\adminapi\controller\NoticeController::class, 'edit']);
+    Route::post('notice/delete', [\app\adminapi\controller\NoticeController::class, 'delete']);
+    Route::post('notice/read', [\app\adminapi\controller\NoticeController::class, 'read']);
+    Route::get('notice/unread_count', [\app\adminapi\controller\NoticeController::class, 'unreadCount']);
+
     // 定时任务
     Route::get('crontab/lists', [\app\adminapi\controller\CrontabController::class, 'lists']);
     Route::get('crontab/detail', [\app\adminapi\controller\CrontabController::class, 'detail']);
