@@ -17,7 +17,7 @@ use think\Model;
 class PayOrder extends Model
 {
     protected $name = 'pay_order';
-    protected $table = 'sys_pay_order';
+    protected $table = 'fy_pay_order';
 
     protected $autoWriteTimestamp = false;
 

@@ -17,7 +17,7 @@ use think\Model;
 class PayStatement extends Model
 {
     protected $name = 'pay_statement';
-    protected $table = 'sys_pay_statement';
+    protected $table = 'fy_pay_statement';
 
     protected $autoWriteTimestamp = false;
 

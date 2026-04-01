@@ -17,7 +17,7 @@ use think\Model;
 class PayConfig extends Model
 {
     protected $name = 'pay_config';
-    protected $table = 'sys_pay_config';
+    protected $table = 'fy_pay_config';
 
     protected $autoWriteTimestamp = false;
 

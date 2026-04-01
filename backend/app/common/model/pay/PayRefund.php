@@ -17,7 +17,7 @@ use think\Model;
 class PayRefund extends Model
 {
     protected $name = 'pay_refund';
-    protected $table = 'sys_pay_refund';
+    protected $table = 'fy_pay_refund';
 
     protected $autoWriteTimestamp = false;
 

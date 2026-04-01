@@ -141,6 +141,12 @@ Route::group('adminapi', function () {
     Route::get('pay/refund/detail', [\app\adminapi\controller\pay\PayRefundController::class, 'detail']);
     Route::post('pay/refund/apply', [\app\adminapi\controller\pay\PayRefundController::class, 'apply']);
 
+    // 对账单
+    Route::get('pay/statement/lists', [\app\adminapi\controller\pay\PayStatementController::class, 'lists']);
+    Route::get('pay/statement/detail', [\app\adminapi\controller\pay\PayStatementController::class, 'detail']);
+    Route::post('pay/statement/create', [\app\adminapi\controller\pay\PayStatementController::class, 'create']);
+    Route::get('pay/statement/available_amount', [\app\adminapi\controller\pay\PayStatementController::class, 'getAvailableAmount']);
+
     // 租户管理
     Route::get('tenant/lists', [\app\adminapi\controller\tenant\TenantController::class, 'lists']);
     Route::get('tenant/info', [\app\adminapi\controller\tenant\TenantController::class, 'info']);
