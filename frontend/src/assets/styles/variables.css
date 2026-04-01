@@ -1,0 +1,159 @@
+/* 主题变量 - 支持亮色/暗黑模式切换 */
+
+/* V2 品牌色 - Element Plus 默认蓝色替换为飞鱼蓝 */
+:root {
+  --el-color-primary: #2563EB;
+  --el-color-primary-light-3: #3B82F6;
+  --el-color-primary-light-5: #60A5FA;
+  --el-color-primary-light-7: #93C5FD;
+  --el-color-primary-light-8: #BFDBFE;
+  --el-color-primary-light-9: #DBEAFE;
+  --el-color-primary-dark-2: #1D4ED8;
+}
+
+:root {
+  /* 亮色主题（默认） */
+  --fe-bg-page: #f0f2f5;
+  --fe-bg-card: #ffffff;
+  --fe-bg-sidebar: #ffffff;
+  --fe-bg-header: #ffffff;
+  --fe-bg-hover: #f5f7fa;
+  --fe-bg-active: #ecf5ff;
+
+  /* 文字颜色 */
+  --fe-text-primary: #303133;
+  --fe-text-regular: #606266;
+  --fe-text-secondary: #909399;
+  --fe-text-placeholder: #c0c4cc;
+
+  /* 边框颜色 */
+  --fe-border: #f0f0f0;
+  --fe-border-light: #fafafa;
+  --fe-border-hover: #dcdfe6;
+
+  /* 主色调 */
+  --fe-primary: #1890ff;
+  --fe-primary-hover: #40a9ff;
+  --fe-primary-active: #096dd9;
+  --fe-primary-bg: rgba(24, 144, 255, 0.1);
+
+  /* 功能色 */
+  --fe-success: #52c41a;
+  --fe-success-bg: #f6ffed;
+  --fe-warning: #faad14;
+  --fe-warning-bg: #fffbe6;
+  --fe-danger: #ff4d4f;
+  --fe-danger-bg: #fff2f0;
+  --fe-info: #909399;
+  --fe-info-bg: #f4f4f5;
+
+  /* 圆角 */
+  --fe-border-radius: 6px;
+  --fe-border-radius-sm: 4px;
+  --fe-border-radius-lg: 8px;
+
+  /* 阴影 */
+  --fe-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --fe-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --fe-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* 侧边栏 */
+  --fe-sidebar-width: 220px;
+  --fe-sidebar-collapsed-width: 64px;
+  --fe-sidebar-text: #606266;
+  --fe-sidebar-text-active: #1890ff;
+  --fe-sidebar-bg: #ffffff;
+  --fe-sidebar-hover: #f0f9ff;
+}
+
+/* 暗黑主题 */
+[data-theme="dark"] {
+  --fe-bg-page: #0d1117;
+  --fe-bg-card: #161b22;
+  --fe-bg-sidebar: #161b22;
+  --fe-bg-header: #161b22;
+  --fe-bg-hover: #21262d;
+  --fe-bg-active: #30363d;
+
+  --fe-text-primary: #e6edf3;
+  --fe-text-regular: #8b949e;
+  --fe-text-secondary: #6e7681;
+  --fe-text-placeholder: #484f58;
+
+  --fe-border: #30363d;
+  --fe-border-light: #21262d;
+  --fe-border-hover: #484f58;
+
+  --fe-primary: #58a6ff;
+  --fe-primary-hover: #79b8ff;
+  --fe-primary-active: #388bfd;
+  --fe-primary-bg: rgba(88, 166, 255, 0.15);
+
+  --fe-success: #3fb950;
+  --fe-success-bg: rgba(63, 185, 80, 0.15);
+  --fe-warning: #d29922;
+  --fe-warning-bg: rgba(210, 153, 34, 0.15);
+  --fe-danger: #f85149;
+  --fe-danger-bg: rgba(248, 81, 73, 0.15);
+  --fe-info: #8b949e;
+  --fe-info-bg: rgba(139, 148, 158, 0.15);
+
+  --fe-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --fe-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
+  --fe-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  --fe-sidebar-text: #8b949e;
+  --fe-sidebar-text-active: #58a6ff;
+  --fe-sidebar-bg: #161b22;
+  --fe-sidebar-hover: #21262d;
+}
+
+/* 蓝色主题 */
+[data-theme="blue"] {
+  --fe-primary: #409eff;
+  --fe-primary-hover: #66b1ff;
+  --fe-primary-active: #3a8ee6;
+  --fe-primary-bg: rgba(64, 158, 255, 0.1);
+  --fe-sidebar-text-active: #409eff;
+  --fe-sidebar-hover: #ecf5ff;
+}
+
+/* 绿色主题 */
+[data-theme="green"] {
+  --fe-primary: #52c41a;
+  --fe-primary-hover: #73d13d;
+  --fe-primary-active: #389e0d;
+  --fe-primary-bg: rgba(82, 196, 26, 0.1);
+  --fe-sidebar-text-active: #52c41a;
+  --fe-sidebar-hover: #f6ffed;
+}
+
+/* 紫色主题 */
+[data-theme="purple"] {
+  --fe-primary: #722ed1;
+  --fe-primary-hover: #9254de;
+  --fe-primary-active: #531dab;
+  --fe-primary-bg: rgba(114, 46, 209, 0.1);
+  --fe-sidebar-text-active: #722ed1;
+  --fe-sidebar-hover: #f9f0ff;
+}
+
+/* 红色主题 */
+[data-theme="red"] {
+  --fe-primary: #eb5757;
+  --fe-primary-hover: #f78989;
+  --fe-primary-active: #cf1322;
+  --fe-primary-bg: rgba(235, 87, 87, 0.1);
+  --fe-sidebar-text-active: #eb5757;
+  --fe-sidebar-hover: #fff1f0;
+}
+
+/* 橙色主题 */
+[data-theme="orange"] {
+  --fe-primary: #fa8c16;
+  --fe-primary-hover: #fab250;
+  --fe-primary-active: #d46b08;
+  --fe-primary-bg: rgba(250, 140, 22, 0.1);
+  --fe-sidebar-text-active: #fa8c16;
+  --fe-sidebar-hover: #fff7e6;
+}

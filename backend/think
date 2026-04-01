@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+// +----------------------------------------------------------------------
+// | ThinkPHP 控制台入口
+// +----------------------------------------------------------------------
+namespace think;
+
+define('APP_PATH', __DIR__ . '/app/');
+
+require __DIR__ . '/vendor/autoload.php';
+
+$console = new Console(App::getInstance());
+$console->run();

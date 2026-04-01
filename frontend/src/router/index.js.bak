@@ -1,0 +1,178 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+// 路由配置
+const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    meta: { title: '登录', hidden: true }
+  },
+  {
+    path: '/',
+    component: () => import('@/layout/index.vue'),
+    redirect: '/dashboard',
+    children: [
+      {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: { title: '工作台', icon: 'Odometer', breadcrumb: '工作台' }
+      },
+      // 系统管理
+      {
+        path: '/system/user',
+        name: 'UserManage',
+        component: () => import('@/views/system/user/index.vue'),
+        meta: { title: '用户管理', icon: 'User', breadcrumb: '系统管理 / 用户管理' }
+      },
+      {
+        path: '/system/role',
+        name: 'RoleManage',
+        component: () => import('@/views/system/role/index.vue'),
+        meta: { title: '角色管理', icon: 'Stamp', breadcrumb: '系统管理 / 角色管理' }
+      },
+      {
+        path: '/system/menu',
+        name: 'MenuManage',
+        component: () => import('@/views/system/menu/index.vue'),
+        meta: { title: '菜单管理', icon: 'Menu', breadcrumb: '系统管理 / 菜单管理' }
+      },
+      {
+        path: '/system/dept',
+        name: 'DeptManage',
+        component: () => import('@/views/system/dept/index.vue'),
+        meta: { title: '部门管理', icon: 'OfficeBuilding', breadcrumb: '系统管理 / 部门管理' }
+      },
+      {
+        path: '/system/post',
+        name: 'PostManage',
+        component: () => import('@/views/system/post/index.vue'),
+        meta: { title: '岗位管理', icon: 'Briefcase', breadcrumb: '系统管理 / 岗位管理' }
+      },
+      {
+        path: '/system/config',
+        name: 'ConfigManage',
+        component: () => import('@/views/system/config/index.vue'),
+        meta: { title: '系统配置', icon: 'Tools', breadcrumb: '系统管理 / 系统配置' }
+      },
+      {
+        path: '/system/log',
+        name: 'LogManage',
+        component: () => import('@/views/system/log/index.vue'),
+        meta: { title: '操作日志', icon: 'Document', breadcrumb: '系统管理 / 操作日志' }
+      },
+      {
+        path: '/system/loginlog',
+        name: 'LoginLogManage',
+        component: () => import('@/views/system/loginlog/index.vue'),
+        meta: { title: '登录日志', icon: 'Key', breadcrumb: '系统管理 / 登录日志' }
+      },
+      {
+        path: '/system/upload',
+        name: 'UploadManage',
+        component: () => import('@/views/system/upload/index.vue'),
+        meta: { title: '文件管理', icon: 'Upload', breadcrumb: '系统管理 / 文件管理' }
+      },
+      {
+        path: '/system/notice',
+        name: 'NoticeManage',
+        component: () => import('@/views/system/notice/index.vue'),
+        meta: { title: '消息通知', icon: 'Bell', breadcrumb: '系统管理 / 消息通知' }
+      },
+      {
+        path: '/system/crontab',
+        name: 'CrontabManage',
+        component: () => import('@/views/system/crontab/index.vue'),
+        meta: { title: '定时任务', icon: 'Timer', breadcrumb: '系统管理 / 定时任务' }
+      },
+      {
+        path: '/system/dict/type',
+        name: 'DictTypeManage',
+        component: () => import('@/views/system/dict/type/index.vue'),
+        meta: { title: '字典类型', icon: 'Memo', breadcrumb: '系统管理 / 字典类型' }
+      },
+      {
+        path: '/system/dict/data',
+        name: 'DictDataManage',
+        component: () => import('@/views/system/dict/data/index.vue'),
+        meta: { title: '字典数据', icon: 'Grid', breadcrumb: '系统管理 / 字典数据' }
+      },
+      // 微信渠道
+      {
+        path: '/wechat/account',
+        name: 'WechatAccount',
+        component: () => import('@/views/wechat/account/index.vue'),
+        meta: { title: '公众号管理', icon: 'ChatDotRound', breadcrumb: '微信渠道 / 公众号管理' }
+      },
+      {
+        path: '/wechat/menu',
+        name: 'WechatMenu',
+        component: () => import('@/views/wechat/menu/index.vue'),
+        meta: { title: '菜单管理', icon: 'Menu', breadcrumb: '微信渠道 / 菜单管理' }
+      },
+      {
+        path: '/wechat/reply',
+        name: 'WechatReply',
+        component: () => import('@/views/wechat/reply/index.vue'),
+        meta: { title: '自动回复', icon: 'ChatLineRound', breadcrumb: '微信渠道 / 自动回复' }
+      },
+      {
+        path: '/wechat/material',
+        name: 'WechatMaterial',
+        component: () => import('@/views/wechat/material/index.vue'),
+        meta: { title: '素材管理', icon: 'Picture', breadcrumb: '微信渠道 / 素材管理' }
+      },
+      // 支付渠道
+      {
+        path: '/pay/config',
+        name: 'PayConfig',
+        component: () => import('@/views/pay/config/index.vue'),
+        meta: { title: '支付配置', icon: 'Money', breadcrumb: '支付渠道 / 支付配置' }
+      },
+      {
+        path: '/pay/order',
+        name: 'PayOrder',
+        component: () => import('@/views/pay/order/index.vue'),
+        meta: { title: '订单管理', icon: 'Tickets', breadcrumb: '支付渠道 / 订单管理' }
+      },
+      {
+        path: '/pay/refund',
+        name: 'PayRefund',
+        component: () => import('@/views/pay/refund/index.vue'),
+        meta: { title: '退款管理', icon: 'Refund', breadcrumb: '支付渠道 / 退款管理' }
+      },
+      // 个人中心
+      {
+        path: '/profile',
+        name: 'Profile',
+        component: () => import('@/views/profile/index.vue'),
+        meta: { title: '个人中心', icon: 'User', breadcrumb: '个人中心' }
+      },
+      {
+        path: '/settings',
+        name: 'Settings',
+        component: () => import('@/views/settings/index.vue'),
+        meta: { title: '系统设置', icon: 'Setting', breadcrumb: '系统设置' }
+      }
+    ]
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory('/admin'),
+  routes
+})
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title ? `${to.meta.title} - 飞羽后台` : '飞羽后台'
+  const token = localStorage.getItem('token')
+  if (to.path !== '/login' && !token) {
+    next('/login')
+  } else {
+    next()
+  }
+})
+
+export default router
