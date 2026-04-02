@@ -559,12 +559,12 @@ function renderInstaller($step, $error, $checks = null, $postData = []) {
         $content = "
         <form method=\"post\" action=\"?step=4\" id=\"installForm\">
             <input type=\"hidden\" name=\"action\" value=\"install\">
-            <input type=\"hidden\" name=\"db_host\" id=\"db_host\" value=\"{$postData['db_host'] ?? ''}\">
-            <input type=\"hidden\" name=\"db_port\" id=\"db_port\" value=\"{$postData['db_port'] ?? ''}\">
-            <input type=\"hidden\" name=\"db_name\" id=\"db_name\" value=\"{$postData['db_name'] ?? ''}\">
-            <input type=\"hidden\" name=\"db_user\" id=\"db_user\" value=\"{$postData['db_user'] ?? ''}\">
-            <input type=\"hidden\" name=\"db_pwd\" id=\"db_pwd\" value=\"{$postData['db_pwd'] ?? ''}\">
-            <input type=\"hidden\" name=\"db_prefix\" id=\"db_prefix\" value=\"{$postData['db_prefix'] ?? ''}\">
+            <input type=\"hidden\" name=\"db_host\" id=\"db_host\" value=\"{$postData['db_host']}\">
+            <input type=\"hidden\" name=\"db_port\" id=\"db_port\" value=\"{$postData['db_port']}\">
+            <input type=\"hidden\" name=\"db_name\" id=\"db_name\" value=\"{$postData['db_name']}\">
+            <input type=\"hidden\" name=\"db_user\" id=\"db_user\" value=\"{$postData['db_user']}\">
+            <input type=\"hidden\" name=\"db_pwd\" id=\"db_pwd\" value=\"{$postData['db_pwd']}\">
+            <input type=\"hidden\" name=\"db_prefix\" id=\"db_prefix\" value=\"{$postData['db_prefix']}\">
             <input type=\"hidden\" name=\"admin_user\" id=\"form_admin_user\" value=\"{$adminUser}\">
 
             <div class=\"card\">

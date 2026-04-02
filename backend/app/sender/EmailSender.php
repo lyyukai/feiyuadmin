@@ -33,7 +33,7 @@ class EmailSender implements NoticeSenderInterface
             $mail->Port = (int) ($config['port'] ?? 587);
 
             // 发件人和收件人
-            $mail->setFrom($config['from_email'] ?? $mail->Username, $config['from_name'] ?? '飞羽系统');
+            $mail->setFrom($config['from_email'] ?? $mail->Username, $config['from_name'] ?? '飞鱼系统');
             $mail->addAddress($receiver);
 
             // 内容

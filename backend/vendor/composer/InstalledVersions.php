@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'fa5fe3ec2d5da1e8cfa8b68a11809daae9d5d22f',
+    'reference' => '4a471cb48e891226992a82a5f2c40f97132d37e8',
     'name' => 'topthink/think',
   ),
   'versions' => 
@@ -145,6 +145,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088',
+    ),
+    'phpstan/phpstan' => 
+    array (
+      'pretty_version' => '2.1.46',
+      'version' => '2.1.46.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a193923fc2d6325ef4e741cf3af8c3e8f54dbf25',
     ),
     'psr/cache' => 
     array (
@@ -436,7 +445,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'fa5fe3ec2d5da1e8cfa8b68a11809daae9d5d22f',
+      'reference' => '4a471cb48e891226992a82a5f2c40f97132d37e8',
     ),
     'topthink/think-container' => 
     array (

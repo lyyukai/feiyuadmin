@@ -1,0 +1,14 @@
+# Grafana Provisioning — Dashboard 自动导入
+apiVersion: 1
+
+providers:
+  - name: 'FeiyuAdmin Dashboards'
+    orgId: 1
+    folder: 'FeiyuAdmin'
+    folderUid: 'feiyuadmin'
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 30
+    options:
+      path: /etc/grafana/provisioning/dashboards

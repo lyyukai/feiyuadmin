@@ -81,7 +81,7 @@ const pwdLoading = ref(false)
 const pwdFormRef = ref(null)
 
 const settings = reactive({
-  siteName: '飞羽后台管理系统',
+  siteName: '飞鱼后台管理系统',
   siteLogo: '',
   description: '一个简洁高效的后台管理系统'
 })

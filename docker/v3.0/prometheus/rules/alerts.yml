@@ -1,0 +1,159 @@
+# FeiyuAdmin V3.0 — Prometheus 告警规则
+groups:
+  # ============================================================
+  # 一、服务器资源告警
+  # ============================================================
+  - name: feiyu_server_alerts
+    rules:
+      # CPU 使用率过高
+      - alert: ServerCPUHigh
+        expr: (1 - avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "服务器 CPU 使用率过高"
+          description: "实例 {{ $labels.instance }} CPU 使用率 {{ $value | printf \"%.1f\" }}% 超过 80%（5分钟平均值）"
+
+      - alert: ServerCPUCritical
+        expr: (1 - avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "服务器 CPU 使用率危急"
+          description: "实例 {{ $labels.instance }} CPU 使用率 {{ $value | printf \"%.1f\" }}% 超过 95%"
+
+      # 内存使用率过高
+      - alert: ServerMemoryHigh
+        expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "服务器内存使用率过高"
+          description: "实例 {{ $labels.instance }} 内存使用率 {{ $value | printf \"%.1f\" }}% 超过 85%"
+
+      - alert: ServerMemoryCritical
+        expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "服务器内存使用率危急"
+          description: "实例 {{ $labels.instance }} 内存使用率 {{ $value | printf \"%.1f\" }}% 超过 95%"
+
+      # 磁盘使用率过高
+      - alert: ServerDiskHigh
+        expr: (1 - node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "服务器磁盘使用率过高"
+          description: "实例 {{ $labels.instance }} 磁盘使用率 {{ $value | printf \"%.1f\" }}% 超过 80%"
+
+      # 服务器离线
+      - alert: ServerDown
+        expr: up{job="node"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "服务器离线"
+          description: "实例 {{ $labels.instance }} ({{ $labels.job }}) 已经离线超过 1 分钟"
+
+  # ============================================================
+  # 二、MySQL 告警
+  # ============================================================
+  - name: feiyu_mysql_alerts
+    rules:
+      # MySQL 连接数过高
+      - alert: MySQLConnectionsHigh
+        expr: mysql_global_status_threads_connected / mysql_global_variables_max_connections * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL 连接数过高"
+          description: "MySQL 连接数使用率 {{ $value | printf \"%.1f\" }}% 超过 80%"
+
+      # MySQL 连接数危急
+      - alert: MySQLConnectionsCritical
+        expr: mysql_global_status_threads_connected / mysql_global_variables_max_connections * 100 > 95
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MySQL 连接数即将耗尽"
+          description: "MySQL 连接数使用率 {{ $value | printf \"%.1f\" }}% 超过 95%，即将拒绝新连接"
+
+      # MySQL 慢查询过多
+      - alert: MySQLErrorRateHigh
+        expr: rate(mysql_global_status_errors{type="ER_"}[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL 错误率过高"
+          description: "MySQL 错误率 {{ $value | printf \"%.1f\" }}/s 超过 10/s"
+
+      # MySQL 离线
+      - alert: MySQLDown
+        expr: up{job="mysql"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "MySQL 数据库离线"
+          description: "MySQL 实例 {{ $labels.instance }} 已离线超过 30 秒"
+
+  # ============================================================
+  # 三、Redis 告警
+  # ============================================================
+  - name: feiyu_redis_alerts
+    rules:
+      # Redis 内存使用过高
+      - alert: RedisMemoryHigh
+        expr: (redis_memory_used_bytes / redis_memory_max_bytes) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis 内存使用率过高"
+          description: "Redis 内存使用率 {{ $value | printf \"%.1f\" }}% 超过 80%"
+
+      # Redis 命中率过低
+      - alert: RedisHitRateLow
+        expr: (redis_keyspace_hits_total / (redis_keyspace_hits_total + redis_keyspace_misses_total)) * 100 < 80
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis 命中率过低"
+          description: "Redis 命中率 {{ $value | printf \"%.1f\" }}% 低于 80%，可能存在缓存穿透"
+
+      # Redis 离线
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis 服务离线"
+          description: "Redis 实例 {{ $labels.instance }} 已离线超过 30 秒"
+
+  # ============================================================
+  # 四、Prometheus 自身监控
+  # ============================================================
+  - name: feiyu_prometheus_alerts
+    rules:
+      # Prometheus Target 缺失
+      - alert: PrometheusTargetMissing
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus Target 离线"
+          description: "Prometheus Target job={{ $labels.job }} instance={{ $labels.instance }} 已离线超过 1 分钟"

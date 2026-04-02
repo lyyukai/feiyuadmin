@@ -11,7 +11,7 @@ export default defineConfig({
     ['html', { open: 'never' }]
   ],
   use: {
-    baseURL: 'http://39.105.173.6:8088/admin',
+    baseURL: 'http://demo.fydev.cn/admin',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

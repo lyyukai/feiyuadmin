@@ -10,12 +10,31 @@
 
 use think\facade\Route;
 
+// 根路径重定向到前端
+// PC端前端入口
+Route::get('/', function() {
+    return redirect('/demo');
+});
+
+// PC端静态资源（防止被路由解析）
+Route::get('pc', function() {
+    return redirect('/demo');
+});
+Route::get('pc/index.html', function() {
+    return response(file_get_contents(root_path() . 'public/pc/index.html'))
+        ->contentType('text/html');
+});
+
 // ============================================================
 // 1. 后台管理 PC 端 /adminapi/*
 // ============================================================
 
 // 登录（无需认证）
 Route::post('adminapi/login', [\app\adminapi\controller\auth\LoginController::class, 'account']);
+
+// 验证码
+Route::get('adminapi/captcha/generate', [\app\adminapi\controller\captcha\CaptchaController::class, 'generate']);
+Route::post('adminapi/captcha/verify', [\app\adminapi\controller\captcha\CaptchaController::class, 'verify']);
 
 // 需要认证的管理端接口
 Route::group('adminapi', function () {
@@ -234,8 +253,7 @@ Route::group('pcapi', function () {
     Route::get('feedback/lists', [\app\adminapi\controller\pc\FeedbackController::class, 'lists']);
     Route::post('feedback/add', [\app\adminapi\controller\pc\FeedbackController::class, 'add']);
 
-})->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
-  ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
+})->middleware(\app\adminapi\http\middleware\InitMiddleware::class);
 
 
 // ============================================================

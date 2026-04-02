@@ -1,0 +1,5311 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\admin\\CrontabLogic\:\:clearLogs\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/CrontabController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\admin\\CrontabLogic\:\:getLogList\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/CrontabController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\admin\\CrontabLogic\:\:pause\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/CrontabController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\admin\\CrontabLogic\:\:resume\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/CrontabController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/adminapi/controller/CrontabController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/adminapi/controller/FormController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/NoticeChannelController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/NoticeController.php
+
+		-
+			message: '#^Property app\\common\\controller\\BaseController\:\:\$adminId \(int\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/adminapi/controller/NoticeController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/NoticeRecordController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/NoticeTemplateController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$leader\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$mobile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$pid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Access to protected property app\\model\\Dept\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Cannot access property \$leader on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Cannot access property \$mobile on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/admin/DeptController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\admin\\MenuController\:\:add\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/admin/MenuController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\admin\\MenuController\:\:delete\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/admin/MenuController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\admin\\MenuController\:\:edit\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/admin/MenuController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\admin\\MenuController\:\:lists\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/admin/MenuController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\admin\\MenuController\:\:nav\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/admin/MenuController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\admin\\MenuController\:\:tree\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/admin/MenuController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Access to protected property app\\model\\Post\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/admin/PostController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Access to protected property app\\model\\Role\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/admin/RoleController.php
+
+		-
+			message: '#^Cannot access property \$avatar on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Cannot access property \$dept on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Cannot access property \$mobile on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Cannot access property \$nickname on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Cannot access property \$post on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/adminapi/controller/admin/UserController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\auth\\LoginController\:\:account\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/auth/LoginController.php
+
+		-
+			message: '#^Method app\\adminapi\\controller\\auth\\LoginController\:\:logout\(\) should return think\\response\\Json but returns think\\Response\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/controller/auth/LoginController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/adminapi/controller/generator/GeneratorController.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\pay\\PayStatement\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/pay/PayStatementController.php
+
+		-
+			message: '#^Cannot access property \$channel on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/pay/PayStatementController.php
+
+		-
+			message: '#^Cannot access property \$order_no on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/pay/PayStatementController.php
+
+		-
+			message: '#^Cannot access property \$paid_fee on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/pay/PayStatementController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/pay/PayStatementController.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\DataScreen\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/screen/ScreenController.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\ScreenComponent\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/controller/screen/ScreenController.php
+
+		-
+			message: '#^Call to an undefined method app\\adminapi\\controller\\screen\\ScreenController\:\:error\(\)\.$#'
+			identifier: method.notFound
+			count: 23
+			path: app/adminapi/controller/screen/ScreenController.php
+
+		-
+			message: '#^Call to an undefined method app\\adminapi\\controller\\screen\\ScreenController\:\:success\(\)\.$#'
+			identifier: method.notFound
+			count: 10
+			path: app/adminapi/controller/screen/ScreenController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\tenant\\TenantLogic\:\:setStatus\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/tenant/TenantController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/adminapi/controller/tenant/TenantController.php
+
+		-
+			message: '#^Parameter \#2 \$data of method app\\adminapi\\controller\\BaseAdminController\:\:success\(\) expects array, app\\common\\model\\wechat\\MiniProgram given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/controller/wechat/MiniProgramController.php
+
+		-
+			message: '#^Parameter \#2 \$data of method app\\adminapi\\controller\\BaseAdminController\:\:success\(\) expects array, app\\common\\model\\wechat\\OpenPlatform given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/controller/wechat/OpenPlatformController.php
+
+		-
+			message: '#^Parameter \#2 \$data of method app\\adminapi\\controller\\BaseAdminController\:\:success\(\) expects array, app\\common\\model\\wechat\\OpenPlatformAuth given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/controller/wechat/OpenPlatformController.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$appid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$appsecret on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$encoding_aeskey on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$token on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: app/adminapi/controller/wechat/WechatAccountController.php
+
+		-
+			message: '#^Parameter \#2 \$data of method app\\adminapi\\controller\\BaseAdminController\:\:success\(\) expects array, app\\common\\model\\wechat\\WechatFans given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/controller/wechat/WechatFansController.php
+
+		-
+			message: '#^Cannot access property \$file_path on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/controller/wechat/WechatMaterialController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatMaterialController.php
+
+		-
+			message: '#^Parameter \#1 \$size of method app\\adminapi\\controller\\wechat\\WechatMaterialController\:\:formatSize\(\) expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/controller/wechat/WechatMaterialController.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Cannot access property \$account_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Cannot access property \$create_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Cannot access property \$menu_data on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/controller/wechat/WechatMenuController.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Cannot access property \$account_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Cannot access property \$content on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Cannot access property \$keyword on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Cannot access property \$reply_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: app/adminapi/controller/wechat/WechatReplyController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:approve\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:getInstanceHistory\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:getInstanceInfo\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:publish\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:start\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:toggleStatus\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:unpublish\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Call to an undefined static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:withdraw\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:add\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:edit\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Static method app\\adminapi\\logic\\workflow\\WorkflowLogic\:\:getTodoList\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/adminapi/controller/workflow/WorkflowController.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/http/middleware/AuthMiddleware.php
+
+		-
+			message: '#^Cannot access property \$nickname on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/http/middleware/AuthMiddleware.php
+
+		-
+			message: '#^Cannot access property \$username on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/http/middleware/AuthMiddleware.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormData\:\:\$form_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormData\:\:\$ip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormData\:\:\$user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormDesign\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormDesign\:\:\$config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormDesign\:\:\$create_user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormDesign\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\FormDesign\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to private property \$data of parent class think\\Model\.$#'
+			identifier: property.private
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\FormDesign\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Cannot access property \$config on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Cannot access property \$description on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Cannot access property \$update_user on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/adminapi/logic/FormLogic.php
+
+		-
+			message: '#^Cannot access property \$avatar on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$login_ip on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$login_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$nickname on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Cannot access property \$username on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/adminapi/logic/LoginLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$create_user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$flow_data\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowEdge\:\:\$condition_config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowEdge\:\:\$edge_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowEdge\:\:\$label\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowEdge\:\:\$source_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowEdge\:\:\$target_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowEdge\:\:\$workflow_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$apply_user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$apply_user_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$form_data\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$instance_no\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$is_ended\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$workflow_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$workflow_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$node_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$node_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$node_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$position_x\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$position_y\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowNode\:\:\$workflow_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$action_status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$assignee\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$assignee_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$instance_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$is_current\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$node_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$node_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$task_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$workflow_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\Workflow\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 3
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$action_remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$action_status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 5
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$action_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$apply_user on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$assignee on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$description on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$end_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$flow_data on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$instance on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$is_ended on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$is_published on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$node_key on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$node_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 6
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$task_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$transfer_from on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$transfer_from_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$update_user on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$version on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Parameter \#2 \$workflow of static method app\\adminapi\\logic\\workflow\\WorkflowExecutor\:\:execute\(\) expects app\\model\\Workflow, array\|think\\db\\Query\|think\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/logic/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$execute_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$output\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$task_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$cron_expression\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$exec_status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$last_exec_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$next_run_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$retry_interval\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$retry_times\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$task_command\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$task_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$task_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$cron_expression on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$exec_status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$last_exec_result on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$last_exec_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$next_run_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$retry_interval on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$retry_times on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$task_command on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$task_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Cannot access property \$task_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/adminapi/logic/admin/CrontabLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$icon\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$is_hidden\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$menu_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$permission\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$pid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$url_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\Menu\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$icon on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$is_hidden on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$menu_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$permission on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$url on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Cannot access property \$url_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/MenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$channel_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$channel_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeChannel\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Cannot access property \$channel_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Cannot access property \$channel_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Cannot access property \$config on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeChannelLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$is_read\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$receiver_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$sender_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$sender_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\Notice\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Cannot access property \$content on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Cannot access property \$receiver_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Cannot access property \$title on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Property think\\Model\:\:\$type \(array\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/adminapi/logic/admin/NoticeLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$channel_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$vars\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\NoticeTemplate\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Cannot access property \$channel_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Cannot access property \$content on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Cannot access property \$vars on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/NoticeTemplateLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$dept_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$mobile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$nickname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$post_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$dept_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$email on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$mobile on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$nickname on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$post_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/admin/UserLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$charset\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$database_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$host\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$is_default\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$port\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorTemplate\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorTemplate\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorTemplate\:\:\$is_default\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorTemplate\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorTemplate\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\GeneratorConfig\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\GeneratorConfig\:\:\$prefix\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\GeneratorTemplate\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\GeneratorTemplate\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$prefix\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$charset on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$content on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$database_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$host on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$is_default on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$port on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Cannot access property \$username on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Parameter \#1 \$config of method app\\adminapi\\service\\GeneratorService\:\:setDbConfig\(\) expects app\\model\\GeneratorConfig, array\|think\\db\\Query\|think\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 4
+			path: app/adminapi/logic/generator/GeneratorLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\DataScreen\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\DataScreen\:\:\$config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\DataScreen\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\DataScreen\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\ScreenComponent\:\:\$config\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\ScreenComponent\:\:\$data_source\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\ScreenComponent\:\:\$screen_id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\adminapi\\model\\ScreenComponent\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to protected property app\\adminapi\\model\\DataScreen\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to protected property app\\adminapi\\model\\ScreenComponent\:\:\$name\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to protected property app\\adminapi\\model\\ScreenComponent\:\:\$type\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Cannot access property \$config on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Cannot access property \$data_source on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Cannot access property \$description on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/screen/ScreenLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$contact_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$contact_phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$expire_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$package_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$tenant_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$tenant_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$tenant_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$contact_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$contact_phone on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$expire_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$package_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$tenant_code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$tenant_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Cannot access property \$tenant_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/tenant/TenantLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$api_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$storage_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$user_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to protected property app\\model\\TenantPackage\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to undefined constant app\\model\\TenantPackage\:\:STATUS_ENABLE\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$api_limit on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$duration on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$price on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$storage_limit on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Cannot access property \$user_limit on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/tenant/TenantPackageLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$appid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$appsecret\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$logo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramMember\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramMember\:\:\$mini_program_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramMember\:\:\$role\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramMember\:\:\$user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramMember\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$audit_status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$mini_program_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$template_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$version\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$version_desc\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\MiniProgram\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Cannot access property \$appid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Cannot access property \$appsecret on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Cannot access property \$description on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Cannot access property \$logo on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\MiniProgramLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\MiniProgram\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/MiniProgramLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$appid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$appsecret\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$encoding_aeskey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$token\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\OpenPlatform\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$alias on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$appid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$appsecret on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$business_info on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$encoding_aeskey on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$head_img on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$nick_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$principal_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$qrcode_url on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$service_type_info on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$token on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$user_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Cannot access property \$verify_type_info on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\OpenPlatformLogic\:\:getAuthDetail\(\) should return app\\common\\model\\wechat\\OpenPlatformAuth\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\OpenPlatformLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\OpenPlatform\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/OpenPlatformLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$appid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$appsecret\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$encoding_aeskey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$token\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatAccount\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\WechatAccount\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\WechatAccount\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Cannot access property \$appid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Cannot access property \$appsecret on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Cannot access property \$encoding_aeskey on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Cannot access property \$token on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\WechatAccountLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\WechatAccount\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Property app\\common\\model\\wechat\\WechatAccount\:\:\$type \(array\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/adminapi/logic/wechat/WechatAccountLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFansTag\:\:\$account_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFansTag\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFansTag\:\:\$fans_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFansTag\:\:\$tagid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFansTag\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\WechatFansTag\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Cannot access property \$blacklist on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\WechatFansLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\WechatFans\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/WechatFansLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$account_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$file_path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$format\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$introduction\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$is_permanent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatMaterial\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\WechatMaterial\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Cannot access property \$file_path on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Function root_path not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\WechatMaterialLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\WechatMaterial\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Parameter \#1 \$size of static method app\\adminapi\\logic\\wechat\\WechatMaterialLogic\:\:formatSize\(\) expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMaterialLogic.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMenuLogic.php
+
+		-
+			message: '#^Cannot access property \$menu_data on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/adminapi/logic/wechat/WechatMenuLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMenuLogic.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMenuLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\WechatMenuLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\WechatMenu\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/WechatMenuLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$account_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$create_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$keyword\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$match_mode\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$media_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$priority\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$reply_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatReply\:\:\$update_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to protected property app\\common\\model\\wechat\\WechatReply\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$account_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$content on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$keyword on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$match_mode on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$media_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$priority on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$reply_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Method app\\adminapi\\logic\\wechat\\WechatReplyLogic\:\:getDetail\(\) should return app\\common\\model\\wechat\\WechatReply\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/logic/wechat/WechatReplyLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$flow_data\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$current_node_key\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$current_node_name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$end_time\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$is_ended\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowInstance\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$action_status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$assignee\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$assignee_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$instance_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$is_current\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$node_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$node_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$task_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\WorkflowTask\:\:\$workflow_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowExecutor.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$workflow_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Workflow\:\:\$workflow_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$description on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$workflow_code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Cannot access property \$workflow_name on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/adminapi/logic/workflow/WorkflowLogic.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$charset\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$database_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$host\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$port\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\GeneratorConfig\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Access to protected property app\\model\\GeneratorConfig\:\:\$prefix\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Method app\\adminapi\\service\\GeneratorService\:\:getDefaultValue\(\) should return string but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Ternary operator condition is always false\.$#'
+			identifier: ternary.alwaysFalse
+			count: 1
+			path: app/adminapi/service/GeneratorService.php
+
+		-
+			message: '#^Cannot access property \$appid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/api/controller/wechat/CallbackController.php
+
+		-
+			message: '#^Cannot access property \$token on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/api/controller/wechat/CallbackController.php
+
+		-
+			message: '#^Function response not found\.$#'
+			identifier: function.notFound
+			count: 16
+			path: app/api/controller/wechat/CallbackController.php
+
+		-
+			message: '#^Function root_path not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/api/controller/wechat/CallbackController.php
+
+		-
+			message: '#^Parameter \#1 \$array of function sort contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/api/controller/wechat/CallbackController.php
+
+		-
+			message: '#^Call to static method decrypt\(\) on an unknown class think\\facade\\Crypt\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/common.php
+
+		-
+			message: '#^Call to static method encrypt\(\) on an unknown class think\\facade\\Crypt\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/common.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/common.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/common/controller/BaseController.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/common/controller/BaseController.php
+
+		-
+			message: '#^Parameter \#3 \$value of function curl_setopt expects 0\|2, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/common/library/pay/driver/AlipayDriver.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/common/library/pay/driver/WechatPayDriver.php
+
+		-
+			message: '#^Parameter \#3 \$value of function curl_setopt expects 0\|2, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/common/library/pay/driver/WechatPayDriver.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/common/lists/BaseDataLists.php
+
+		-
+			message: '#^Method app\\common\\lists\\BaseDataLists\:\:buildQuery\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/common/lists/BaseDataLists.php
+
+		-
+			message: '#^PHPDoc tag @var for property app\\common\\lists\\BaseDataLists\:\:\$field with type array\|string is not subtype of native type string\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/common/lists/BaseDataLists.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgram\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/MiniProgram.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramMember\:\:\$role\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/MiniProgramMember.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$audit_status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/MiniProgramVersion.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\MiniProgramVersion\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/MiniProgramVersion.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatform\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/OpenPlatform.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatformAuth\:\:\$authorizer_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/OpenPlatformAuth.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\OpenPlatformAuth\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/OpenPlatformAuth.php
+
+		-
+			message: '#^Method app\\common\\model\\wechat\\WechatAccount\:\:hidden\(\) has invalid return type app\\common\\model\\wechat\\think\\Model\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/common/model/wechat/WechatAccount.php
+
+		-
+			message: '#^Method app\\common\\model\\wechat\\WechatAccount\:\:hidden\(\) should return app\\common\\model\\wechat\\think\\Model but returns \$this\(app\\common\\model\\wechat\\WechatAccount\)\.$#'
+			identifier: return.type
+			count: 1
+			path: app/common/model/wechat/WechatAccount.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFans\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/WechatFans.php
+
+		-
+			message: '#^Access to an undefined property app\\common\\model\\wechat\\WechatFans\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/common/model/wechat/WechatFans.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/common/service/JsonService.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/common/validate/BaseValidate.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/common/validate/BaseValidate.php
+
+		-
+			message: '#^PHPDoc type object of property app\\common\\validate\\BaseValidate\:\:\$request is not covariant with PHPDoc type think\\Request of overridden property think\\Validate\:\:\$request\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/common/validate/BaseValidate.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/controller/Base.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/Base.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Config\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Config.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$key\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Config.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$leader\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$mobile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$pid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Dept\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to protected property app\\model\\Dept\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$email on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$leader on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$mobile on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$path on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$pid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/Dept.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\DictData\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dict.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\DictType\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Dict.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/controller/admin/Dict.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\File\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\File\:\:\$original\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\File\:\:\$size\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Access to protected property app\\model\\File\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Access to protected property app\\model\\File\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Call to an undefined method think\\File\:\:getSaveName\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Cannot access property \$delete_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Cannot access property \$original on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Cannot access property \$path on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Cannot call method getError\(\) on array\|think\\file\\UploadedFile\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Cannot call method validate\(\) on array\|think\\file\\UploadedFile\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Function download not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Function root_path not found\.$#'
+			identifier: function.notFound
+			count: 5
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/controller/admin/File.php
+
+		-
+			message: '#^Function download not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/Log.php
+
+		-
+			message: '#^Call to an undefined static method think\\facade\\Cache\:\:expire\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Cannot access property \$login_ip on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Cannot access property \$login_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Cannot call method getInfo\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/controller/admin/Login.php
+
+		-
+			message: '#^Function download not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/LoginLog.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$component\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$icon\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$is_cache\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$is_full\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$is_hidden\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$menu_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$permission\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$pid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$redirect\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Menu\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property think\\Request\:\:\$userId\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to protected property app\\model\\Menu\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Call to static method find\(\) on an unknown class app\\model\\UserModel\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$component on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$icon on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$is_cache on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$is_full on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$is_hidden on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$menu_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$path on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$permission on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$pid on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$redirect on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Function db not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/Menu.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Post\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to protected property app\\model\\Post\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/Post.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$data_scope\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$sort\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to protected property app\\model\\Role\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot access property \$data_scope on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot access property \$sort on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot call method getMenuIds\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Cannot call method saveMenus\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Function db not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$avatar\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$dept_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$mobile\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$nickname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$post_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$realname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$remark\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Call to an undefined method think\\db\\BaseQuery\:\:join\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Call to an undefined static method app\\model\\Dept\:\:getChildIds\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$avatar on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$dept_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$email on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$mobile on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$nickname on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$post_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$remark on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot access property \$username on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot call method getRoleIds\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Cannot call method roles\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/controller/admin/User.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/exception/ExceptionHandle.php
+
+		-
+			message: '#^Access to an undefined property think\\Request\:\:\$userId\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/middleware/Auth.php
+
+		-
+			message: '#^Access to an undefined property think\\Request\:\:\$userInfo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/middleware/Auth.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/middleware/Auth.php
+
+		-
+			message: '#^Function response not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/middleware/Auth.php
+
+		-
+			message: '#^Function env not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/middleware/Cors.php
+
+		-
+			message: '#^Access to an undefined property think\\Request\:\:\$isSuperAdmin\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Access to an undefined property think\\Request\:\:\$tenantId\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Access to an undefined property think\\Request\:\:\$tenantInfo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Cannot call method isExpired\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Function json not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Function response not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/middleware/Tenant.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Admin\:\:\$dept_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/Admin.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Admin\:\:\$post_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/Admin.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Admin\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/Admin.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 3
+			path: app/model/Admin.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/model/Admin.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/model/Admin.php
+
+		-
+			message: '#^Cannot access property \$tenant_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/model/Admin.php
+
+		-
+			message: '#^Cannot call method isExpired\(\) on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/model/Admin.php
+
+		-
+			message: '#^Method app\\model\\Admin\:\:verifyPassword\(\) should return app\\model\\Admin\|null but returns array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/Admin.php
+
+		-
+			message: '#^Method app\\model\\Config\:\:search\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/Config.php
+
+		-
+			message: '#^Method app\\model\\DictData\:\:search\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/DictData.php
+
+		-
+			message: '#^Method app\\model\\DictType\:\:search\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/DictType.php
+
+		-
+			message: '#^Method app\\model\\File\:\:search\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/File.php
+
+		-
+			message: '#^Method app\\model\\GeneratorConfig\:\:getDefault\(\) should return app\\model\\GeneratorConfig\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/GeneratorConfig.php
+
+		-
+			message: '#^Method app\\model\\Log\:\:search\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/Log.php
+
+		-
+			message: '#^Method app\\model\\LoginLog\:\:search\(\) should return think\\db\\Query but returns think\\db\\BaseQuery\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/LoginLog.php
+
+		-
+			message: '#^Method app\\model\\NoticeChannel\:\:getByCode\(\) should return app\\model\\NoticeChannel\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/NoticeChannel.php
+
+		-
+			message: '#^Method app\\model\\NoticeChannel\:\:getByType\(\) should return app\\model\\NoticeChannel\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/NoticeChannel.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$vars\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/NoticeTemplate.php
+
+		-
+			message: '#^Method app\\model\\NoticeTemplate\:\:getByCode\(\) should return app\\model\\NoticeTemplate\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/NoticeTemplate.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Role\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/model/Role.php
+
+		-
+			message: '#^Function db not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: app/model/Role.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$expire_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/Tenant.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/Tenant.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Tenant\:\:\$tenant_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/Tenant.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/TenantPackage.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/TenantPackage.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\TenantPackage\:\:\$storage_limit\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/TenantPackage.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$dept_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$post_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/model/User.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\User\:\:\$roles\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/model/User.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/model/User.php
+
+		-
+			message: '#^Cannot access property \$password on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/model/User.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/model/User.php
+
+		-
+			message: '#^Method app\\model\\User\:\:verifyPassword\(\) should return app\\model\\User\|null but returns array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: return.type
+			count: 1
+			path: app/model/User.php
+
+		-
+			message: '#^Trait app\\model\\concern\\TenantScope is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: app/model/concern/TenantScope.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$is_read\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$receiver_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$sender_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$sender_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Notice\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to protected property app\\model\\Notice\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/sender/MessageSender.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$execute_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$output\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\CronLog\:\:\$task_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$command\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$last_run_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$next_run_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\Crontab\:\:\$rule\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to protected property app\\model\\Crontab\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Parameter \#2 \$options of function curl_setopt_array expects array\{10002\: non\-empty\-string, 19913\: bool, 13\: int, 64\: bool, 81\: 0\|2\}, array\{10002\: non\-falsy\-string, 19913\: true, 13\: 30, 64\: false, 81\: false\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/service/CronService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$channel_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$channel_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$error_msg\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$receiver\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$send_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$template_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$template_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeRecord\:\:\$vars\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$channel_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\NoticeTemplate\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Cannot access property \$code on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Cannot access property \$config on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/SendMessageService.php
+
+		-
+			message: '#^Call to method deleteObject\(\) on an unknown class OSS\\OssClient\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Call to method doesObjectExist\(\) on an unknown class OSS\\OssClient\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Call to method getMessage\(\) on an unknown class OSS\\Core\\OssException\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Call to method uploadFile\(\) on an unknown class OSS\\OssClient\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Caught class OSS\\Core\\OssException not found\.$#'
+			identifier: class.notFound
+			count: 3
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Instantiated class OSS\\OssClient not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Property app\\service\\file\\AliyunOssDriver\:\:\$client has unknown class OSS\\OssClient as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/AliyunOssDriver.php
+
+		-
+			message: '#^Access to an undefined property app\\model\\File\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Access to protected property think\\Model\:\:\$type\.$#'
+			identifier: property.protected
+			count: 4
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Access to protected property think\\db\\Query\|think\\Model\:\:\$name\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Call to an undefined method app\\service\\file\\StorageDriverInterface\:\:handleUpload\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Call to static method id\(\) on an unknown class app\\facade\\Auth\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$create_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$delete_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$extension on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$mime_type on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$original on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$path on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$size on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$storage on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Cannot access property \$url on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Parameter \#1 \$fileType of static method app\\service\\file\\FileService\:\:getPreviewType\(\) expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between array and ''image'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between array and ''video'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/service/file/FileService.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/service/file/LocalDriver.php
+
+		-
+			message: '#^Function root_path not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/service/file/LocalDriver.php
+
+		-
+			message: '#^Call to method deleteObject\(\) on an unknown class Qcloud\\Cos\\Client\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QcloudCosDriver.php
+
+		-
+			message: '#^Call to method headObject\(\) on an unknown class Qcloud\\Cos\\Client\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QcloudCosDriver.php
+
+		-
+			message: '#^Call to method putObject\(\) on an unknown class Qcloud\\Cos\\Client\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QcloudCosDriver.php
+
+		-
+			message: '#^Instantiated class Qcloud\\Cos\\Client not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QcloudCosDriver.php
+
+		-
+			message: '#^Property app\\service\\file\\QcloudCosDriver\:\:\$client has unknown class Qcloud\\Cos\\Client as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QcloudCosDriver.php
+
+		-
+			message: '#^Call to method delete\(\) on an unknown class Qiniu\\Storage\\BucketManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Call to method privateDownloadUrl\(\) on an unknown class Qiniu\\Auth\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Call to method putFile\(\) on an unknown class Qiniu\\Storage\\UploadManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Call to method stat\(\) on an unknown class Qiniu\\Storage\\BucketManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Call to method uploadToken\(\) on an unknown class Qiniu\\Auth\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Instantiated class Qiniu\\Auth not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Instantiated class Qiniu\\Storage\\BucketManager not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Instantiated class Qiniu\\Storage\\UploadManager not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Property app\\service\\file\\QiniuDriver\:\:\$auth has unknown class Qiniu\\Auth as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/service/file/QiniuDriver.php
+
+		-
+			message: '#^Method app\\service\\pay\\PayConfigService\:\:getActiveConfig\(\) should return app\\common\\model\\pay\\PayConfig\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/service/pay/PayConfigService.php
+
+		-
+			message: '#^Cannot access property \$out_trade_no on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Cannot access property \$paid_fee on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Cannot access property \$pay_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 6
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Cannot access property \$total_fee on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Function request not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Method app\\service\\pay\\PayOrderService\:\:getByOrderNo\(\) should return app\\common\\model\\pay\\PayOrder\|null but returns array\|think\\db\\Query\|think\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/service/pay/PayOrderService.php
+
+		-
+			message: '#^Cannot access property \$channel on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/pay/PayRefundService.php
+
+		-
+			message: '#^Cannot access property \$order_id on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/pay/PayRefundService.php
+
+		-
+			message: '#^Cannot access property \$out_refund_no on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/pay/PayRefundService.php
+
+		-
+			message: '#^Cannot access property \$paid_fee on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/service/pay/PayRefundService.php
+
+		-
+			message: '#^Cannot access property \$refund_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/service/pay/PayRefundService.php
+
+		-
+			message: '#^Cannot access property \$status on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 6
+			path: app/service/pay/PayRefundService.php
+
+		-
+			message: '#^Cannot access property \$update_time on array\|think\\db\\Query\|think\\Model\.$#'
+			identifier: property.nonObject
+			count: 5
+			path: app/service/pay/PayRefundService.php

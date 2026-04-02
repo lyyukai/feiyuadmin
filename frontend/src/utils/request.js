@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import router from '@/router'
 
 // 创建 axios 实例
 const service = axios.create({
@@ -47,7 +48,7 @@ service.interceptors.response.use(
         // Token 过期，跳转登录
         ElMessage.error('登录已过期，请重新登录')
         localStorage.removeItem('token')
-        window.location.href = '/login'
+        router.push('/login')
       } else if (status === 404) {
         ElMessage.error('接口不存在')
       } else if (status >= 500) {

@@ -1,0 +1,279 @@
+# ============================================================
+# FeiyuAdmin V3.0 — 基础设施 Docker Compose 模板
+# ============================================================
+# 包含：Keycloak(SSO) | Prometheus(监控) | Grafana(可视化)
+#       Alertmanager(告警) | Canal(数据同步)
+# ============================================================
+# 使用方法：
+#   cp docker-compose.yml docker-compose-v3.0.yml
+#   编辑 .env 中的密码
+#   docker-compose -f docker-compose-v3.0.yml up -d
+# ============================================================
+
+version: '3.8'
+
+services:
+
+  # ------------------------------------------------------------
+  # 一、Keycloak — SSO 单点登录（Identity Provider）
+  # ------------------------------------------------------------
+  keycloak-db:
+    image: postgres:15-alpine
+    container_name: feiyu_keycloak_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${KC_DB_NAME:-keycloak}
+      POSTGRES_USER: ${KC_DB_USER:-keycloak}
+      POSTGRES_PASSWORD: ${KC_DB_PASSWORD:-keycloak123}
+    volumes:
+      - keycloak_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${KC_DB_USER:-keycloak} -d ${KC_DB_NAME:-keycloak}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - feiyu_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: feiyu_keycloak
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-Admin@123}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/${KC_DB_NAME:-keycloak}
+      KC_DB_USERNAME: ${KC_DB_USER:-keycloak}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD:-keycloak123}
+      KC_PROXY: edge
+      # 开发模式（生产环境去掉 start-dev，使用反向代理 HTTPS）
+      KC_HTTP_ENABLED: "true"
+    command: start-dev
+    ports:
+      - "${KEYCLOAK_PORT:-8180}:8080"
+    volumes:
+      - ./keycloak/themes:/opt/keycloak/themes:ro
+      - ./keycloak/providers:/opt/keycloak/providers:ro
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\n\r\n' >&3;if [ $? -eq 0 ];then echo 'ok';fi"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 二、Prometheus — 指标采集与存储
+  # ------------------------------------------------------------
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    container_name: feiyu_prometheus
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 三、Grafana — 可视化大屏
+  # ------------------------------------------------------------
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: feiyu_grafana
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-Admin@123}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_ROOT_URL: http://${GRAFANA_HOST:-39.105.173.6}:${GRAFANA_PORT:-3000}
+      # SSO（Keycloak）集成
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OIDC_SECRET:-grafana_secret}
+      GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: http://${KEYCLOAK_HOST:-39.105.173.6}:${KEYCLOAK_PORT:-8180}/realms/feiyuadmin/protocol/openid-connect/auth
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://${KEYCLOAK_HOST:-39.105.173.6}:${KEYCLOAK_PORT:-8180}/realms/feiyuadmin/protocol/openid-connect/token
+      GF_AUTH_GENERIC_OAUTH_API_URL: http://${KEYCLOAK_HOST:-39.105.173.6}:${KEYCLOAK_PORT:-8180}/realms/feiyuadmin/protocol/openid-connect/userinfo
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 四、Alertmanager — 告警收敛与通知
+  # ------------------------------------------------------------
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    container_name: feiyu_alertmanager
+    restart: always
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.listen-address=:9093'
+    ports:
+      - "${ALERTMANAGER_PORT:-9093}:9093"
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 五、node_exporter — 服务器资源监控
+  # ------------------------------------------------------------
+  node_exporter:
+    image: prom/node-exporter:v1.7.0
+    container_name: feiyu_node_exporter
+    restart: always
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|$)'
+      - '--collector.cpu'
+      - '--collector.meminfo'
+      - '--collector.diskstats'
+      - '--collector.netdev'
+      - '--collector.filesystem'
+      - '--collector.loadavg'
+      - '--collector.time'
+      - '--collector.boot-time'
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - "${NODE_EXPORTER_PORT:-9100}:9100"
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 六、mysqld_exporter — MySQL 监控
+  # ------------------------------------------------------------
+  mysqld_exporter:
+    image: prom/mysqld-exporter:v0.15.0
+    container_name: feiyu_mysqld_exporter
+    restart: always
+    environment:
+      DATA_SOURCE_NAME: "root:${MYSQL_ROOT_PASSWORD:-proot123456}@(${MYSQL_HOST:-mysql}:${MYSQL_PORT:-3306})/"
+    volumes:
+      - ./mysqld_exporter/my.cnf:/etc/mysqld_exporter/my.cnf:ro
+    ports:
+      - "${MYSQLD_EXPORTER_PORT:-9104}:9104"
+    depends_on:
+      - mysql
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 七、redis_exporter — Redis 监控
+  # ------------------------------------------------------------
+  redis_exporter:
+    image: oliver006/redis_exporter:v1.61.0
+    container_name: feiyu_redis_exporter
+    restart: always
+    environment:
+      REDIS_ADDR: redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    ports:
+      - "${REDIS_EXPORTER_PORT:-9121}:9121"
+    networks:
+      - feiyu_network
+
+  # ------------------------------------------------------------
+  # 八、Canal — 增量数据同步（MySQL → Kafka / MySQL / ES）
+  # ------------------------------------------------------------
+  canal-admin:
+    image: canal/canal-admin:v1.1.8
+    container_name: feiyu_canal_admin
+    restart: always
+    environment:
+      canal.admin.register.ip: ${CANAL_ADMIN_IP:-127.0.0.1}
+      canal.admin.port: ${CANAL_ADMIN_PORT:-8089}
+      canal.admin.user: ${CANAL_ADMIN_USER:-admin}
+      canal.admin.passphrase: ${CANAL_ADMIN_PASS:-admin}
+      server.port: ${CANAL_SERVER_PORT:-11110}
+      spring.datasource.address: ${MYSQL_HOST:-mysql}:${MYSQL_PORT:-3306}
+      spring.datasource.database: ${CANAL_DB_NAME:-canal_manager}
+      spring.datasource.username: ${MYSQL_ROOT_USERNAME:-root}
+      spring.datasource.password: ${MYSQL_ROOT_PASSWORD:-proot123456}
+    ports:
+      - "${CANAL_ADMIN_PORT:-8089}:8089"
+      - "${CANAL_SERVER_PORT:-11110}:11110"
+    depends_on:
+      - mysql
+    networks:
+      - feiyu_network
+
+  canal-server:
+    image: canal/canal-server:v1.1.8
+    container_name: feiyu_canal_server
+    restart: always
+    environment:
+      canal.admin.register.ip: ${CANAL_SERVER_IP:-127.0.0.1}
+      canal.admin.port: ${CANAL_ADMIN_PORT:-8089}
+      canal.admin.user: ${CANAL_ADMIN_USER:-admin}
+      canal.admin.passphrase: ${CANAL_ADMIN_PASS:-admin}
+      canal.zookeeper.hosts: ${ZOOKEEPER_HOSTS:-}
+    volumes:
+      - ./canal/conf:/home/admin/canal-server/conf:ro
+      - canal_server_data:/home/admin/canal-server/data
+    ports:
+      - "${CANAL_NETTY_PORT:-11111}:11111"
+      - "${CANAL_PROMETHEUS_PORT:-11112}:11112"
+    depends_on:
+      - canal-admin
+      - mysql
+    networks:
+      - feiyu_network
+
+# ============================================================
+# 网络定义
+# ============================================================
+networks:
+  feiyu_network:
+    driver: bridge
+
+# ============================================================
+# 存储卷定义
+# ============================================================
+volumes:
+  # Keycloak
+  keycloak_db_data:
+    driver: local
+
+  # Prometheus
+  prometheus_data:
+    driver: local
+
+  # Grafana
+  grafana_data:
+    driver: local
+
+  # Alertmanager
+  alertmanager_data:
+    driver: local
+
+  # Canal
+  canal_server_data:
+    driver: local

@@ -24,7 +24,7 @@ const props = defineProps({
   // 上传图片的API地址
   uploadUrl: {
     type: String,
-    default: '/api/upload/image'
+    default: '/adminapi/upload/image'
   },
   // 上传图片的headers
   uploadHeaders: {

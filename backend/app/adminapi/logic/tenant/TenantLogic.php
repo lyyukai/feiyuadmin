@@ -1,6 +1,6 @@
 <?php
 /**
- * 飞羽后台管理系统 - 租户管理逻辑
+ * 飞鱼后台管理系统 - 租户管理逻辑
  */
 
 namespace app\adminapi\logic\tenant;

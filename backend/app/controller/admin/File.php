@@ -93,7 +93,7 @@ class File extends Base
                 'path' => $relativePath,
                 'url' => $url,
                 'extension' => $extension,
-                'mime_type' => $file->getMimeType(),
+                'mime_type' => $file->getMime(),
                 'user_id' => $this->userId,
                 'storage' => 'local',
             ]);

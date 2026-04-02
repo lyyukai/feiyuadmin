@@ -11,7 +11,7 @@ return [
     'exception_handle' => '\\app\\exception\\ExceptionHandle',
     'show_error_msg' => true,
     'url_route_on' => true,
-    'url_route_must' => false,
+    'url_route_must' => true,
     'url_html_suffix' => 'html',
     'session' => [
         'type' => 'file',

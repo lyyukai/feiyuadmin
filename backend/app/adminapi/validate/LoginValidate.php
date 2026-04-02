@@ -1,6 +1,6 @@
 <?php
 /**
- * 飞羽后台管理系统 - 登录验证器
+ * 飞鱼后台管理系统 - 登录验证器
  */
 
 declare(strict_types=1);
@@ -17,8 +17,10 @@ use app\common\validate\BaseValidate;
 class LoginValidate extends BaseValidate
 {
     protected $rule = [
-        'username' => 'require|max:20',
-        'password' => 'require|min:6|max:20',
+        'username'   => 'require|max:20',
+        'password'   => 'require|min:6|max:20',
+        'captcha'    => 'length:4|alphaNum',
+        'captcha_key'=> 'max:32',
     ];
 
     protected $message = [

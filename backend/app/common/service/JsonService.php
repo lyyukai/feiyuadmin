@@ -1,6 +1,6 @@
 <?php
 /**
- * 飞羽后台管理系统 - JSON 响应服务
+ * 飞鱼后台管理系统 - JSON 响应服务
  */
 
 declare(strict_types=1);

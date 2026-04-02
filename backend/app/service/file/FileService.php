@@ -140,7 +140,7 @@ class FileService
         $extension = strtolower($file->getOriginalExtension());
         $originalName = $file->getOriginalName();
         $fileSize = $file->getSize();
-        $mimeType = $file->getMimeType();
+        $mimeType = $file->getMime();
         
         // 识别文件类型
         $fileType = self::detectType($extension);
@@ -379,7 +379,7 @@ class FileService
     protected static function getUserId(): int
     {
         try {
-            return (int) \app\facade\Auth::id();
+            return (int) (request()->adminId ?? 0);
         } catch (\Exception $e) {
             return 0;
         }

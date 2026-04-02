@@ -27,7 +27,7 @@
             </svg>
           </div>
         </div>
-        <h1 class="brand-name">飞羽后台管理系统</h1>
+        <h1 class="brand-name">飞鱼后台管理系统</h1>
         <p class="brand-slogan">安全 · 高效 · 稳定</p>
       </div>
 
@@ -96,6 +96,24 @@
             </div>
           </el-form-item>
 
+          <el-form-item prop="captcha">
+            <div class="captcha-wrapper">
+              <div class="input-wrapper" style="flex: 1;">
+                <el-icon class="input-icon"><Key /></el-icon>
+                <el-input
+                  v-model="loginForm.captcha"
+                  placeholder="请输入验证码"
+                  clearable
+                  style="flex: 1;"
+                />
+              </div>
+              <div class="captcha-img" @click="refreshCaptcha" title="点击刷新验证码">
+                <img v-if="captchaUrl" :src="captchaUrl" alt="验证码" />
+                <span v-else class="captcha-loading">加载中...</span>
+              </div>
+            </div>
+          </el-form-item>
+
           <div class="form-options">
             <el-checkbox v-model="loginForm.remember">记住密码</el-checkbox>
             <el-link type="primary" :underline="false">忘记密码？</el-link>
@@ -121,11 +139,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { User, Lock, Key, Connection, DataAnalysis } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
+import { getCaptcha } from '@/api'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -136,8 +155,12 @@ const loading = ref(false)
 const loginForm = reactive({
   username: 'admin',
   password: 'admin123',
+  captcha: '',
   remember: false
 })
+
+const captchaKey = ref('')
+const captchaUrl = ref('')
 
 const loginRules = {
   username: [
@@ -146,8 +169,28 @@ const loginRules = {
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, message: '密码长度不能少于6位', trigger: 'blur' }
+  ],
+  captcha: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { len: 4, message: '验证码为4位', trigger: 'blur' }
   ]
 }
+
+const refreshCaptcha = async () => {
+  try {
+    const res = await getCaptcha('login')
+    if (res.code === 0 && res.data) {
+      captchaKey.value = res.data.key || ''
+      captchaUrl.value = res.data.image || ''
+    }
+  } catch (e) {
+    console.error('获取验证码失败:', e)
+  }
+}
+
+onMounted(() => {
+  refreshCaptcha()
+})
 
 const handleLogin = async () => {
   if (!loginFormRef.value) return
@@ -161,7 +204,11 @@ const handleLogin = async () => {
   loading.value = true
 
   try {
-    const success = await userStore.login(loginForm)
+    const loginData = {
+      ...loginForm,
+      captcha_key: captchaKey.value
+    }
+    const success = await userStore.login(loginData)
 
     if (success) {
       // 登录成功后获取用户信息和菜单
@@ -173,6 +220,8 @@ const handleLogin = async () => {
     }
   } catch (err) {
     ElMessage.error(err.message || '登录失败，请检查账号密码')
+    refreshCaptcha()
+    loginForm.captcha = ''
   } finally {
     loading.value = false
   }
@@ -404,6 +453,46 @@ const handleLogin = async () => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+}
+
+.captcha-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.captcha-img {
+  width: 120px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s;
+  flex-shrink: 0;
+}
+
+.captcha-img:hover {
+  border-color: #2563EB;
+}
+
+.captcha-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.captcha-loading {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+:deep(.captcha-wrapper .el-input__wrapper) {
+  padding-left: 44px;
 }
 
 :deep(.el-checkbox__label) {

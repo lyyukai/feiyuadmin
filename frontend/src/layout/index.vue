@@ -10,7 +10,7 @@
             <circle cx="24" cy="24" r="5" fill="var(--fe-primary)"/>
           </svg>
         </div>
-        <span v-if="!isCollapsed" class="logo-text">飞羽后台</span>
+        <span v-if="!isCollapsed" class="logo-text">飞鱼后台</span>
       </div>
 
       <el-scrollbar class="menu-scrollbar">
@@ -109,9 +109,9 @@
 
         <div class="header-right">
           <!-- 消息通知 -->
-          <div class="header-icon-btn" title="消息通知">
-            <el-badge :value="3" :hidden="true">
-              <el-icon><Bell /></el-icon>
+          <div class="header-icon-btn" title="消息通知" style="display: flex; align-items: center; justify-content: center;">
+            <el-badge :value="3" :hidden="true" style="display: flex; align-items: center;">
+              <el-icon style="display: flex; align-items: center;"><Bell /></el-icon>
             </el-badge>
           </div>
 
@@ -127,7 +127,7 @@
           <!-- 主题切换 -->
           <el-tooltip content="切换主题" placement="bottom">
             <el-dropdown @command="handleThemeChange" trigger="click">
-              <el-icon class="header-icon"><Brush /></el-icon>
+              <el-icon class="header-icon-btn" style="font-size: 18px; color: var(--fe-text-primary);"><Brush /></el-icon>
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item command="light">
@@ -149,8 +149,8 @@
 
           <el-dropdown @command="handleCommand" trigger="click">
             <span class="user-info">
-              <el-avatar :size="32" style="background: linear-gradient(135deg, var(--fe-primary), var(--fe-primary-hover))">
-                {{ nickname }}
+              <el-avatar :size="32" style="background: linear-gradient(135deg, var(--fe-primary), var(--fe-primary-hover)); font-size: 12px; line-height: 32px;">
+                {{ nickname ? nickname.slice(0, 1) : '管' }}
               </el-avatar>
               <span class="username">{{ nickname || '管理员' }}</span>
               <el-icon class="arrow-icon"><ArrowDown /></el-icon>
@@ -626,11 +626,10 @@ onMounted(async () => {
 
 /* 头部 */
 .header {
-  height: 56px;
+  height: 60px;
   background: var(--fe-bg-header);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 16px;
   box-shadow: var(--fe-shadow);
   z-index: 10;
@@ -641,6 +640,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .current-path {
@@ -650,32 +650,77 @@ onMounted(async () => {
 
 .global-search {
   position: relative;
-  flex: 1;
-  max-width: 400px;
-  margin: 0 auto;
+  width: 200px;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.global-search .el-input__wrapper {
+  background: rgba(0, 0, 0, 0.06) !important;
+  border-radius: 8px;
+  box-shadow: none !important;
+  border: 1px solid var(--fe-border) !important;
+}
+
+.global-search .el-input__wrapper:hover,
+.global-search .el-input__wrapper:focus-within {
+  border-color: var(--fe-primary) !important;
+  background: rgba(0, 0, 0, 0.08) !important;
 }
 
 .header-right {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .header-icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
-  color: var(--fe-text-secondary);
+  color: var(--fe-text-primary);
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .header-icon-btn:hover {
   background: var(--fe-bg-hover);
+  color: var(--fe-primary);
+}
+
+/* 用户信息 */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.user-info:hover {
+  background: var(--fe-bg-hover);
+}
+
+.username {
+  font-size: 14px;
   color: var(--fe-text-primary);
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arrow-icon {
+  font-size: 12px;
+  color: var(--fe-text-secondary);
 }
 
 /* 搜索结果下拉 */

@@ -104,7 +104,7 @@
             <el-input v-model="form.config.from_email" placeholder="如: admin@example.com" />
           </el-form-item>
           <el-form-item label="发件人名称">
-            <el-input v-model="form.config.from_name" placeholder="如: 飞羽系统" />
+            <el-input v-model="form.config.from_name" placeholder="如: 飞鱼系统" />
           </el-form-item>
         </template>
 
@@ -207,7 +207,7 @@ const typeOptions = [
   { value: 4, label: '站内信' }
 ]
 
-const dialogTitle = computed => isEdit.value ? '编辑渠道' : '新增渠道'
+const dialogTitle = computed(() => isEdit.value ? '编辑渠道' : '新增渠道')
 
 const loadData = async () => {
   loading.value = true

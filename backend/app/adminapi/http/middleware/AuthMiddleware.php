@@ -1,6 +1,6 @@
 <?php
 /**
- * 飞羽后台管理系统 - 认证中间件
+ * 飞鱼后台管理系统 - 认证中间件
  */
 
 declare(strict_types=1);
@@ -28,7 +28,7 @@ class AuthMiddleware
         // 检查是否免登录（通过控制器上的注解或配置）
         // 这里简化处理，允许登录接口通过
         $path = $request->pathinfo();
-        if (in_array($path, ['api/login', 'api/logout'])) {
+        if (in_array($path, ['adminapi/login', 'adminapi/login/account', 'adminapi/captcha/generate', 'adminapi/captcha/verify'])) {
             return $next($request);
         }
 

@@ -1,14 +1,14 @@
 <template>
   <div class="page-container">
     <!-- 搜索栏 -->
-    <div class="search-bar">
+    <div class="search-bar" style="margin-bottom: 16px;">
       <div class="search-bar-left">
         <el-button type="primary" @click="handleAdd(null)">
           <el-icon><Plus /></el-icon> 新增菜单
         </el-button>
       </div>
       <div class="search-bar-right">
-        <el-input v-model="searchKeyword" placeholder="菜单名称/路由" style="width: 200px" clearable @keyup.enter="filterTree" />
+        <el-input v-model="searchKeyword" placeholder="菜单名称/路由" style="width: 160px" clearable @keyup.enter="filterTree" />
         <el-button type="primary" @click="filterTree"><el-icon><Search /></el-icon> 搜索</el-button>
         <el-button @click="searchKeyword = ''; filterTree()"><el-icon><Refresh /></el-icon> 重置</el-button>
       </div>
@@ -34,9 +34,10 @@
             <span class="node-info">
               <el-icon v-if="data.icon" class="node-icon"><component :is="data.icon" /></el-icon>
               <span class="node-name">{{ data.name }}</span>
-              <el-tag v-if="data.menu_type === 'button'" size="small" type="info">按钮</el-tag>
-              <el-tag v-else-if="data.menu_type === 'link'" size="small" type="warning">外链</el-tag>
-              <el-tag v-else-if="data.menu_type === 'iframe'" size="small" type="success">Iframe</el-tag>
+              <el-tag v-if="data.menu_type === 'button'" size="small" type="info" effect="plain" round>按钮</el-tag>
+              <el-tag v-else-if="data.menu_type === 'link'" size="small" type="warning" effect="plain" round>外链</el-tag>
+              <el-tag v-else-if="data.menu_type === 'iframe'" size="small" type="success" effect="plain" round>Iframe</el-tag>
+              <el-tag v-else size="small" effect="plain" round style="border-color: #dcdfe6; color: #909399;">目录</el-tag>
             </span>
             <span class="node-path">{{ data.path || '-' }}</span>
             <span class="node-actions">
@@ -322,30 +323,54 @@ onMounted(() => {
   display: flex;
   align-items: center;
   width: 100%;
-  padding-right: 20px;
 }
 .node-info {
   display: flex;
   align-items: center;
   flex: 0 0 200px;
+  min-width: 0;
 }
 .node-icon {
   margin-right: 8px;
-  font-size: 16px;
+  font-size: 15px;
+  color: #909399;
+  flex-shrink: 0;
 }
 .node-name {
   margin-right: 8px;
+  font-size: 14px;
+  color: #303133;
+  font-weight: 500;
 }
 .node-path {
   flex: 1;
-  color: #999;
-  font-size: 12px;
+  color: #909399;
+  font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+  padding-right: 16px;
 }
 .node-actions {
-  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+}
+.node-actions .el-button {
+  padding: 0;
+  font-size: 13px;
+  border: none;
+  background: none;
+}
+.node-actions .el-button--primary {
+  color: #409eff;
+}
+.node-actions .el-button--warning {
+  color: #e6a23c;
+}
+.node-actions .el-button--danger {
+  color: #f56c6c;
 }
 .icon-selector {
   display: flex;
@@ -395,43 +420,50 @@ onMounted(() => {
 </style>
 
 <style scoped>
-/* 菜单管理树形列表优化 */
+/* 菜单管理树形列表优化 - nav-tabs风格 */
+.page-card {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
 .page-card :deep(.el-tree) {
-  background: var(--fe-bg-page);
+  background: #fff;
   color: var(--fe-text-primary);
-  padding: 8px;
-  border-radius: 8px;
+  padding: 0;
 }
 
 .page-card :deep(.el-tree-node__content) {
-  height: 44px;
-  line-height: 44px;
-  margin: 2px 0;
-  padding: 0 12px;
-  border-radius: 6px;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 16px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.page-card :deep(.el-tree-node:last-child .el-tree-node__content) {
+  border-bottom: none;
 }
 
 .page-card :deep(.el-tree-node__content:hover) {
-  background: var(--fe-bg-hover);
-}
-
-.page-card :deep(.el-tree-node.is-expanded > .el-tree-node__children) {
-  background: var(--fe-bg-page);
-  border-left: 2px solid var(--fe-border-color);
-  border-radius: 8px;
-  margin-left: 32px;
-  padding: 4px 0;
+  background: rgba(64, 158, 255, 0.08) !important;
 }
 
 .page-card :deep(.el-tree-node.is-current > .el-tree-node__content) {
-  background: var(--fe-bg-active) !important;
-  border-left-color: var(--fe-primary);
+  background: rgba(64, 158, 255, 0.1) !important;
+  color: #409eff;
+}
+
+.page-card :deep(.el-tree-node.is-current > .el-tree-node__content .node-name) {
+  color: #409eff;
+  font-weight: 500;
 }
 
 .page-card :deep(.el-tree-node__expand-icon) {
-  color: var(--fe-text-secondary);
+  color: #c0c4cc;
+  font-size: 14px;
 }
 
 .page-card :deep(.el-tree-node__label) {

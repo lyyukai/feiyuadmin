@@ -290,7 +290,7 @@ const pagination = reactive({
 })
 
 // 计算属性
-const uploadUrl = computed(() => import.meta.env.VITE_API_URL + '/upload/' + uploadType.value)
+const uploadUrl = computed(() => import.meta.env.VITE_API_BASE_URL + '/upload/' + uploadType.value)
 const uploadHeaders = computed(() => ({
   Authorization: 'Bearer ' + localStorage.getItem('token')
 }))

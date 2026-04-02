@@ -6,6 +6,9 @@ export const login = (data) => request.post('/login', data)
 // 退出
 export const logout = () => request.post('/logout')
 
+// 获取验证码图片
+export const getCaptcha = (key = 'login') => request.get('/captcha/generate', { params: { key } })
+
 // 获取用户信息
 export const getUserInfo = () => request.get('/user/info')
 

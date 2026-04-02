@@ -130,7 +130,7 @@ import request from '@/utils/request'
 
 const activeTab = ref('basic')
 const loading = ref(false)
-const uploadUrl = '/api/upload/image'
+const uploadUrl = '/adminapi/upload/image'
 const uploadHeaders = { Authorization: 'Bearer ' + localStorage.getItem('token') }
 
 const handleLogoSuccess = (res) => {

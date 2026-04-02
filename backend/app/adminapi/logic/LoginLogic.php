@@ -1,6 +1,6 @@
 <?php
 /**
- * 飞羽后台管理系统 - 登录逻辑
+ * 飞鱼后台管理系统 - 登录逻辑
  */
 
 declare(strict_types=1);
@@ -10,6 +10,7 @@ namespace app\adminapi\logic;
 use app\common\service\JsonService;
 use app\model\User;
 use app\service\TokenService;
+use app\service\CaptchaService;
 
 /**
  * 登录逻辑
@@ -25,6 +26,14 @@ class LoginLogic
      */
     public static function login(array $params): array
     {
+        // 验证验证码（可选，前端可传空）
+        if (!empty($params['captcha'])) {
+            $captchaKey = $params['captcha_key'] ?? 'login';
+            if (!CaptchaService::verify($params['captcha'], $captchaKey)) {
+                JsonService::throwFail('验证码错误或已过期');
+            }
+        }
+
         // 查询用户
         $user = User::where('username', $params['username'])->find();
         if (empty($user)) {
