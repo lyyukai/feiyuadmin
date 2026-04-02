@@ -11,11 +11,11 @@
           <span>飞鱼 Admin</span>
         </a>
         <nav class="header-nav">
-          <a href="/pc/#/doc#overview">概览</a>
-          <a href="/pc/#/doc#quick-start">快速开始</a>
-          <a href="/pc/#/doc#api-reference">API</a>
-          <a href="/pc/#/doc#crud-example">开发指南</a>
-          <a href="/pc/#/doc#deployment">部署</a>
+          <a href="/doc#overview">概览</a>
+          <a href="/doc#quick-start">快速开始</a>
+          <a href="/doc#api-reference">API</a>
+          <a href="/doc#crud-example">开发指南</a>
+          <a href="/doc#deployment">部署</a>
         </nav>
         <a href="http://demo.fydev.cn/admin" target="_blank" class="btn-primary">进入后台</a>
       </div>

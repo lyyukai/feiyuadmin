@@ -12,11 +12,11 @@
           </span>
         </div>
         <nav class="nav-links">
-          <a href="/pc/#features">功能特性</a>
-          <a href="/pc/#tech">技术栈</a>
-          <a href="/pc/#screenshots">系统模块</a>
-          <a href="/pc/#/doc" target="_blank">技术文档</a>
-          <a href="/pc/#contact">联系我们</a>
+          <a href="/pc/features">功能特性</a>
+          <a href="/pc/tech">技术栈</a>
+          <a href="/pc/screenshots">系统模块</a>
+          <a href="/pc//doc" target="_blank">技术文档</a>
+          <a href="/pc/contact">联系我们</a>
         </nav>
         <div class="header-actions">
           <el-button type="primary" @click="goLogin">演示地址</el-button>
@@ -294,7 +294,7 @@
               <span class="doc-tag">安装步骤</span>
               <span class="doc-tag">配置文件</span>
             </div>
-            <a href="/pc/#/doc#quick-start" target="_blank" class="doc-link">查看文档 →</a>
+            <a href="/pc//doc#quick-start" target="_blank" class="doc-link">查看文档 →</a>
           </div>
         </div>
         <div class="doc-card">
@@ -310,7 +310,7 @@
               <span class="doc-tag">权限接口</span>
               <span class="doc-tag">业务接口</span>
             </div>
-            <a href="/pc/#/doc#api-reference" target="_blank" class="doc-link">查看文档 →</a>
+            <a href="/pc//doc#api-reference" target="_blank" class="doc-link">查看文档 →</a>
           </div>
         </div>
         <div class="doc-card">
@@ -326,7 +326,7 @@
               <span class="doc-tag">路由配置</span>
               <span class="doc-tag">组件开发</span>
             </div>
-            <a href="/pc/#/doc#crud-example" target="_blank" class="doc-link">查看文档 →</a>
+            <a href="/pc//doc#crud-example" target="_blank" class="doc-link">查看文档 →</a>
           </div>
         </div>
         <div class="doc-card">
@@ -342,7 +342,7 @@
               <span class="doc-tag">字段映射</span>
               <span class="doc-tag">批量生成</span>
             </div>
-            <a href="/pc/#/doc#crud-example" target="_blank" class="doc-link">查看文档 →</a>
+            <a href="/pc//doc#crud-example" target="_blank" class="doc-link">查看文档 →</a>
           </div>
         </div>
       </div>
