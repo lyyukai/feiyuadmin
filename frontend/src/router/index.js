@@ -8,6 +8,12 @@ const routes = [
     meta: { title: '登录', hidden: true }
   },
   {
+    path: '/demo',
+    name: 'Demo',
+    component: () => import('@/views/demo/index.vue'),
+    meta: { title: '演示站', hidden: true, requiresAuth: false }
+  },
+  {
     path: '/',
     component: () => import('@/layout/index.vue'),
     redirect: '/dashboard',
@@ -79,14 +85,14 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/admin'),
+  history: createWebHistory(import.meta.env.BASE_URL || '/'),
   routes
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title ? to.meta.title + ' - 飞羽后台' : '飞羽后台'
+  document.title = to.meta.title ? to.meta.title + ' - 飞鱼后台' : '飞鱼后台'
   const token = localStorage.getItem('token')
-  if (to.path !== '/login' && !token) {
+  if (to.path !== '/login' && to.path !== '/demo' && !token) {
     next('/login')
   } else {
     next()
