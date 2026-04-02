@@ -12,11 +12,11 @@
           </span>
         </div>
         <nav class="nav-links">
-          <a href="/pc/features">功能特性</a>
-          <a href="/pc/tech">技术栈</a>
-          <a href="/pc/screenshots">系统模块</a>
-          <a href="/pc//doc" target="_blank">技术文档</a>
-          <a href="/pc/contact">联系我们</a>
+          <a href="/pc/#features">功能特性</a>
+          <a href="/pc/#screenshots">系统模块</a>
+          <a href="/pc/doc#overview" target="_blank">技术文档</a>
+          <a href="/pc/nl2sql" target="_blank">NL2SQL</a>
+          <a href="/pc/lowcode" target="_blank">低代码</a>
         </nav>
         <div class="header-actions">
           <el-button type="primary" @click="goLogin">演示地址</el-button>

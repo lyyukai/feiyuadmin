@@ -16,10 +16,7 @@ Route::get('/', function() {
     return redirect('/demo');
 });
 
-// PC端静态资源（防止被路由解析）
-Route::get('pc', function() {
-    return redirect('/demo');
-});
+// PC端静态资源（由Nginx直接托管）
 Route::get('pc/index.html', function() {
     return response(file_get_contents(root_path() . 'public/pc/index.html'))
         ->contentType('text/html');

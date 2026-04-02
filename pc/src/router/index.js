@@ -1,17 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/demo/index.vue'
-import Doc from '@/views/doc/index.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('@/views/demo/index.vue')
   },
   {
     path: '/doc',
     name: 'Doc',
-    component: Doc
+    component: () => import('@/views/doc/index.vue')
+  },
+  {
+    path: '/nl2sql',
+    name: 'NL2SQL',
+    component: () => import('@/views/nl2sql/index.vue')
+  },
+  {
+    path: '/lowcode',
+    name: 'LowCode',
+    component: () => import('@/views/lowcode/index.vue')
   }
 ]
 
@@ -20,11 +28,7 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth',
-        top: 80
-      }
+      return { el: to.hash, behavior: 'smooth', top: 80 }
     }
     return { top: 0, behavior: 'smooth' }
   }

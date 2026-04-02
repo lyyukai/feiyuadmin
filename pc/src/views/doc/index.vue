@@ -787,11 +787,15 @@ maxmemory-policy allkeys-lru</code></pre>
 
       </main>
     </div>
+
+    <!-- AI 助手浮窗 -->
+    <AiChatWindow />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import AiChatWindow from '@/components/AiChatWindow.vue'
 
 const activeSection = ref('overview')
 
