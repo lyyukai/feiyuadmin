@@ -12,3 +12,5 @@ frontend/node_modules/
 .idea/
 *.swp
 runtime/
+pc/
+pc/node_modules/
