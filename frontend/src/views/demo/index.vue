@@ -474,7 +474,7 @@ import fishLogo from '@/assets/logo-fish.png'
 const router = useRouter()
 
 const goLogin = () => {
-  window.open('http://demo.fydev.cn/admin/', '_blank')
+  window.open('/admin/', '_blank')
 }
 
 const goContact = () => {
