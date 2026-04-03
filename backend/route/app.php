@@ -23,6 +23,10 @@ Route::rule('pc/:any', function () {
     return view(app()->getRootPath() . 'public/pc/index.html');
 })->pattern(['any' => '\w+']);
 
+Route::rule('/', function () {
+    return view(app()->getRootPath() . 'public/pc/index.html');
+});
+
 // ============================================================
 // 公开接口（免登录）
 // ============================================================
@@ -33,13 +37,23 @@ Route::post('adminapi/login/account', [\app\adminapi\controller\auth\LoginContro
 Route::post('adminapi/login/logout', [\app\adminapi\controller\auth\LoginController::class, 'logout']);
 
 // ============================================================
+// PC前台公开接口（免登录）
+// 这些路由直接调用控制器方法，不经过 AuthMiddleware
+// ============================================================
+Route::post('pcapi/ai/nl2sql', function () {
+    $ctrl = invoke(\app\adminapi\controller\pc\AiController::class);
+    return invoke([$ctrl, 'nl2sql']);
+});
+
+Route::post('pcapi/ai/lowcode', function () {
+    $ctrl = invoke(\app\adminapi\controller\pc\AiController::class);
+    return invoke([$ctrl, 'lowcode']);
+});
+
+// ============================================================
 // 路由辅助函数
 // ============================================================
 
-/**
- * 转换 snake_case 为 PascalCase
- * config_lists → configLists
- */
 function snakeToPascal($str) {
     $result = '';
     $parts = explode('_', $str);
@@ -67,52 +81,40 @@ function invokeController($controllerClass, $action) {
     return invoke([$ctrl, $action]);
 }
 
-// 解析adminapi的3段路径: /adminapi/module/controller/action
-// 例如: wechat/account/lists → wechat/WechatAccountController::lists()
-// 例如: generator/config_lists → generator/GeneratorController::configLists()
 function resolveAdminController($module, $controller, $action) {
     $moduleDir = strtolower($module);
-    
-    // 转换 snake_case 为 PascalCase
     $controllerName = snakeToPascal($controller);
     $actionName = snakeToPascal($action);
     
-    // 标准模块: wechat/account/lists → WechatAccount
     $fullControllerName = snakeToPascal($module) . $controllerName;
     $controllerClass = '\\app\\adminapi\\controller\\' . $moduleDir . '\\' . $fullControllerName . 'Controller';
+
     try {
         return invokeController($controllerClass, $actionName);
     } catch (\Throwable $e) {
-        // 回退: generator/Generator
         $controllerClass = '\\app\\adminapi\\controller\\' . $moduleDir . '\\' . $controllerName . 'Controller';
         return invokeController($controllerClass, $actionName);
     }
 }
 
-// 解析2段路径: /adminapi/controller/action
-// 例如: user/lists → admin/UserController::lists()
-// 例如: upload/lists → UploadController::lists()
-// 例如: generator/config_lists → generator/GeneratorController::configLists()
 function resolveSimpleController($controller, $action) {
-    // 转换 snake_case 为 PascalCase
     $controllerName = snakeToPascal($controller);
     $actionName = snakeToPascal($action);
     $controllerLower = strtolower($controller);
     
-    // 尝试顺序:
-    // 1. admin/{Controller}Controller (如 admin/UserController)
+    // 1. admin/{Controller}Controller
     $controllerClass = '\\app\\adminapi\\controller\\admin\\' . $controllerName . 'Controller';
     try {
         return invokeController($controllerClass, $actionName);
     } catch (\Throwable $e) {}
     
-    // 2. {controller}Controller (根目录, 如 UploadController)
+    // 2. {controller}Controller (根目录)
     $controllerClass = '\\app\\adminapi\\controller\\' . $controllerName . 'Controller';
     try {
         return invokeController($controllerClass, $actionName);
     } catch (\Throwable $e) {}
     
-    // 3. {controller}/{Controller}Controller (子目录, 如 generator/GeneratorController)
+    // 3. {controller}/{Controller}Controller (子目录)
     $controllerClass = '\\app\\adminapi\\controller\\' . $controllerLower . '\\' . $controllerName . 'Controller';
     return invokeController($controllerClass, $actionName);
 }
@@ -120,24 +122,19 @@ function resolveSimpleController($controller, $action) {
 // ============================================================
 // adminapi 自动路由
 // ============================================================
-// 3段: /adminapi/module/controller/action
 Route::any('adminapi/:module/:controller/:action', function ($module, $controller, $action) {
     return resolveAdminController($module, $controller, $action);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
-// 2段: /adminapi/controller/action
 Route::any('adminapi/:controller/:action', function ($controller, $action) {
     return resolveSimpleController($controller, $action);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
-// pcapi 自动路由
+// pcapi 自动路由（需要认证）
 // ============================================================
 Route::any('pcapi/:controller/:action', function ($controller, $action) {
-    $controllerName = snakeToPascal($controller);
-    $actionName = snakeToPascal($action);
-    $controllerClass = '\\app\\adminapi\\controller\\pc\\' . $controllerName . 'Controller';
-    return invokeController($controllerClass, $actionName);
+    return resolveSimpleController($controller, $action);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
