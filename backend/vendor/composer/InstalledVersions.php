@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4a471cb48e891226992a82a5f2c40f97132d37e8',
+    'reference' => 'b7020ad7613e8dc7069cf8511aa40e3b4710d5f1',
     'name' => 'topthink/think',
   ),
   'versions' => 
@@ -45,6 +45,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '1b2de7f4a468165dca07b142240733a1973e766d',
+    ),
+    'ergebnis/classy' => 
+    array (
+      'pretty_version' => '1.9.0',
+      'version' => '1.9.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -445,7 +454,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4a471cb48e891226992a82a5f2c40f97132d37e8',
+      'reference' => 'b7020ad7613e8dc7069cf8511aa40e3b4710d5f1',
+    ),
+    'topthink/think-annotation' => 
+    array (
+      'pretty_version' => 'v2.0.4',
+      'version' => '2.0.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '293dae6f2d7bdb6fed1a89babe176f6059738ccf',
     ),
     'topthink/think-container' => 
     array (

@@ -89,9 +89,22 @@ class Route extends Command
 
         //触发路由载入完成事件
         $this->app->event->trigger(RouteLoaded::class);
-        $rules = $this->app->route->getName();
+        $rules = $this->app->route->getRuleList();
 
-        return '<?php ' . PHP_EOL . 'return ' . var_export($rules, true) . ';';
+        // Filter out closure routes as they can't be serialized
+        foreach ($rules as $key => $rule) {
+            if ($rule['route'] instanceof \Closure) {
+                unset($rules[$key]);
+            } elseif (is_array($rule['route'])) {
+                foreach ($rule['route'] as $rKey => $rVal) {
+                    if ($rVal instanceof \Closure) {
+                        unset($rules[$key]['route'][$rKey]);
+                    }
+                }
+            }
+        }
+
+        return '<?php ' . PHP_EOL . 'return ' . var_export(array_values($rules), true) . ';';
     }
 
     /**

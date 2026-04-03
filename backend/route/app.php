@@ -22,6 +22,9 @@ Route::rule('pc/:any', function () {
     return view(app()->getRootPath() . 'public/pc/index.html');
 })->pattern(['any' => '\w+']);
 
+Route::rule('/', function () {
+    return view(app()->getRootPath() . 'public/pc/index.html');
+})->pattern(['any' => '\w+']);
 // ============================================================
 // 公开接口（免登录）
 // ============================================================

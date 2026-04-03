@@ -17,7 +17,8 @@
         "yansongda/pay": "^3.7",
         "dragonmantank/cron-expression": "^3.5",
         "phpmailer/phpmailer": "^7.0",
-        "guzzlehttp/guzzle": "^7.10"
+        "guzzlehttp/guzzle": "^7.10",
+        "topthink/think-annotation": "^2.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^6.0",

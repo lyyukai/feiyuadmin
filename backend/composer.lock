@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "352fd56ce7ebc263f38d938059b197f5",
+    "content-hash": "4e727614e2a10c66b87a9642493a50c6",
     "packages": [
         {
             "name": "dragonmantank/cron-expression",
@@ -69,6 +69,73 @@
                 }
             ],
             "time": "2025-10-31T18:36:32+00:00"
+        },
+        {
+            "name": "ergebnis/classy",
+            "version": "1.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/classy.git",
+                "reference": "05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/classy/zipball/05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef",
+                "reference": "05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.48.1",
+                "ergebnis/license": "^2.7.0",
+                "ergebnis/php-cs-fixer-config": "^6.54.0",
+                "ergebnis/phpstan-rules": "^2.11.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.20.0",
+                "fakerphp/faker": "^1.24.1",
+                "infection/infection": "~0.26.6",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^2.1.22",
+                "phpstan/phpstan-deprecation-rules": "^2.0.3",
+                "phpstan/phpstan-phpunit": "^2.0.7",
+                "phpstan/phpstan-strict-rules": "^2.0.6",
+                "phpunit/phpunit": "^9.6.19",
+                "rector/rector": "^2.1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Classy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com",
+                    "homepage": "https://localheinz.com"
+                }
+            ],
+            "description": "Provides a finder for classy constructs (classes, enums, interfaces, and traits).",
+            "homepage": "https://github.com/ergebnis/classy",
+            "keywords": [
+                "classes",
+                "classy",
+                "constructs",
+                "finder",
+                "interfaces",
+                "traits"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/classy/issues",
+                "source": "https://github.com/ergebnis/classy"
+            },
+            "time": "2025-09-04T10:17:22+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2489,6 +2556,61 @@
                 "source": "https://github.com/top-think/framework/tree/v8.1.4"
             },
             "time": "2026-01-15T02:45:10+00:00"
+        },
+        {
+            "name": "topthink/think-annotation",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/think-annotation.git",
+                "reference": "293dae6f2d7bdb6fed1a89babe176f6059738ccf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/top-think/think-annotation/zipball/293dae6f2d7bdb6fed1a89babe176f6059738ccf",
+                "reference": "293dae6f2d7bdb6fed1a89babe176f6059738ccf",
+                "shasum": ""
+            },
+            "require": {
+                "ergebnis/classy": "^1.4",
+                "php": "^8.0",
+                "topthink/framework": "^6.0 || ^8.0"
+            },
+            "require-dev": {
+                "topthink/think-ide-helper": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "think": {
+                    "config": {
+                        "annotation": "src/config.php"
+                    },
+                    "services": [
+                        "think\\annotation\\Service"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\annotation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "yunwuxin",
+                    "email": "448901948@qq.com"
+                }
+            ],
+            "description": "Annotation For ThinkPHP6",
+            "support": {
+                "issues": "https://github.com/top-think/think-annotation/issues",
+                "source": "https://github.com/top-think/think-annotation/tree/v2.0.4"
+            },
+            "time": "2023-07-01T10:56:40+00:00"
         },
         {
             "name": "topthink/think-container",

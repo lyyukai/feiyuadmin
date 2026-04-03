@@ -10,15 +10,15 @@ class ComposerStaticInit39b095b412e0a59fd33ef83603b68ce0
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
+        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '6b998e7ad3182c0d21d23780badfa07b' => __DIR__ . '/..' . '/yansongda/supports/src/Functions.php',
         '35fab96057f1bf5e7aba31a8a6d5fdde' => __DIR__ . '/..' . '/topthink/think-orm/stubs/load_stubs.php',
         '15ec93fa4ce4b2d53816a1a5f2c514e2' => __DIR__ . '/..' . '/topthink/think-validate/src/helper.php',
+        '6b998e7ad3182c0d21d23780badfa07b' => __DIR__ . '/..' . '/yansongda/supports/src/Functions.php',
         'c5521cebe610a9bf42c44b3a5163adfd' => __DIR__ . '/..' . '/overtrue/socialite/src/Contracts/FactoryInterface.php',
         'ccd11c8e7dd9b33638b248681bdfba27' => __DIR__ . '/..' . '/overtrue/socialite/src/Contracts/UserInterface.php',
         '5649552725dea6ec47381627600e3ac1' => __DIR__ . '/..' . '/overtrue/socialite/src/Contracts/ProviderInterface.php',
@@ -32,6 +32,7 @@ class ComposerStaticInit39b095b412e0a59fd33ef83603b68ce0
         't' => 
         array (
             'think\\migration\\' => 16,
+            'think\\annotation\\' => 17,
             'think\\' => 6,
         ),
         'a' => 
@@ -94,6 +95,7 @@ class ComposerStaticInit39b095b412e0a59fd33ef83603b68ce0
         ),
         'E' => 
         array (
+            'Ergebnis\\Classy\\' => 16,
             'EasyWeChat\\' => 11,
         ),
         'C' => 
@@ -106,6 +108,10 @@ class ComposerStaticInit39b095b412e0a59fd33ef83603b68ce0
         'think\\migration\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-migration/src',
+        ),
+        'think\\annotation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/topthink/think-annotation/src',
         ),
         'think\\' => 
         array (
@@ -251,6 +257,10 @@ class ComposerStaticInit39b095b412e0a59fd33ef83603b68ce0
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Ergebnis\\Classy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ergebnis/classy/src',
         ),
         'EasyWeChat\\' => 
         array (

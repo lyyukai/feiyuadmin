@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'think\\migration\\' => array($vendorDir . '/topthink/think-migration/src'),
+    'think\\annotation\\' => array($vendorDir . '/topthink/think-annotation/src'),
     'think\\' => array($vendorDir . '/topthink/framework/src/think', $vendorDir . '/topthink/think-container/src', $vendorDir . '/topthink/think-helper/src', $vendorDir . '/topthink/think-orm/src', $vendorDir . '/topthink/think-validate/src'),
     'app\\' => array($baseDir . '/app'),
     'Yansongda\\Supports\\' => array($vendorDir . '/yansongda/supports/src'),
@@ -42,6 +43,7 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
+    'Ergebnis\\Classy\\' => array($vendorDir . '/ergebnis/classy/src'),
     'EasyWeChat\\' => array($vendorDir . '/overtrue/wechat/src'),
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
 );
