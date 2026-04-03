@@ -1,5 +1,5 @@
 # Build artifacts
-backend/public/admin/
+backend/public/uploads/
 frontend/dist/
 frontend/node_modules/
 *.log
