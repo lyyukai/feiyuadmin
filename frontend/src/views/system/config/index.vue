@@ -191,7 +191,7 @@ const emailConfig = reactive({
 // 加载配置
 const loadConfig = async () => {
   try {
-    const res = await request.get('/config/lists')
+    const res = await request.get('/system_config/lists')
     if (res.code === 0 && res.data) {
       const data = res.data
       // 基本设置
