@@ -2,9 +2,7 @@
 /**
  * 飞鱼后台管理系统 - 路由配置
  * 
- * 策略：
- * 1. 公开接口（captcha, auth）显式定义
- * 2. adminapi 下所有接口自动路由（使用 admin/ 子目录）
+ * 策略：显式定义公开接口 + 自动路由处理其他接口
  */
 
 use think\facade\Route;
@@ -25,22 +23,28 @@ Route::rule('pc/:any', function () {
 })->pattern(['any' => '\w+']);
 
 // ============================================================
-// 自动路由解析（处理 adminapi/*）
-// URL: /adminapi/{controller}/{action} → app\adminapi\controller\admin\{Controller}
+// 公开接口（免登录）
 // ============================================================
-$adminApiRoute = function ($controller, $action) {
+Route::get('adminapi/captcha/generate', [\app\adminapi\controller\captcha\CaptchaController::class, 'generate']);
+Route::post('adminapi/captcha/verify', [\app\adminapi\controller\captcha\CaptchaController::class, 'verify']);
+Route::post('adminapi/login/account', [\app\adminapi\controller\auth\LoginController::class, 'account']);
+Route::post('adminapi/login/logout', [\app\adminapi\controller\auth\LoginController::class, 'logout']);
+
+// ============================================================
+// adminapi 自动路由
+// ============================================================
+// 3段: /adminapi/controller/action
+Route::any('adminapi/:controller/:action', function ($controller, $action) {
     $controllerName = '';
     $parts = explode('_', $controller);
     foreach ($parts as $p) {
         $controllerName .= ucfirst(strtolower($p));
     }
-    // adminapi 下的控制器主要在 admin/ 子目录
     $controllerClass = '\\app\\adminapi\\controller\\admin\\' . $controllerName . 'Controller';
     
     try {
         $ctrl = invoke($controllerClass);
     } catch (\Throwable $e) {
-        // 尝试根目录
         $controllerClass = '\\app\\adminapi\\controller\\' . $controllerName . 'Controller';
         try {
             $ctrl = invoke($controllerClass);
@@ -58,27 +62,39 @@ $adminApiRoute = function ($controller, $action) {
     request()->controllerAction = $action;
     
     return invoke([$ctrl, $action]);
-};
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
-// ============================================================
-// 公开接口（免登录）
-// ============================================================
-Route::get('adminapi/captcha/generate', [\app\adminapi\controller\captcha\CaptchaController::class, 'generate']);
-Route::post('adminapi/captcha/verify', [\app\adminapi\controller\captcha\CaptchaController::class, 'verify']);
-Route::post('adminapi/login/account', [\app\adminapi\controller\auth\LoginController::class, 'account']);
-Route::post('adminapi/login/logout', [\app\adminapi\controller\auth\LoginController::class, 'logout']);
-
-// ============================================================
-// adminapi 其他接口自动路由
-// ============================================================
-Route::any('adminapi/:controller/:action', $adminApiRoute)
-    ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
-    ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]+']);
+// 2段: /adminapi/controller (action默认index)
+Route::any('adminapi/:controller', function ($controller) {
+    $controllerName = '';
+    $parts = explode('_', $controller);
+    foreach ($parts as $p) {
+        $controllerName .= ucfirst(strtolower($p));
+    }
+    $controllerClass = '\\app\\adminapi\\controller\\admin\\' . $controllerName . 'Controller';
+    
+    try {
+        $ctrl = invoke($controllerClass);
+    } catch (\Throwable $e) {
+        $controllerClass = '\\app\\adminapi\\controller\\' . $controllerName . 'Controller';
+        try {
+            $ctrl = invoke($controllerClass);
+        } catch (\Throwable $e2) {
+            throw new \think\exception\HttpException(404, 'Controller not found: ' . $controllerClass);
+        }
+    }
+    
+    request()->controllerObject = $ctrl;
+    request()->controllerClass = $controllerClass;
+    request()->controllerAction = 'index';
+    
+    return invoke([$ctrl, 'index']);
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
 // pcapi 自动路由
 // ============================================================
-Route::any('pcapi/:controller/:action', function ($controller, $action) {
+Route::any('pcapi/:controller[/:action]', function ($controller, $action = 'index') {
     $controllerName = '';
     $parts = explode('_', $controller);
     foreach ($parts as $p) {
@@ -102,12 +118,12 @@ Route::any('pcapi/:controller/:action', function ($controller, $action) {
     
     return invoke([$ctrl, $action]);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
-  ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]+']);
+  ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]*']);
 
 // ============================================================
 // mobileapi 自动路由
 // ============================================================
-Route::any('mobileapi/:controller/:action', function ($controller, $action) {
+Route::any('mobileapi/:controller[/:action]', function ($controller, $action = 'index') {
     $controllerName = '';
     $parts = explode('_', $controller);
     foreach ($parts as $p) {
@@ -131,7 +147,7 @@ Route::any('mobileapi/:controller/:action', function ($controller, $action) {
     
     return invoke([$ctrl, $action]);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
-  ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]+']);
+  ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]*']);
 
 // ============================================================
 // 定时任务
