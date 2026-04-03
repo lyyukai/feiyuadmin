@@ -27,13 +27,13 @@ Route::rule('pc/:any', function () {
 // ============================================================
 Route::get('adminapi/captcha/generate', [\app\adminapi\controller\captcha\CaptchaController::class, 'generate']);
 Route::post('adminapi/captcha/verify', [\app\adminapi\controller\captcha\CaptchaController::class, 'verify']);
+Route::post('adminapi/login', [\app\adminapi\controller\auth\LoginController::class, 'account']);
 Route::post('adminapi/login/account', [\app\adminapi\controller\auth\LoginController::class, 'account']);
 Route::post('adminapi/login/logout', [\app\adminapi\controller\auth\LoginController::class, 'logout']);
 
 // ============================================================
-// adminapi 自动路由
+// adminapi 自动路由（需要认证）
 // ============================================================
-// 3段: /adminapi/controller/action
 Route::any('adminapi/:controller/:action', function ($controller, $action) {
     $controllerName = '';
     $parts = explode('_', $controller);
@@ -57,44 +57,19 @@ Route::any('adminapi/:controller/:action', function ($controller, $action) {
         throw new \think\exception\HttpException(404, "Method not found: {$controllerClass}::{$action}()");
     }
     
+    // 设置控制器对象和动作，让 AuthMiddleware 可以检查 notNeedLogin
     request()->controllerObject = $ctrl;
     request()->controllerClass = $controllerClass;
     request()->controllerAction = $action;
     
+    // 检查是否免登录（由 AuthMiddleware 处理）
     return invoke([$ctrl, $action]);
-})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
-
-// 2段: /adminapi/controller (action默认index)
-Route::any('adminapi/:controller', function ($controller) {
-    $controllerName = '';
-    $parts = explode('_', $controller);
-    foreach ($parts as $p) {
-        $controllerName .= ucfirst(strtolower($p));
-    }
-    $controllerClass = '\\app\\adminapi\\controller\\admin\\' . $controllerName . 'Controller';
-    
-    try {
-        $ctrl = invoke($controllerClass);
-    } catch (\Throwable $e) {
-        $controllerClass = '\\app\\adminapi\\controller\\' . $controllerName . 'Controller';
-        try {
-            $ctrl = invoke($controllerClass);
-        } catch (\Throwable $e2) {
-            throw new \think\exception\HttpException(404, 'Controller not found: ' . $controllerClass);
-        }
-    }
-    
-    request()->controllerObject = $ctrl;
-    request()->controllerClass = $controllerClass;
-    request()->controllerAction = 'index';
-    
-    return invoke([$ctrl, 'index']);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
 // pcapi 自动路由
 // ============================================================
-Route::any('pcapi/:controller[/:action]', function ($controller, $action = 'index') {
+Route::any('pcapi/:controller/:action', function ($controller, $action) {
     $controllerName = '';
     $parts = explode('_', $controller);
     foreach ($parts as $p) {
@@ -117,13 +92,12 @@ Route::any('pcapi/:controller[/:action]', function ($controller, $action = 'inde
     request()->controllerAction = $action;
     
     return invoke([$ctrl, $action]);
-})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
-  ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]*']);
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
 // mobileapi 自动路由
 // ============================================================
-Route::any('mobileapi/:controller[/:action]', function ($controller, $action = 'index') {
+Route::any('mobileapi/:controller/:action', function ($controller, $action) {
     $controllerName = '';
     $parts = explode('_', $controller);
     foreach ($parts as $p) {
@@ -146,8 +120,7 @@ Route::any('mobileapi/:controller[/:action]', function ($controller, $action = '
     request()->controllerAction = $action;
     
     return invoke([$ctrl, $action]);
-})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
-  ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]*']);
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
 // 定时任务

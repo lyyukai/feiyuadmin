@@ -20,7 +20,7 @@ use app\common\service\JsonService;
 class LoginController extends BaseAdminController
 {
     /** @var array 免登录接口 */
-    protected array $notNeedLogin = ['account', 'logout'];
+    protected array $notNeedLogin = ['account', 'logout', 'index'];
 
     /**
      * 账号登录
