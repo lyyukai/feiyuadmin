@@ -1,6 +1,12 @@
 <?php
 /**
  * 飞鱼后台管理系统 - 认证中间件
+ * 
+ * 支持控制器声明 notNeedLogin 属性来跳过认证
+ * 示例:
+ *   class LoginController extends BaseAdminController {
+ *       protected array $notNeedLogin = ['account', 'logout'];
+ *   }
  */
 
 declare(strict_types=1);
@@ -9,6 +15,7 @@ namespace app\adminapi\http\middleware;
 
 use app\common\service\JsonService;
 use app\service\TokenService;
+use think\exception\HttpException;
 
 /**
  * 认证中间件
@@ -17,20 +24,21 @@ use app\service\TokenService;
  */
 class AuthMiddleware
 {
-    /**
-     * 认证
-     * @param $request
-     * @param \Closure $next
-     * @return mixed
-     */
     public function handle($request, \Closure $next)
     {
-        // 检查是否免登录（通过控制器上的注解或配置）
-        // 这里简化处理，允许登录接口通过
-        $path = $request->pathinfo();
-        if (in_array($path, ['adminapi/login', 'adminapi/login/account', 'adminapi/captcha/generate', 'adminapi/captcha/verify'])) {
-            return $next($request);
+        // 从 InitMiddleware 绑定的控制器实例获取当前执行的 action
+        $controller = $request->controllerObject ?? null;
+        $action = $this->getCurrentAction($request);
+
+        // 检查是否免登录
+        if ($controller && property_exists($controller, 'notNeedLogin')) {
+            $notNeedLogin = $controller->notNeedLogin;
+            if (is_array($notNeedLogin) && in_array($action, $notNeedLogin)) {
+                return $next($request);
+            }
         }
+
+        // 同样检查控制器方法上的 @NotLogin 注解（可选扩展）
 
         // 获取 Token
         $token = $this->getToken($request);
@@ -57,11 +65,13 @@ class AuthMiddleware
         return $next($request);
     }
 
-    /**
-     * 获取 Token
-     * @param $request
-     * @return string|null
-     */
+    protected function getCurrentAction($request): string
+    {
+        $path = trim($request->pathinfo(), '/');
+        $segments = explode('/', $path);
+        return $segments[2] ?? '';
+    }
+
     protected function getToken($request): ?string
     {
         $auth = $request->header('Authorization', '');
@@ -71,11 +81,6 @@ class AuthMiddleware
         return null;
     }
 
-    /**
-     * 获取管理员信息
-     * @param int $adminId
-     * @return array|null
-     */
     protected function getAdminInfo(int $adminId): ?array
     {
         $admin = \app\model\User::find($adminId);
