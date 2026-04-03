@@ -2,17 +2,13 @@
 /**
  * 飞鱼后台管理系统 - 路由配置
  * 
- * 路由策略：自动路由 + 中间件绑定
- * API 路径规范:
- *   /adminapi/{controller}/{action}   ← 后台管理端
- *   /pcapi/{controller}/{action}     ← PC 前台端
- *   /mobileapi/{controller}/{action}  ← 移动端
+ * 策略：公开接口显式定义 + 其他接口自动路由
  */
 
 use think\facade\Route;
 
 // ============================================================
-// SPA 前端入口（所有未匹配的路径都 fallback 到 index.html）
+// SPA 前端入口
 // ============================================================
 Route::rule('admin/:any', function () {
     return view(app()->getRootPath() . 'public/admin/index.html');
@@ -27,25 +23,75 @@ Route::rule('pc/:any', function () {
 })->pattern(['any' => '\w+']);
 
 // ============================================================
-// API 自动路由（由 InitMiddleware 解析 pathinfo，自动映射到控制器方法）
-// 不需要在路由层手动定义每个接口
+// 自动路由分发 Closure
 // ============================================================
+$autoRoute = function ($controller, $action, $request) {
+    $controllerName = '';
+    $parts = explode('_', $controller);
+    foreach ($parts as $p) {
+        $controllerName .= ucfirst(strtolower($p));
+    }
+    $controllerClass = '\\app\\adminapi\\controller\\' . $controllerName . 'Controller';
+    
+    try {
+        $ctrl = invoke($controllerClass);
+    } catch (\Throwable $e) {
+        throw new \think\exception\HttpException(404, 'Controller not found: ' . $controllerClass);
+    }
+    
+    if (!method_exists($ctrl, $action)) {
+        throw new \think\exception\HttpException(404, "Method not found: {$controllerClass}::{$action}()");
+    }
+    
+    $request->controllerObject = $ctrl;
+    $request->controllerClass = $controllerClass;
+    $request->controllerAction = $action;
+    
+    return invoke([$ctrl, $action], ['request' => $request]);
+};
 
-// 后台管理端
+// ============================================================
+// 后台管理端 adminapi/*
+// ============================================================
 Route::group('adminapi', function () {
-    // 空闭包，所有路由由 InitMiddleware 自动解析
-})->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
-  ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
+    
+    // ---- 公开接口（免登录）----
+    Route::get('captcha/generate', 'app\adminapi\controller\captcha\CaptchaController@generate');
+    Route::post('captcha/verify', 'app\adminapi\controller\captcha\CaptchaController@verify');
+    Route::post('login/account', 'app\adminapi\controller\auth\LoginController@account');
+    Route::post('login/logout', 'app\adminapi\controller\auth\LoginController@logout');
+    
+    // ---- 自动路由 ----
+    Route::any(':controller/:action', $autoRoute)
+        ->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
+        ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
+        ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]+']);
 
-// PC 前台端（InitMiddleware 自动路由，AuthMiddleware 按控制器 notNeedLogin 判断）
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
+
+// ============================================================
+// PC 前台端 pcapi/*
+// ============================================================
 Route::group('pcapi', function () {
-})->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
-  ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
+    
+    Route::any(':controller/:action', $autoRoute)
+        ->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
+        ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
+        ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]+']);
 
-// 移动端 H5
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
+
+// ============================================================
+// 移动端 H5 mobileapi/*
+// ============================================================
 Route::group('mobileapi', function () {
-})->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
-  ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
+    
+    Route::any(':controller/:action', $autoRoute)
+        ->middleware(\app\adminapi\http\middleware\InitMiddleware::class)
+        ->middleware(\app\adminapi\http\middleware\AuthMiddleware::class)
+        ->pattern(['controller' => '[a-zA-Z0-9_]+', 'action' => '[a-zA-Z0-9_]+']);
+
+})->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 
 // ============================================================
 // 定时任务
