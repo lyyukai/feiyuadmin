@@ -43,6 +43,8 @@ const routes = [
       // 工具管理
       { path: '/tool/form-list', name: 'FormList', component: () => import('@/views/tool/form-list/index.vue'), meta: { title: '表单管理', icon: 'Tickets', breadcrumb: '工具管理 / 表单管理' } },
       { path: '/tool/form-design', name: 'FormDesign', component: () => import('@/views/tool/form-design/index.vue'), meta: { title: '表单设计', icon: 'Edit', breadcrumb: '工具管理 / 表单设计' } },
+      { path: '/tool/lowcode', name: 'LowCode', component: () => import('@/views/tool/lowcode/index.vue'), meta: { title: '低代码平台', icon: 'Grid', breadcrumb: '工具管理 / 低代码平台' } },
+      { path: '/tool/nl2sql', name: 'NL2SQL', component: () => import('@/views/tool/nl2sql/index.vue'), meta: { title: 'NL2SQL', icon: 'ChatDotRound', breadcrumb: '工具管理 / NL2SQL' } },
       // 内容管理
       { path: '/content/article', name: 'ArticleManage', component: () => import('@/views/content/article/index.vue'), meta: { title: '文章管理', icon: 'Document', breadcrumb: '内容管理 / 文章管理' } },
       { path: '/content/category', name: 'CategoryManage', component: () => import('@/views/content/category/index.vue'), meta: { title: '分类管理', icon: 'Folder', breadcrumb: '内容管理 / 分类管理' } },
