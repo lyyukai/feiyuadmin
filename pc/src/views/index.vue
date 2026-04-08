@@ -31,12 +31,12 @@
     <section id="hero" class="hero">
       <div class="hero-content">
         <div class="hero-badge">🚀 开源免费 · MIT协议</div>
-        <h1>飞鱼后台管理系统</h1>
-        <p class="hero-subtitle">Vue3 + ThinkPHP8 通用型后台解决方案，高性能、高安全、易扩展</p>
+        <h1>3天上线后台系统，让你的团队专注业务</h1>
+        <p class="hero-subtitle">Vue3 + ThinkPHP8 + NL2SQL，全栈开发者的省时利器。50+ 模块开箱即用，支持私有化部署，适合 ERP/CRM/OA 等各类业务系统开发。</p>
         <div class="hero-actions">
-          <a href="/admin" target="_blank" class="btn-hero-primary">在线演示 →</a>
+          <a href="/admin" target="_blank" class="btn-hero-primary">立即体验（免登录）</a>
           <a href="/pc/ai/chat" target="_blank" class="btn-hero-secondary">🤖 AI助手</a>
-          <a href="https://gitee.com/gynet/feiyuadmin" target="_blank" class="btn-hero-secondary">GitHub</a>
+          <a href="https://gitee.com/gynet/feiyuadmin" target="_blank" class="btn-hero-secondary">查看源码（5000+ Stars）</a>
           <a href="/doc" target="_blank" class="btn-hero-secondary">📖 技术文档</a>
         </div>
         <div class="hero-stats">
@@ -201,9 +201,9 @@ import { ref } from 'vue'
 const features = ref([
   { icon: '🎨', title: '美观易用', desc: 'Element Plus 组件库，深色/浅色主题切换，开箱即用的视觉体验' },
   { icon: '🚀', title: '高性能', desc: 'Vue3 + Vite 构建，毫秒级响应，丝滑的开发体验' },
-  { icon: '🔐', title: '安全可靠', desc: 'JWT 认证、RBAC 权限、数据权限精细控制' },
-  { icon: '⚡', title: '代码生成', desc: '一键生成 CRUD 代码，开发效率提升 80%' },
-  { icon: '🤖', title: 'AI 集成', desc: 'AI 对话助手、NL2SQL 自然语言转 SQL、低代码平台' },
+  { icon: '🔐', title: '安全可靠', desc: 'JWT + RBAC，数据权限精确到每个按钮，金融级权限管控' },
+  { icon: '⚡', title: '代码生成', desc: '3分钟生成一套增删改查代码，开发效率提升 80%' },
+  { icon: '🤖', title: 'NL2SQL（自然语言查数据库）', desc: '"这个月卖得怎么样？" —— NL2SQL 直接给你答案，说人话就能查数据库' },
   { icon: '📊', title: '数据可视化', desc: 'ECharts 图表库、数据大屏、拖拽式设计器' },
   { icon: '🔄', title: '工作流引擎', desc: '可视化流程设计器、审批流、条件分支、节点配置' },
   { icon: '📱', title: '响应式设计', desc: '适配 PC、平板、手机多终端' },
@@ -279,9 +279,9 @@ const articles = ref([
 
 html { scroll-behavior: smooth; }
 
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+body { font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 
-.pc-home { min-height: 100vh; background: #fafbfc; }
+.pc-home { min-height: 100vh; background: #fafbfc; font-family: inherit; }
 
 /* Header */
 .home-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; }
@@ -289,7 +289,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; font-size: 18px; color: #1a1a2e; }
 .logo span { color: #2563EB; }
 .header-nav { display: flex; gap: 32px; flex: 1; }
-.header-nav a { color: #4b5563; text-decoration: none; font-size: 15px; transition: color 0.2s; }
+.header-nav a { color: #374151; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
 .header-nav a:hover { color: #2563EB; }
 .btn-primary { display: inline-flex; align-items: center; padding: 8px 20px; background: #2563EB; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s; white-space: nowrap; }
 .btn-primary:hover { background: #1d4ed8; }
@@ -297,15 +297,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 /* Hero */
 .hero { max-width: 1200px; margin: 0 auto; padding: 80px 40px; display: flex; align-items: center; gap: 60px; min-height: 600px; }
 .hero-badge { display: inline-block; padding: 6px 16px; background: #dbeafe; color: #1e40af; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
-.hero h1 { font-size: 56px; font-weight: 800; color: #1a1a2e; line-height: 1.15; margin-bottom: 20px; }
-.hero-subtitle { font-size: 20px; color: #6b7280; margin-bottom: 40px; line-height: 1.6; }
+.hero h1 { font-size: 52px; font-weight: 800; color: #1a1a2e; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.02em; }
+.hero-subtitle { font-size: 18px; color: #4b5563; margin-bottom: 40px; line-height: 1.7; }
 .hero-actions { display: flex; gap: 16px; margin-bottom: 48px; }
 .btn-hero-primary { display: inline-flex; padding: 14px 32px; background: #2563EB; color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; }
 .btn-hero-secondary { display: inline-flex; padding: 14px 32px; background: #fff; color: #374151; border: 1px solid #e5e7eb; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; }
-.hero-stats { display: flex; gap: 48px; }
+.hero-stats { display: flex; gap: 36px; align-items: flex-end; }
 .stat-item { display: flex; flex-direction: column; }
-.stat-num { font-size: 28px; font-weight: 800; color: #2563EB; }
-.stat-label { font-size: 13px; color: #9ca3af; margin-top: 4px; }
+.stat-num { font-size: 28px; font-weight: 800; color: #2563EB; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 13px; color: #6b7280; margin-top: 4px; }
 
 /* Dashboard mock */
 .dashboard-mock { width: 520px; flex-shrink: 0; background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e5e7eb; }
@@ -343,7 +343,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 .features { background: #fff; padding: 80px 40px; }
 .section-header { text-align: center; margin-bottom: 48px; }
 .section-header h2 { font-size: 36px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
-.section-header p { font-size: 16px; color: #9ca3af; }
+.section-header p { font-size: 16px; color: #6b7280; }
 .feature-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .feature-card { padding: 28px; background: #f9fafb; border-radius: 12px; border: 1px solid #f3f4f6; transition: all 0.2s; }
 .feature-card:hover { border-color: #2563EB; box-shadow: 0 4px 20px rgba(37,99,235,0.08); }
@@ -381,7 +381,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 .module-card:hover { border-color: #2563EB; transform: translateY(-2px); }
 .module-icon { font-size: 32px; margin-bottom: 12px; }
 .module-card h4 { font-size: 14px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
-.module-card p { font-size: 12px; color: #9ca3af; }
+.module-card p { font-size: 12px; color: #6b7280; }
 .footer-qq { margin-bottom: 16px; color: #9ca3af; font-size: 14px; }
 
 .home-footer { background: #1a1a2e; padding: 60px 40px 40px; color: #9ca3af; }
