@@ -5,17 +5,17 @@ namespace app\service\file;
 
 /**
  * 存储驱动接口
+ * 所有存储驱动必须实现此接口
  */
 interface StorageDriverInterface
 {
     /**
      * 上传文件
-     * @param string $filePath 本地文件路径
-     * @param string $savePath 保存路径
-     * @param string $fileName 文件名
+     * @param \think\file\UploadedFile|string $file 文件或本地路径
+     * @param string $savePath 保存路径（不含文件名）
      * @return array ['url' => '访问URL', 'path' => '存储路径']
      */
-    public function upload(string $filePath, string $savePath, string $fileName): array;
+    public function handleUpload($file, string $savePath): array;
 
     /**
      * 删除文件
@@ -43,4 +43,16 @@ interface StorageDriverInterface
      * @return string
      */
     public function getName(): string;
+
+    /**
+     * 获取驱动显示名称
+     * @return string
+     */
+    public function getDisplayName(): string;
+
+    /**
+     * 测试连接
+     * @return array ['name'=>'', 'bucket'=>'', 'region'=>'', 'url'=>'']
+     */
+    public function test(): array;
 }

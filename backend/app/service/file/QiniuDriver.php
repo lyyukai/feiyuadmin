@@ -151,6 +151,33 @@ class QiniuDriver implements StorageDriverInterface
         return 'qiniu';
     }
 
+    public function getDisplayName(): string
+    {
+        return '七牛云';
+    }
+
+    public function test(): array
+    {
+        if (!self::validateConfig($this->config)) {
+            throw new \think\Exception('七牛云配置不完整，请检查AccessKey/SecretKey/Bucket/域名');
+        }
+
+        $auth = new Auth($this->config['qiniu_access_key'], $this->config['qiniu_secret_key']);
+        $bucketManager = new BucketManager($auth);
+
+        // 获取bucket信息验证连接
+        list($bucket, $err) = $bucketManager->stat($this->config['qiniu_bucket'], '');
+        if ($err !== null) {
+            throw new \think\Exception('七牛云连接失败：' . $err->message());
+        }
+
+        return [
+            'name' => '七牛云',
+            'bucket' => $this->config['qiniu_bucket'],
+            'domain' => $this->config['qiniu_domain'],
+        ];
+    }
+
     /**
      * 处理上传文件
      */

@@ -22,20 +22,28 @@ abstract class AiService
     protected float $temperature = 0.7;       // 温度参数
     protected int $maxTokens = 2000;          // 最大token数
 
-    public function __construct()
+    public function __construct(array $configOverrides = [])
     {
-        $this->initConfig();
+        $this->initConfig($configOverrides);
     }
 
     /**
      * 初始化配置
+     * @param array $overrides 前端传入的配置覆盖
      */
-    protected function initConfig(): void
+    protected function initConfig(array $overrides = []): void
     {
         $aiConfig = Config::get('site.ai', []);
-        $this->apiKey = $aiConfig['api_key'] ?? '';
-        $this->baseUrl = $aiConfig['base_url'] ?? '';
-        $this->model = $aiConfig['model'] ?? '';
+        $this->apiKey = $overrides['api_key'] ?? $aiConfig['api_key'] ?? '';
+        $this->baseUrl = $overrides['base_url'] ?? $aiConfig['base_url'] ?? '';
+        $this->model = $overrides['model'] ?? $aiConfig['model'] ?? '';
+        // 文心一言专用
+        if (isset($overrides['wenxin_ak'])) {
+            $this->wenxinAk = $overrides['wenxin_ak'];
+        }
+        if (isset($overrides['wenxin_sk'])) {
+            $this->wenxinSk = $overrides['wenxin_sk'];
+        }
     }
 
     /**

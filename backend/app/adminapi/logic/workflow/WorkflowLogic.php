@@ -61,6 +61,14 @@ class WorkflowLogic
      */
     public static function add(array $params): int
     {
+        // 字段标准化：兼容前端传 name/code 或后端标准 workflow_name/workflow_code
+        if (isset($params['name']) && !isset($params['workflow_name'])) {
+            $params['workflow_name'] = $params['name'];
+        }
+        if (isset($params['code']) && !isset($params['workflow_code'])) {
+            $params['workflow_code'] = $params['code'];
+        }
+
         if (empty($params['workflow_name'])) {
             throw new \Exception('工作流名称不能为空');
         }
@@ -78,6 +86,9 @@ class WorkflowLogic
         $workflow->workflow_code = $params['workflow_code'];
         $workflow->description = $params['description'] ?? '';
         $workflow->status = (int)($params['status'] ?? 0);
+        if (isset($params['flow_data'])) {
+            $workflow->flow_data = $params['flow_data'];
+        }
         $workflow->save();
 
         return $workflow->id;
@@ -92,12 +103,20 @@ class WorkflowLogic
         if ($id <= 0) {
             return false;
         }
-        
+
         $workflow = Workflow::find($id);
         if (!$workflow) {
             return false;
         }
-        
+
+        // 字段标准化：兼容前端传 name/code 或后端标准 workflow_name/workflow_code
+        if (isset($params['name']) && !isset($params['workflow_name'])) {
+            $params['workflow_name'] = $params['name'];
+        }
+        if (isset($params['code']) && !isset($params['workflow_code'])) {
+            $params['workflow_code'] = $params['code'];
+        }
+
         if (isset($params['workflow_name'])) {
             $workflow->workflow_name = $params['workflow_name'];
         }
@@ -110,7 +129,10 @@ class WorkflowLogic
         if (isset($params['status'])) {
             $workflow->status = (int)$params['status'];
         }
-        
+        if (isset($params['flow_data'])) {
+            $workflow->flow_data = $params['flow_data'];
+        }
+
         return $workflow->save();
     }
 

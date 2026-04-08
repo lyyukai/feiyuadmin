@@ -1,6 +1,6 @@
 <?php
 /**
- * 分账记录控制器
+ * 支付流水控制器
  */
 
 declare(strict_types=1);
@@ -9,48 +9,107 @@ namespace app\adminapi\controller\pay;
 
 use app\adminapi\controller\BaseAdminController;
 use app\common\model\pay\PayStatement as PayStatementModel;
-use app\common\model\pay\PayOrder as PayOrderModel;
+use app\common\service\JsonService;
 use think\facade\Db;
 
 /**
- * 分账记录管理
+ * 支付流水管理
  * Class PayStatementController
  * @package app\adminapi\controller\pay
  */
 class PayStatementController extends BaseAdminController
 {
+    // DB字符串状态 → 前端数字状态
+    protected static array $statusReverseMap = [
+        '0'        => 0,
+        '1'        => 1,
+        '2'        => 2,
+        '3'        => 3,
+        '4'        => 4,
+        'pending'  => 0,
+        'processing'=> 1,
+        'success'  => 2,
+        'fail'     => 3,
+        'refunded' => 4,
+    ];
+
     /**
-     * 分账列表
+     * 流水列表
      */
     public function lists(): \think\Response
     {
-        $page = (int) $this->request->get('page', 1);
-        $limit = (int) $this->request->get('limit', 10);
-        $type = $this->request->get('type', '');
-        $status = $this->request->get('status', '');
-        $order_no = $this->request->get('order_no', '');
+        $page       = (int) $this->request->get('page', 1);
+        $limit      = (int) $this->request->get('limit', 10);
+        $trade_no   = $this->request->get('trade_no', '');
+        $order_no   = $this->request->get('order_no', '');
+        $channel    = $this->request->get('channel', '');
+        $status     = $this->request->get('status', '');
+        $start_time = $this->request->get('start_time', '');
+        $end_time   = $this->request->get('end_time', '');
 
         $where = [];
-        if ($type !== '') {
-            $where[] = ['type', '=', $type];
-        }
-        if ($status !== '') {
-            $where[] = ['status', '=', $status];
+        if ($trade_no !== '') {
+            $where[] = ['trade_no', 'like', "%{$trade_no}%"];
         }
         if ($order_no !== '') {
             $where[] = ['order_no', 'like', "%{$order_no}%"];
         }
+        if ($channel !== '') {
+            $where[] = ['channel', '=', $channel];
+        }
+        if ($status !== '') {
+            $statusInt = (int)$status;
+            $statusMap = [0=>'0', 1=>'1', 2=>'2', 3=>'3', 4=>'4'];
+            if (isset($statusMap[$statusInt])) {
+                $where[] = ['status', '=', $statusMap[$statusInt]];
+            }
+        }
+        if ($start_time !== '') {
+            $where[] = ['create_time', '>=', $start_time];
+        }
+        if ($end_time !== '') {
+            $where[] = ['create_time', '<=', $end_time . ' 23:59:59'];
+        }
 
-        $list = PayStatementModel::where($where)
+        $paginate = PayStatementModel::where($where)
             ->order('id', 'desc')
             ->paginate($limit)
             ->toArray();
 
-        return $this->success('获取成功', $list['data'], $list['total']);
+        // 格式化状态为数字
+        foreach ($paginate['data'] as &$item) {
+            $item['status'] = self::$statusReverseMap[$item['status']] ?? 0;
+            $item['channel'] = $item['channel'] ?? '0';
+            $item['way'] = $item['way'] ?? '';
+            $item['fee'] = $item['fee'] ?? '0.00';
+            $item['net_amount'] = $item['net_amount'] ?? '0.00';
+            $item['trade_no'] = $item['trade_no'] ?? '';
+            $item['merchant_no'] = $item['merchant_no'] ?? '';
+        }
+
+        // 统计数据
+        $todayStart = date('Y-m-d 00:00:00');
+        $monthStart = date('Y-m-01 00:00:00');
+
+        $todayIncome = (float)PayStatementModel::where('status', '2')
+            ->where('trade_time', '>=', $todayStart)
+            ->sum('net_amount');
+
+        $monthIncome = (float)PayStatementModel::where('status', '2')
+            ->where('trade_time', '>=', $monthStart)
+            ->sum('net_amount');
+
+        $stat = [
+            'today_income'   => round($todayIncome, 2),
+            'month_income'   => round($monthIncome, 2),
+            'pending_settle'=> round($monthIncome, 2),
+        ];
+
+        return JsonService::list($paginate['data'], $paginate['total'], $stat);
     }
 
     /**
-     * 分账详情
+     * 流水详情
      */
     public function detail(): \think\Response
     {
@@ -65,87 +124,9 @@ class PayStatementController extends BaseAdminController
             return $this->fail('记录不存在');
         }
 
-        return $this->success('获取成功', $model->toArray());
-    }
+        $data = $model->toArray();
+        $data['status'] = self::$statusReverseMap[$data['status']] ?? 0;
 
-    /**
-     * 执行分账
-     */
-    public function create(): \think\Response
-    {
-        $data = $this->request->post();
-
-        $order_id = (int) ($data['order_id'] ?? 0);
-        $type = $data['type'] ?? 'platform';
-        $receiver_type = $data['receiver_type'] ?? 'openid';
-        $receiver_id = $data['receiver_id'] ?? '';
-        $receiver_name = $data['receiver_name'] ?? '';
-        $amount = floatval($data['amount'] ?? 0);
-
-        if ($order_id <= 0) {
-            return $this->fail('订单ID不能为空');
-        }
-
-        if ($amount <= 0) {
-            return $this->fail('分账金额必须大于0');
-        }
-
-        // 获取订单
-        $order = PayOrderModel::find($order_id);
-        if (!$order) {
-            return $this->fail('订单不存在');
-        }
-
-        if ($order->status !== 'paid') {
-            return $this->fail('只有已支付的订单才能分账');
-        }
-
-        // 生成单号
-        $statement_no = 'S' . date('YmdHis') . rand(1000, 9999);
-
-        $model = PayStatementModel::create([
-            'order_id' => $order_id,
-            'order_no' => $order->order_no,
-            'channel' => $order->channel,
-            'type' => $type,
-            'receiver_type' => $receiver_type,
-            'receiver_id' => $receiver_id,
-            'receiver_name' => $receiver_name,
-            'amount' => $amount,
-            'status' => 'pending',
-            'create_time' => date('Y-m-d H:i:s'),
-        ]);
-
-        return $this->success('分账记录创建成功', ['id' => $model->id]);
-    }
-
-    /**
-     * 获取订单可分账金额
-     */
-    public function getAvailableAmount(): \think\Response
-    {
-        $order_id = (int) $this->request->get('order_id', 0);
-
-        if ($order_id <= 0) {
-            return $this->fail('参数错误');
-        }
-
-        $order = PayOrderModel::find($order_id);
-        if (!$order) {
-            return $this->fail('订单不存在');
-        }
-
-        // 已分账金额
-        $totalStatement = PayStatementModel::where('order_id', $order_id)
-            ->where('status', 'success')
-            ->sum('amount');
-
-        $available = $order->paid_fee - $totalStatement;
-
-        return $this->success('获取成功', [
-            'paid_fee' => $order->paid_fee,
-            'total_statement' => $totalStatement,
-            'available' => max(0, $available),
-        ]);
+        return $this->success('获取成功', $data);
     }
 }

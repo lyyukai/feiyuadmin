@@ -130,6 +130,50 @@ class AliyunOssDriver implements StorageDriverInterface
         return 'oss';
     }
 
+    public function getDisplayName(): string
+    {
+        return '阿里云OSS';
+    }
+
+    public function test(): array
+    {
+        if (!self::validateConfig($this->config)) {
+            throw new \think\Exception('OSS配置不完整，请检查AK/SK/Bucket/地域');
+        }
+
+        $client = new OssClient(
+            $this->config['oss_access_key_id'],
+            $this->config['oss_access_key_secret'],
+            $this->config['oss_region']
+        );
+
+        // 列出所有bucket验证连接
+        $buckets = $client->listBuckets();
+        $found = false;
+        foreach ($buckets as $bucket) {
+            if ($bucket->getName() === $this->config['oss_bucket']) {
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            throw new \think\Exception('Bucket不存在或无访问权限：' . $this->config['oss_bucket']);
+        }
+
+        $bucket = $this->config['oss_bucket'];
+        $testKey = '.feiyu_test_' . time() . '.txt';
+        $client->putContent($bucket, $testKey, 'feiyuadmin test connection');
+        $client->deleteObject($bucket, $testKey);
+
+        return [
+            'name' => '阿里云OSS',
+            'bucket' => $this->config['oss_bucket'],
+            'region' => $this->config['oss_region'],
+            'domain' => $this->config['oss_domain'] ?? '',
+        ];
+    }
+
     /**
      * 处理上传文件
      */

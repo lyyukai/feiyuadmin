@@ -94,4 +94,23 @@ class PayOrderController extends BaseAdminController
             return $this->fail($e->getMessage());
         }
     }
+
+    /**
+     * 退款订单
+     */
+    public function refund(): Response
+    {
+        $id = (int) $this->request->post('id', 0);
+
+        if ($id <= 0) {
+            return $this->fail('参数错误');
+        }
+
+        try {
+            $this->service->refund($id);
+            return $this->success('退款成功');
+        } catch (\Exception $e) {
+            return $this->fail($e->getMessage());
+        }
+    }
 }

@@ -4,25 +4,25 @@
     <div class="left-panel">
       <div class="panel-title">流程节点</div>
       <div class="node-list">
-        <div class="node-item" draggable @dragstart="onDragStart($event, 'start')">
+        <div class="node-item" @mousedown.prevent="onPaletteMouseDown($event, 'start')">
           <div class="node-icon start">
             <el-icon><VideoPlay /></el-icon>
           </div>
           <span>开始节点</span>
         </div>
-        <div class="node-item" draggable @dragstart="onDragStart($event, 'approver')">
+        <div class="node-item" @mousedown.prevent="onPaletteMouseDown($event, 'approver')">
           <div class="node-icon approver">
             <el-icon><User /></el-icon>
           </div>
           <span>审批人节点</span>
         </div>
-        <div class="node-item" draggable @dragstart="onDragStart($event, 'condition')">
+        <div class="node-item" @mousedown.prevent="onPaletteMouseDown($event, 'condition')">
           <div class="node-icon condition">
             <el-icon><Connection /></el-icon>
           </div>
           <span>条件分支</span>
         </div>
-        <div class="node-item" draggable @dragstart="onDragStart($event, 'end')">
+        <div class="node-item" @mousedown.prevent="onPaletteMouseDown($event, 'end')">
           <div class="node-icon end">
             <el-icon><CircleCheck /></el-icon>
           </div>
@@ -103,8 +103,6 @@
       <div
         class="canvas"
         ref="canvasRef"
-        @drop="onDrop"
-        @dragover.prevent
         @click="onCanvasClick"
       >
         <!-- 节点 -->
@@ -117,6 +115,8 @@
           @click.stop="selectNode(node)"
           @mousedown="onNodeMouseDown($event, node)"
         >
+          <!-- 连接端口 -->
+          <div class="node-port port-out" @mousedown.stop="onPortMouseDown($event, node)"></div>
           <div class="node-icon-wrapper">
             <el-icon v-if="node.node_type === 'start'"><VideoPlay /></el-icon>
             <el-icon v-else-if="node.node_type === 'approver'"><User /></el-icon>
@@ -133,6 +133,7 @@
               <polygon points="0 0, 10 3.5, 0 7" fill="#409eff" />
             </marker>
           </defs>
+          <!-- 已有连线 -->
           <path
             v-for="edge in edges"
             :key="edge.id"
@@ -144,6 +145,16 @@
             @click.stop="selectEdge(edge)"
             class="edge-path"
             :class="{ selected: selectedEdge?.id === edge.id }"
+          />
+          <!-- 正在创建的连线（拖拽中） -->
+          <path
+            v-if="connecting.from && connecting.toX !== null"
+            :d="`M ${connecting.fromX} ${connecting.fromY} L ${connecting.toX} ${connecting.toY}`"
+            stroke="#e6a23c"
+            stroke-width="2"
+            stroke-dasharray="5,3"
+            fill="none"
+            marker-end="url(#arrowhead)"
           />
         </svg>
       </div>
@@ -240,10 +251,21 @@ const nodes = ref([])
 const edges = ref([])
 const selectedNode = ref(null)
 const selectedEdge = ref(null)
+const undoStack = ref([])
+const MAX_UNDO = 50
 const dragNodeType = ref('')
 const isDragging = ref(false)
 const isConnecting = ref(false)
 const connectStartNode = ref(null)
+
+// 连线状态
+const connecting = ref({
+  from: null,
+  fromX: 0,
+  fromY: 0,
+  toX: null,
+  toY: null
+})
 
 // 审批人相关
 const approverDialogVisible = ref(false)
@@ -259,20 +281,38 @@ const userList = ref([
 const generateId = () => 'n_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
 const generateNodeKey = (type) => type + '_' + Date.now()
 
-// 节点拖拽开始
-const onDragStart = (event, nodeType) => {
+// ========== 拖拽（用鼠标事件替代HTML5 Drag API） ==========
+let dragGhost = null
+
+const onPaletteMouseDown = (event, nodeType) => {
+  event.preventDefault()
   dragNodeType.value = nodeType
-  event.dataTransfer.effectAllowed = 'copy'
+  if (dragGhost) dragGhost.remove()
+  const name = getDefaultNodeName(nodeType)
+  const colors = { start: '#67c23a', approver: '#409eff', condition: '#e6a23c', end: '#f56c6c' }
+  dragGhost = document.createElement('div')
+  dragGhost.textContent = name
+  dragGhost.style.cssText = `position:fixed;z-index:9999;pointer-events:none;background:${colors[nodeType]||'#409eff'};color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.3);left:${event.clientX-40}px;top:${event.clientY-16}px;opacity:0.9;`
+  document.body.appendChild(dragGhost)
+  document.addEventListener('mousemove', onPaletteMouseMove)
+  document.addEventListener('mouseup', onPaletteMouseUp)
 }
 
-// 节点放置到画布
-const onDrop = (event) => {
-  event.preventDefault()
-  const rect = canvasRef.value.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
+const onPaletteMouseMove = (e) => {
+  if (!dragGhost) return
+  dragGhost.style.left = (e.clientX - 40) + 'px'
+  dragGhost.style.top = (e.clientY - 16) + 'px'
+}
 
-  if (dragNodeType.value) {
+const onPaletteMouseUp = (e) => {
+  document.removeEventListener('mousemove', onPaletteMouseMove)
+  document.removeEventListener('mouseup', onPaletteMouseUp)
+  if (dragGhost) { dragGhost.remove(); dragGhost = null }
+  if (!dragNodeType.value || !canvasRef.value) { dragNodeType.value = ''; return }
+  const rect = canvasRef.value.getBoundingClientRect()
+  if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
     const newNode = {
       id: generateId(),
       node_type: dragNodeType.value,
@@ -283,10 +323,12 @@ const onDrop = (event) => {
       config: getDefaultNodeConfig(dragNodeType.value)
     }
     nodes.value.push(newNode)
+    saveState()
     selectNode(newNode)
-    dragNodeType.value = ''
   }
+  dragNodeType.value = ''
 }
+// ========== 拖拽结束 ==========
 
 // 获取默认节点名称
 const getDefaultNodeName = (type) => {
@@ -352,25 +394,94 @@ const onNodeMouseDown = (event, node) => {
   const onMouseUp = () => {
     document.removeEventListener('mousemove', onMouseMove)
     document.removeEventListener('mouseup', onMouseUp)
+    saveState()
   }
 
   document.addEventListener('mousemove', onMouseMove)
   document.addEventListener('mouseup', onMouseUp)
 }
 
-// 计算连线路径
+// ========== 连线功能 ==========
+const onPortMouseDown = (event, node) => {
+  event.preventDefault()
+  const nodeX = node.position_x + 50  // 节点中心X（端口在右侧）
+  const nodeY = node.position_y + 20  // 节点中心Y
+
+  connecting.value = {
+    from: node,
+    fromX: nodeX,
+    fromY: nodeY,
+    toX: null,
+    toY: null
+  }
+
+  const onMouseMove = (e) => {
+    // 转换为 canvas 内的相对坐标
+    const canvasRect = canvasRef.value.getBoundingClientRect()
+    const scrollLeft = canvasRef.value.scrollLeft
+    const scrollTop = canvasRef.value.scrollTop
+    connecting.value.toX = e.clientX - canvasRect.left + scrollLeft
+    connecting.value.toY = e.clientY - canvasRect.top + scrollTop
+  }
+
+  const onMouseUp = (e) => {
+    document.removeEventListener('mousemove', onMouseMove)
+    document.removeEventListener('mouseup', onMouseUp)
+
+    if (!connecting.value.from) { connecting.value.from = null; return }
+
+    // 获取画布在页面中的位置
+    const canvasRect = canvasRef.value.getBoundingClientRect()
+    const scrollLeft = canvasRef.value.scrollLeft
+    const scrollTop = canvasRef.value.scrollTop
+
+    // 将鼠标的页面坐标转换为画布内的相对坐标
+    const canvasX = e.clientX - canvasRect.left + scrollLeft
+    const canvasY = e.clientY - canvasRect.top + scrollTop
+
+    // 找鼠标释放时落在哪个节点上（节点宽100px，高40px）
+    const target = nodes.value.find(n => {
+      if (n.node_key === connecting.value.from.node_key) return false
+      const nx = n.position_x, ny = n.position_y
+      return canvasX >= nx && canvasX <= nx + 100 && canvasY >= ny && canvasY <= ny + 40
+    })
+
+    if (target) {
+      saveState()
+      const newEdge = {
+        id: 'e_' + Date.now(),
+        source_key: connecting.value.from.node_key,
+        target_key: target.node_key,
+        edge_type: 'default',
+        label: ''
+      }
+      edges.value.push(newEdge)
+    }
+
+    connecting.value.from = null
+    connecting.value.toX = null
+  }
+
+  document.addEventListener('mousemove', onMouseMove)
+  document.addEventListener('mouseup', onMouseUp)
+}
+
+// ========== 连线结束 ==========
+
+// 计算连线路径（端口到端口）
 const getEdgePath = (edge) => {
   const sourceNode = nodes.value.find(n => n.node_key === edge.source_key)
   const targetNode = nodes.value.find(n => n.node_key === edge.target_key)
 
   if (!sourceNode || !targetNode) return ''
 
-  const sx = sourceNode.position_x + 50
+  // 源节点：右侧端口中心 (x+100, y+20)
+  const sx = sourceNode.position_x + 100
   const sy = sourceNode.position_y + 20
-  const tx = targetNode.position_x + 50
+  // 目标节点：左侧端口中心 (x, y+20)
+  const tx = targetNode.position_x
   const ty = targetNode.position_y + 20
 
-  // 简单直线
   return `M ${sx} ${sy} L ${tx} ${ty}`
 }
 
@@ -419,6 +530,7 @@ const handleEdgeTypeChange = () => {
 // 删除连线
 const deleteEdge = () => {
   if (!selectedEdge.value) return
+  saveState()
   const index = edges.value.findIndex(e => e.id === selectedEdge.value.id)
   if (index !== -1) {
     edges.value.splice(index, 1)
@@ -488,10 +600,61 @@ const loadData = async () => {
   }
 }
 
+// 保存撤销快照
+const saveState = () => {
+  undoStack.value.push({
+    nodes: JSON.parse(JSON.stringify(nodes.value)),
+    edges: JSON.parse(JSON.stringify(edges.value))
+  })
+  if (undoStack.value.length > MAX_UNDO) {
+    undoStack.value.shift()
+  }
+}
+
+// 撤销
+const undo = () => {
+  if (undoStack.value.length === 0) return
+  const prev = undoStack.value.pop()
+  nodes.value = prev.nodes
+  edges.value = prev.edges
+  selectedNode.value = null
+  selectedEdge.value = null
+}
+
 onMounted(() => {
   if (workflowId.value) {
     loadData()
   }
+  // Ctrl+Z 撤销
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+      e.preventDefault()
+      undo()
+    }
+    // Delete 键删除选中节点/连线
+    if (e.key === 'Delete' || e.key === 'Backspace') {
+      if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return
+      e.preventDefault()
+      if (selectedNode.value) {
+        saveState()
+        const idx = nodes.value.findIndex(n => n.node_key === selectedNode.value.node_key)
+        if (idx !== -1) {
+          // 同时删除关联的连线
+          const key = selectedNode.value.node_key
+          edges.value = edges.value.filter(e => e.source_key !== key && e.target_key !== key)
+          nodes.value.splice(idx, 1)
+          selectedNode.value = null
+        }
+      } else if (selectedEdge.value) {
+        saveState()
+        const idx = edges.value.findIndex(e => e.id === selectedEdge.value.id)
+        if (idx !== -1) {
+          edges.value.splice(idx, 1)
+          selectedEdge.value = null
+        }
+      }
+    }
+  })
 })
 </script>
 
@@ -683,6 +846,33 @@ onMounted(() => {
 
 .node-icon-wrapper {
   margin-right: 6px;
+}
+
+.node-port {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #409eff;
+  border: 2px solid #fff;
+  cursor: crosshair;
+  z-index: 10;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.node-port:hover {
+  transform: scale(1.4);
+  background: #67c23a;
+}
+
+.port-out {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.port-out:hover {
+  transform: translateY(-50%) scale(1.4);
 }
 
 .node-icon-wrapper .el-icon {

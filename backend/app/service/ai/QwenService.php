@@ -12,6 +12,11 @@ class QwenService extends AiService
     protected string $provider = 'qwen';
     protected string $model = 'qwen-turbo';
 
+    public function __construct(array $configOverrides = [])
+    {
+        parent::__construct($configOverrides);
+    }
+
     /**
      * 发送聊天请求
      * @param array $messages 消息列表，格式: [['role' => 'user', 'content' => 'xxx'], ...]

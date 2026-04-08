@@ -84,8 +84,9 @@
             <el-form-item label="存储方式">
               <el-radio-group v-model="uploadConfig.storage_type">
                 <el-radio label="local">本地存储</el-radio>
-                <el-radio label="oss">OSS对象存储</el-radio>
+                <el-radio label="oss">阿里云OSS</el-radio>
                 <el-radio label="cos">腾讯云COS</el-radio>
+                <el-radio label="qiniu">七牛云</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item>

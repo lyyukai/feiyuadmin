@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>飞鱼Admin - 技术文档中心</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.7; }
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.pc-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; }
+.pc-header-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
+.logo span { color: #2563eb; }
+.btn-hero { display: inline-flex; align-items: center; padding: 7px 18px; background: #2563eb; color: #fff; border-radius: 8px; font-size: 14px; font-weight: 500; }
+.btn-hero:hover { background: #1d4ed8; text-decoration: none; }
+
+/* Hero */
+.pc-hero { background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 50%, #2563eb 100%); color: #fff; padding: 64px 32px; text-align: center; }
+.pc-hero h1 { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
+.hero-subtitle { font-size: 16px; opacity: 0.88; }
+
+/* Layout */
+.doc-layout { max-width: 1280px; margin: 0 auto; padding: 40px 32px; display: flex; gap: 36px; align-items: flex-start; }
+
+/* Sidebar */
+.doc-sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 76px; max-height: calc(100vh - 100px); overflow-y: auto; }
+.sidebar-section { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; }
+.sidebar-group { margin-bottom: 20px; }
+.sidebar-group:last-child { margin-bottom: 0; }
+.sidebar-group-title { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; padding-left: 10px; }
+.sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.sidebar-nav a { display: block; padding: 7px 10px; font-size: 13.5px; color: #475569; border-radius: 7px; transition: all 0.15s; }
+.sidebar-nav a:hover { background: #f1f5f9; color: #1e40af; text-decoration: none; }
+.sidebar-nav a.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+
+/* Content */
+.doc-content { flex: 1; min-width: 0; }
+.doc-section { background: #fff; border-radius: 14px; padding: 40px; margin-bottom: 28px; border: 1px solid #e2e8f0; }
+.section-title { font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid #f1f5f9; display: flex; align-items: center; gap: 10px; }
+.section-title .emoji { font-size: 24px; }
+h3 { font-size: 15px; font-weight: 700; color: #1e293b; margin: 28px 0 12px; }
+h4 { font-size: 14px; font-weight: 600; color: #334155; margin: 18px 0 10px; }
+p { color: #475569; font-size: 14px; margin-bottom: 12px; }
+ul, ol { padding-left: 22px; margin-bottom: 14px; }
+li { color: #475569; font-size: 14px; margin-bottom: 5px; }
+strong { color: #1e293b; font-weight: 600; }
+
+/* Code */
+.code-block { background: #0f172a; color: #e2e8f0; padding: 20px 24px; border-radius: 10px; font-family: 'Courier New', Consolas, monospace; font-size: 13px; overflow-x: auto; margin: 14px 0; white-space: pre; line-height: 1.7; }
+.inline-code { background: #f1f5f9; color: #be185d; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Courier New', monospace; border: 1px solid #e2e8f0; }
+.code-block .kw { color: #93c5fd; }
+.code-block .str { color: #86efac; }
+.code-block .cm { color: #64748b; font-style: italic; }
+.code-block .fn { color: #fde68a; }
+
+/* Table */
+.doc-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13.5px; }
+.doc-table th { background: #f8fafc; padding: 10px 14px; text-align: left; font-weight: 700; color: #334155; border-bottom: 2px solid #e2e8f0; font-size: 13px; }
+.doc-table td { padding: 9px 14px; color: #475569; border-bottom: 1px solid #f1f5f9; }
+.doc-table tr:hover td { background: #f8fafc; }
+.method { display: inline-block; padding: 2px 8px; border-radius: 5px; font-size: 12px; font-weight: 700; font-family: monospace; margin-right: 4px; }
+.method-get { background: #d1fae5; color: #065f46; }
+.method-post { background: #dbeafe; color: #1e40af; }
+.method-put { background: #fef3c7; color: #92400e; }
+.method-delete { background: #fee2e2; color: #991b1b; }
+.status-ok { color: #059669; font-weight: 600; }
+.status-err { color: #dc2626; }
+
+/* Feature cards */
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 14px 0; }
+.feature-card { background: #f8fafc; border-radius: 10px; padding: 20px; border: 1px solid #e2e8f0; }
+.feature-card h4 { margin: 0 0 8px; font-size: 14px; }
+.feature-card p { margin: 0; font-size: 13px; }
+
+/* Tabs */
+.tab-nav { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 20px; gap: 0; }
+.tab-btn { padding: 10px 20px; font-size: 14px; color: #64748b; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.15s; }
+.tab-btn:hover { color: #2563eb; }
+.tab-btn.active { color: #2563eb; font-weight: 600; border-bottom-color: #2563eb; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Info boxes */
+.info-box { background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0; }
+.info-box p { margin: 0; color: #1e40af; }
+.warn-box { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0; }
+.warn-box p { margin: 0; color: #92400e; }
+
+/* Footer */
+.home-footer { background: #0f172a; padding: 32px; text-align: center; color: #64748b; font-size: 13px; }
+.back-top { position: fixed; right: 32px; bottom: 32px; width: 42px; height: 42px; background: #2563eb; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+
+@media (max-width: 768px) {
+  .doc-layout { flex-direction: column; padding: 20px 16px; }
+  .doc-sidebar { width: 100%; position: static; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="pc-header">
+  <div class="pc-header-inner">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+        <rect width="48" height="48" rx="12" fill="#2563EB"/>
+        <path d="M14 24L24 14L34 24L24 34L14 24Z" fill="#fff"/>
+        <circle cx="24" cy="24" r="5" fill="#2563EB"/>
+      </svg>
+      <span>飞鱼Admin - 技术文档</span>
+    </div>
+    <a href="/admin" target="_blank" class="btn-hero">进入后台 →</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="pc-hero">
+  <h1>📖 技术文档中心</h1>
+  <p class="hero-subtitle">飞鱼 Admin v3.0 · Vue3 + ThinkPHP8 · 开源免费 MIT 协议</p>
+</div>
+
+<!-- Content -->
+<div class="doc-layout">
+
+  <!-- Sidebar -->
+  <aside class="doc-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">快速开始</div>
+        <ul class="sidebar-nav">
+          <li><a href="#overview">项目简介</a></li>
+          <li><a href="#features">功能特性</a></li>
+          <li><a href="#tech-stack">技术栈</a></li>
+          <li><a href="#directory">目录结构</a></li>
+          <li><a href="#quick-start">快速开始</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">开发指南</div>
+        <ul class="sidebar-nav">
+          <li><a href="#env">环境配置</a></li>
+          <li><a href="#database">数据库设计</a></li>
+          <li><a href="#auth">认证授权</a></li>
+          <li><a href="#request">请求规范</a></li>
+          <li><a href="#response">响应格式</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">API 文档</div>
+        <ul class="sidebar-nav">
+          <li><a href="#api-auth">认证相关</a></li>
+          <li><a href="#api-system">系统管理</a></li>
+          <li><a href="#api-ai">AI 智能</a></li>
+          <li><a href="#api-workflow">工作流</a></li>
+          <li><a href="#api-pay">支付相关</a></li>
+          <li><a href="#api-wechat">微信相关</a></li>
+          <li><a href="#api-content">内容管理</a></li>
+          <li><a href="#api-mobile">移动端</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">部署运维</div>
+        <ul class="sidebar-nav">
+          <li><a href="#deploy">部署说明</a></li>
+          <li><a href="#nginx">Nginx 配置</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="doc-content">
+
+    <!-- 项目简介 -->
+    <section class="doc-section" id="overview">
+      <h2 class="section-title"><span class="emoji">📋</span> 项目简介</h2>
+      <p>飞鱼 Admin（feiyuadmin）是一套基于 <strong>Vue3 + ThinkPHP8</strong> 开发的通用型后台管理框架，支持 RBAC 权限控制、AI 智能助手、低代码平台、可视化工作流引擎等功能，适合快速搭建企业级管理后台。</p>
+      <div class="info-box"><p>✅ <strong>完全免费开源</strong> · MIT 协议 · 可商用 · 无任何加密授权</p></div>
+      <p><strong>源码地址：</strong><a href="https://gitee.com/gynet/feiyuadmin" target="_blank">https://gitee.com/gynet/feiyuadmin</a></p>
+
+      <h3>项目版本</h3>
+      <table class="doc-table">
+        <thead><tr><th>版本</th><th>前端</th><th>后端</th><th>PHP</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><strong>v1.0</strong></td><td>Vue2</td><td>ThinkPHP6</td><td>≥7.2</td><td>基础框架</td></tr>
+          <tr><td><strong>v2.0</strong></td><td>Vue3</td><td>ThinkPHP8</td><td>≥7.4</td><td>重构升级</td></tr>
+          <tr><td><strong>v3.0</strong></td><td>Vue3.5 + Vite5</td><td>ThinkPHP8.1</td><td>≥8.0</td><td>AI集成+低代码+工作流</td></tr>
+        </tbody>
+      </table>
+
+      <h3>技术亮点</h3>
+      <ul>
+        <li>🔥 Vue3 Composition API + Pinia，现代化开发体验</li>
+        <li>⚡ Vite 5 热更新，开发效率提升 5 倍</li>
+        <li>🔐 完整 RBAC 权限模型，支持数据权限</li>
+        <li>🤖 AI 助手集成（文心一言 / 通义千问 / OpenAI）</li>
+        <li>🧩 低代码平台：拖拽式表单设计，24+ 组件</li>
+        <li>🔄 可视化工作流引擎：审批流 / 条件分支 / 节点配置</li>
+        <li>📊 数据大屏：ECharts 可视化，拖拽式图表设计</li>
+        <li>💳 支付集成：微信 / 支付宝多渠道</li>
+      </ul>
+    </section>
+
+    <!-- 功能特性 -->
+    <section class="doc-section" id="features">
+      <h2 class="section-title"><span class="emoji">✨</span> 功能特性</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><h4>👤 用户管理</h4><p>管理员 CRUD、状态管理、多条件搜索、导入导出</p></div>
+        <div class="feature-card"><h4>🔐 角色权限</h4><p>RBAC 权限模型、菜单权限、数据权限精细控制</p></div>
+        <div class="feature-card"><h4>📑 菜单管理</h4><p>树形结构、图标可视化配置、显示/隐藏控制</p></div>
+        <div class="feature-card"><h4>🏢 部门管理</h4><p>多层级组织架构、部门树、隶属关系</p></div>
+        <div class="feature-card"><h4>💼 岗位管理</h4><p>岗位 CRUD、岗位人员查询</p></div>
+        <div class="feature-card"><h4>📝 操作日志</h4><p>操作记录追踪、IP 时间查询、详细变更内容</p></div>
+        <div class="feature-card"><h4>🔑 登录日志</h4><p>登录历史、异常登录告警、设备指纹</p></div>
+        <div class="feature-card"><h4>⚙️ 系统配置</h4><p>站点参数、验证码、上传配置、AI 设置、安全设置</p></div>
+        <div class="feature-card"><h4>⏰ 定时任务</h4><p>Crontab 可视化配置、任务日志、失败告警</p></div>
+        <div class="feature-card"><h4>🏢 租户管理</h4><p>SaaS 多租户、数据隔离、套餐管理</p></div>
+        <div class="feature-card"><h4>🧩 代码生成</h4><p>一键 CRUD、自动生成控制器/模型/验证器</p></div>
+        <div class="feature-card"><h4>📁 文件管理</h4><p>本地上传、OSS 存储、文件预览、分组管理</p></div>
+        <div class="feature-card"><h4>📖 数据字典</h4><p>类型 + 数据两级、静态数据管理</p></div>
+        <div class="feature-card"><h4>🤖 AI 对话</h4><p>多 Provider 切换、实时流式响应、会话历史</p></div>
+        <div class="feature-card"><h4>💬 Prompt 助手</h4><p>模板管理、角色预设、多角色支持</p></div>
+        <div class="feature-card"><h4>🔍 NL2SQL</h4><p>自然语言转 SQL 查询、结果可视化</p></div>
+        <div class="feature-card"><h4>🧩 低代码平台</h4><p>拖拽式表单设计、24+ 组件、Schema 生成</p></div>
+        <div class="feature-card"><h4>🔄 流程设计</h4><p>可视化流程设计器、节点配置、条件分支</p></div>
+        <div class="feature-card"><h4>📋 流程实例</h4><p>实例列表、状态追踪、流程图查看</p></div>
+        <div class="feature-card"><h4>✅ 待办任务</h4><p>审批待办、快捷处理、批量审批</p></div>
+        <div class="feature-card"><h4>📱 公众号管理</h4><p>账号绑定、自动回复、菜单配置</p></div>
+        <div class="feature-card"><h4>👥 粉丝管理</h4><p>粉丝列表、标签分组、用户画像</p></div>
+        <div class="feature-card"><h4>🖼️ 素材管理</h4><p>图文 / 图片 / 视频 / 语音素材</p></div>
+        <div class="feature-card"><h4>💳 支付配置</h4><p>微信 / 支付宝多渠道、秘钥管理</p></div>
+        <div class="feature-card"><h4>📦 订单管理</h4><p>订单列表、退款处理、导出 CSV</p></div>
+        <div class="feature-card"><h4>💰 支付流水</h4><p>交易明细、手续费统计、统计卡片</p></div>
+        <div class="feature-card"><h4>📰 文章管理</h4><p>富文本编辑、分类管理、标签、评论</p></div>
+        <div class="feature-card"><h4>📊 数据统计</h4><p>多维度数据看板、趋势分析、导出报表</p></div>
+        <div class="feature-card"><h4>🖥️ 数据大屏</h4><p>ECharts 可视化大屏、拖拽式图表设计</p></div>
+        <div class="feature-card"><h4>🔔 消息通知</h4><p>多渠道发送（短信/邮件/微信）、模板管理</p></div>
+      </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section class="doc-section" id="tech-stack">
+      <h2 class="section-title"><span class="emoji">🛠</span> 技术栈</h2>
+
+      <h3>前端技术</h3>
+      <table class="doc-table">
+        <thead><tr><th>技术</th><th>版本</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Vue</strong></td><td>3.5.x</td><td>渐进式 JavaScript 框架，Composition API</td></tr>
+          <tr><td><strong>Vite</strong></td><td>5.x</td><td>下一代前端构建工具，毫秒级 HMR</td></tr>
+          <tr><td><strong>Element Plus</strong></td><td>2.x</td><td>Vue3 UI 组件库</td></tr>
+          <tr><td><strong>Pinia</strong></td><td>2.x</td><td>Vue 状态管理（Pinia 官方推荐）</td></tr>
+          <tr><td><strong>Vue Router</strong></td><td>4.x</td><td>Vue.js 官方路由管理器</td></tr>
+          <tr><td><strong>Axios</strong></td><td>1.x</td><td>HTTP 客户端，请求拦截 / 响应拦截</td></tr>
+          <tr><td><strong>ECharts</strong></td><td>5.x</td><td>百度开源可视化图表库</td></tr>
+          <tr><td><strong>WangEditor</strong></td><td>5.x</td><td>轻量级富文本编辑器</td></tr>
+          <tr><td><strong>Monaco Editor</strong></td><td>-</td><td>VS Code 同款代码编辑器</td></tr>
+          <tr><td><strong>vue-i18n</strong></td><td>9.x</td><td>国际化（i18n）支持</td></tr>
+        </tbody>
+      </table>
+
+      <h3>后端技术</h3>
+      <table class="doc-table">
+        <thead><tr><th>技术</th><th>版本</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ThinkPHP</strong></td><td>8.1.x</td><td>PHP 轻量级框架，MVC + 面向对象</td></tr>
+          <tr><td><strong>PHP</strong></td><td>≥8.0</td><td>最低要求 PHP 8.0，推荐 PHP 8.2</td></tr>
+          <tr><td><strong>MySQL</strong></td><td>5.7+ / 8.0+</td><td>关系型数据库</td></tr>
+          <tr><td><strong>Redis</strong></td><td>6.x+</td><td>缓存 / Session 存储 / 队列</td></tr>
+          <tr><td><strong>JWT</strong></td><td>-</td><td>JSON Web Token 无状态认证</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 目录结构 -->
+    <section class="doc-section" id="directory">
+      <h2 class="section-title"><span class="emoji">📁</span> 目录结构</h2>
+
+      <h3>前端（frontend / pc）</h3>
+      <div class="code-block">feiyu-pc/                     # PC前台项目
+├── src/
+│   ├── api/                    # 接口封装
+│   │   └── index.js            # 请求拦截、Token 注入
+│   ├── assets/                 # 静态资源
+│   ├── components/             # 公共组件
+│   ├── layout/                 # 布局组件
+│   ├── router/                 # 路由配置
+│   │   └── index.js
+│   ├── stores/                 # Pinia 状态管理
+│   ├── utils/                  # 工具函数
+│   ├── views/                  # 页面视图
+│   │   ├── demo/               # 首页
+│   │   ├── doc/                # 文档页
+│   │   ├── nl2sql/             # NL2SQL
+│   │   └── lowcode/            # 低代码
+│   ├── App.vue
+│   └── main.js
+├── vite.config.js              # Vite 配置
+└── package.json
+
+feiyuadmin/frontend/            # 后台管理项目
+├── src/
+│   ├── api/                    # 后台 API 接口
+│   ├── layout/                 # 管理后台布局
+│   ├── router/                 # 后台路由（56个路由）
+│   ├── stores/                 # 后台状态管理
+│   ├── utils/                  # 工具函数
+│   ├── views/                  # 页面组件
+│   │   ├── ai/                # AI 模块（chat/prompt）
+│   │   ├── system/            # 系统管理
+│   │   ├── wechat/            # 微信模块
+│   │   ├── workflow/          # 工作流
+│   │   ├── pay/               # 支付
+│   │   ├── finance/           # 财务
+│   │   └── content/           # 内容管理
+│   └── main.js
+└── package.json</div>
+
+      <h3>后端（backend）</h3>
+      <div class="code-block">backend/
+├── app/
+│   ├── adminapi/               # 管理后台 API
+│   │   ├── controller/         # 控制器（按模块分组）
+│   │   │   ├── ai/             # AI 控制器
+│   │   │   │   ├── AiController.php
+│   │   │   │   ├── ChatController.php
+│   │   │   │   ├── Nl2SqlController.php
+│   │   │   │   ├── LowcodeController.php
+│   │   │   │   └── PromptController.php
+│   │   │   ├── auth/           # 认证
+│   │   │   ├── captcha/        # 验证码
+│   │   │   ├── pay/            # 支付
+│   │   │   ├── system/         # 系统管理
+│   │   │   ├── wechat/        # 微信
+│   │   │   └── workflow/       # 工作流
+│   │   ├── logic/              # 业务逻辑层
+│   │   └── validate/           # 验证器
+│   ├── common/                 # 公共类
+│   ├── model/                   # 数据模型
+│   ├── service/                 # 服务层
+│   │   └── ai/                 # AI 服务
+│   │       ├── AiService.php    # 基类
+│   │       ├── AiFactory.php    # 工厂类
+│   │       ├── WenxinService.php # 文心一言
+│   │       ├── QwenService.php  # 通义千问
+│   │       └── OpenaiService.php # OpenAI/MiniMax
+│   └── middleware/             # 中间件
+├── config/
+│   ├── app.php                 # 应用配置
+│   ├── database.php            # 数据库配置
+│   ├── route.php               # 路由配置
+│   ├── site.php                # 站点配置（含 AI 配置）
+│   └── jwt.php                 # JWT 配置
+├── route/
+│   └── app.php                 # 路由定义
+├── public/
+│   └── index.php               # 入口文件
+└── think                       # 命令行入口</div>
+    </section>
+
+    <!-- 快速开始 -->
+    <section class="doc-section" id="quick-start">
+      <h2 class="section-title"><span class="emoji">🚀</span> 快速开始</h2>
+
+      <h3>环境要求</h3>
+      <table class="doc-table">
+        <thead><tr><th>环境</th><th>最低版本</th><th>推荐版本</th></tr></thead>
+        <tbody>
+          <tr><td>PHP</td><td>8.0</td><td>8.2+</td></tr>
+          <tr><td>MySQL</td><td>5.7</td><td>8.0+</td></tr>
+          <tr><td>Node.js</td><td>16</td><td>18+</td></tr>
+          <tr><td>Redis</td><td>6.x</td><td>7.x</td></tr>
+        </tbody>
+      </table>
+
+      <h3>1. 克隆项目</h3>
+      <div class="code-block">git clone https://gitee.com/gynet/feiyuadmin.git
+cd feiyuadmin</div>
+
+      <h3>2. 后端安装</h3>
+      <div class="code-block">cd backend
+composer install
+cp .env.example .env
+# 编辑 .env 配置数据库信息</div>
+
+      <h3>3. 前端安装（后台管理）</h3>
+      <div class="code-block">cd ../frontend
+npm install
+npm run dev    # 开发模式
+npm run build  # 生产构建</div>
+
+      <h3>4. 初始化数据库</h3>
+      <div class="code-block"># 访问安装向导
+http://localhost/backend/public/install.php
+
+# 或手动导入 SQL
+mysql -u root -p feiyuadmin < database/feiyuadmin.sql</div>
+
+      <h3>5. 访问地址</h3>
+      <table class="doc-table">
+        <thead><tr><th>地址</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><span class="inline-code">http://localhost:5173</span></td><td>后台管理首页</td></tr>
+          <tr><td><span class="inline-code">http://localhost:5173/admin</span></td><td>管理后台</td></tr>
+          <tr><td><span class="inline-code">http://localhost:5173/pc</span></td><td>PC前台展示</td></tr>
+          <tr><td><span class="inline-code">http://localhost:5173/doc</span></td><td>技术文档</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box"><p>🔑 <strong>默认后台账号：admin &nbsp;|&nbsp; 密码：123456</strong></p></div>
+    </section>
+
+    <!-- 环境配置 -->
+    <section class="doc-section" id="env">
+      <h2 class="section-title"><span class="emoji">⚙️</span> 环境配置（.env）</h2>
+      <div class="code-block"># 应用配置
+APP_DEBUG = false
+APP_TRACE = false
+
+# 数据库配置
+DB_TYPE = mysql
+DB_HOST = 127.0.0.1
+DB_PORT = 3306
+DB_NAME = feiyuadmin
+DB_USER = root
+DB_PWD = your_password
+DB_CHARSET = utf8mb4
+
+# Redis 配置
+REDIS_HOST = 127.0.0.1
+REDIS_PORT = 6379
+REDIS_PASSWORD =
+REDIS_SELECT = 0
+
+# JWT 配置
+JWT_SECRET = your_jwt_secret_key_here
+JWT_EXPIRE = 7200       # Token 有效期（秒），默认 2 小时
+
+# AI 配置（可选）
+AI_PROVIDER = wenxin    # wenxin | qwen | openai
+AI_API_KEY =
+AI_MODEL = ernie-4.0
+WENXIN_AK =             # 文心一言 AK
+WENXIN_SK =             # 文心一言 SK</div>
+    </section>
+
+    <!-- 认证授权 -->
+    <section class="doc-section" id="auth">
+      <h2 class="section-title"><span class="emoji">🔐</span> 认证授权</h2>
+      <p>系统采用 <strong>JWT（JSON Web Token）</strong> 无状态认证方式，登录成功后 Token 通过响应 body 返回，客户端自行存储，后续请求在 Header 中携带。</p>
+
+      <h3>请求认证</h3>
+      <p>所有需认证的 API 请求，需在 Header 中携带 Token：</p>
+      <div class="code-block">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...</div>
+
+      <h3>登录响应格式</h3>
+      <div class="code-block">{
+  "code": 0,
+  "msg": "登录成功",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9...",
+    "expire_time": 1712500000,
+    "user_info": {
+      "id": 1,
+      "username": "admin",
+      "nickname": "管理员",
+      "avatar": "/uploads/avatar/1.jpg",
+      "roles": ["admin"],
+      "permissions": ["*"]
+    }
+  }
+}</div>
+
+      <h3>Token 刷新机制</h3>
+      <ul>
+        <li>Token 有效期默认 2 小时（7200 秒），可在 .env 中修改 <span class="inline-code">JWT_EXPIRE</span></li>
+        <li>Token 过期后需重新登录获取新 Token</li>
+        <li>建议客户端在 Token 过期前主动刷新（剩余 10 分钟时）</li>
+      </ul>
+
+      <h3>权限层级</h3>
+      <table class="doc-table">
+        <thead><tr><th>层级</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><strong>超级管理员</strong></td><td><span class="inline-code">roles=["admin"]</span>，拥有所有权限，<span class="inline-code">permissions=["*"]</span></td></tr>
+          <tr><td><strong>角色权限</strong></td><td>通过 RBAC 模型关联菜单权限，控制哪些菜单可见</td></tr>
+          <tr><td><strong>数据权限</strong></td><td>可按部门/岗位限制数据可见范围</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 请求规范 -->
+    <section class="doc-section" id="request">
+      <h2 class="section-title"><span class="emoji">📮</span> 请求规范</h2>
+
+      <h3>Base URL</h3>
+      <table class="doc-table">
+        <thead><tr><th>环境</th><th>Base URL</th></tr></thead>
+        <tbody>
+          <tr><td>后台管理</td><td><span class="inline-code">/adminapi/</span></td></tr>
+          <tr><td>PC前台</td><td><span class="inline-code">/pcapi/</span></td></tr>
+          <tr><td>移动端</td><td><span class="inline-code">/mobileapi/</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Content-Type</h3>
+      <p>所有请求统一使用 <span class="inline-code">Content-Type: application/json</span>，请求体为 JSON 格式。</p>
+
+      <h3>分页参数</h3>
+      <table class="doc-table">
+        <thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>page</td><td>int</td><td>页码（默认 1）</td></tr>
+          <tr><td>page_size</td><td>int</td><td>每页条数（默认 20，最大 100）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>通用查询参数</h3>
+      <table class="doc-table">
+        <thead><tr><th>参数</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>keyword</td><td>关键字搜索（模糊匹配）</td></tr>
+          <tr><td>start_time</td><td>开始时间（Y-m-d H:i:s）</td></tr>
+          <tr><td>end_time</td><td>结束时间（Y-m-d H:i:s）</td></tr>
+          <tr><td>status</td><td>状态筛选（int）</td></tr>
+          <tr><td>order</td><td>排序字段</td></tr>
+          <tr><td>sort</td><td>排序方式（asc/desc）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>请求示例</h3>
+      <div class="code-block">POST /adminapi/system/user/lists HTTP/1.1
+Host: demo.fydev.cn
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
+
+{
+  "page": 1,
+  "page_size": 20,
+  "keyword": "张三",
+  "status": 1
+}</div>
+    </section>
+
+    <!-- 响应格式 -->
+    <section class="doc-section" id="response">
+      <h2 class="section-title"><span class="emoji">📬</span> 响应格式</h2>
+
+      <h3>成功响应</h3>
+      <div class="code-block">{
+  "code": 0,
+  "msg": "操作成功",
+  "data": {
+    "list": [...],
+    "total": 100,
+    "page": 1,
+    "page_size": 20
+  }
+}</div>
+
+      <h3>错误响应</h3>
+      <table class="doc-table">
+        <thead><tr><th>code</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><span class="status-ok">0</span></td><td>成功</td></tr>
+          <tr><td><span class="status-err">401</span></td><td>未登录或 Token 过期</td></tr>
+          <tr><td><span class="status-err">403</span></td><td>无权限访问</td></tr>
+          <tr><td><span class="status-err">404</span></td><td>资源不存在</td></tr>
+          <tr><td><span class="status-err">422</span></td><td>参数验证失败</td></tr>
+          <tr><td><span class="status-err">500</span></td><td>服务器内部错误</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - 认证 -->
+    <section class="doc-section" id="api-auth">
+      <h2 class="section-title"><span class="emoji">🔑</span> API 文档 - 认证相关</h2>
+
+      <h3>获取验证码图片</h3>
+      <div class="tab-nav">
+        <div class="tab-btn active" onclick="activateTab(this, 'api-auth-get')">接口说明</div>
+        <div class="tab-btn" onclick="activateTab(this, 'api-auth-res')">请求/响应示例</div>
+      </div>
+      <div id="api-auth-get" class="tab-panel active">
+        <table class="doc-table">
+          <thead><tr><th>项</th><th>值</th></tr></thead>
+          <tbody>
+            <tr><td>方法</td><td><span class="method method-get">GET</span></td></tr>
+            <tr><td>路径</td><td><span class="inline-code">/adminapi/captcha/generate</span></td></tr>
+            <tr><td>认证</td><td>❌ 无需登录</td></tr>
+          </tbody>
+        </table>
+        <p>响应为一个图片（Content-Type: image/png），UUID 为验证码唯一标识，DataURL 为图片 base64。</p>
+      </div>
+      <div id="api-auth-res" class="tab-panel">
+        <div class="code-block">响应（成功）:
+{
+  "code": 0,
+  "data": {
+    "key": "f8c3e2d1-...",
+    "image": "data:image/png;base64,iVBORw0KG..."
+  }
+}</div>
+      </div>
+
+      <h3>账号密码登录</h3>
+      <table class="doc-table">
+        <thead><tr><th>项</th><th>值</th></tr></thead>
+        <tbody>
+          <tr><td>方法</td><td><span class="method method-post">POST</span></td></tr>
+          <tr><td>路径</td><td><span class="inline-code">/adminapi/login/account</span></td></tr>
+          <tr><td>认证</td><td>❌ 无需登录</td></tr>
+        </tbody>
+      </table>
+      <table class="doc-table">
+        <thead><tr><th>参数</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>username</td><td>string</td><td>✅</td><td>用户名</td></tr>
+          <tr><td>password</td><td>string</td><td>✅</td><td>密码（明文传输，生产环境建议 HTTPS）</td></tr>
+          <tr><td>captcha_key</td><td>string</td><td>否</td><td>验证码 key（可前端先不验证，后端自动拦截）</td></tr>
+          <tr><td>captcha_code</td><td>string</td><td>否</td><td>验证码答案</td></tr>
+        </tbody>
+      </table>
+
+      <h3>退出登录</h3>
+      <table class="doc-table">
+        <thead><tr><th>项</th><th>值</th></tr></thead>
+        <tbody>
+          <tr><td>方法</td><td><span class="method method-post">POST</span></td></tr>
+          <tr><td>路径</td><td><span class="inline-code">/adminapi/login/logout</span></td></tr>
+          <tr><td>认证</td><td>✅ 需要登录</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - 系统管理 -->
+    <section class="doc-section" id="api-system">
+      <h2 class="section-title"><span class="emoji">⚙️</span> API 文档 - 系统管理</h2>
+
+      <h3>用户管理</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>用户列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/user/lists</td><td>支持分页、关键字、部门、状态筛选</td></tr>
+          <tr><td>用户详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/user/detail</td><td>参数：id</td></tr>
+          <tr><td>新增/编辑用户</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/user/save</td><td>包含密码时自动加密</td></tr>
+          <tr><td>删除用户</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/user/delete</td><td>参数：id</td></tr>
+          <tr><td>修改密码</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/user/password</td><td>参数：id, password</td></tr>
+          <tr><td>用户状态</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/user/status</td><td>参数：id, status</td></tr>
+          <tr><td>获取权限</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/user/permissions</td><td>获取当前用户菜单+权限</td></tr>
+        </tbody>
+      </table>
+
+      <h3>角色权限</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>角色列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/role/lists</td><td></td></tr>
+          <tr><td>角色详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/role/detail</td><td>参数：id，含权限节点</td></tr>
+          <tr><td>新增/编辑角色</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/role/save</td><td>参数：id, name, code, desc, menus[], status</td></tr>
+          <tr><td>删除角色</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/role/delete</td><td>参数：id</td></tr>
+        </tbody>
+      </table>
+
+      <h3>菜单管理</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>菜单列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/menu/lists</td><td>树形结构</td></tr>
+          <tr><td>菜单详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/menu/detail</td><td>参数：id</td></tr>
+          <tr><td>新增/编辑菜单</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/menu/save</td><td>参数：pid, name, path, icon, component, status</td></tr>
+          <tr><td>删除菜单</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/menu/delete</td><td>参数：id（含子菜单一并删除）</td></tr>
+          <tr><td>图标列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/menu/icons</td><td>Element Plus 所有可用图标</td></tr>
+        </tbody>
+      </table>
+
+      <h3>部门管理</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>部门树</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/dept/lists</td><td>树形结构</td></tr>
+          <tr><td>新增/编辑</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/dept/save</td><td>参数：pid, name, code, sort, status</td></tr>
+          <tr><td>删除</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/dept/delete</td><td>参数：id</td></tr>
+        </tbody>
+      </table>
+
+      <h3>岗位管理</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>岗位列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/post/lists</td><td></td></tr>
+          <tr><td>新增/编辑</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/post/save</td><td>参数：name, code, sort, status</td></tr>
+          <tr><td>删除</td><td><span class="method method-post">POST</span></td><td>/adminapi/system/post/delete</td><td>参数：id</td></tr>
+        </tbody>
+      </table>
+
+      <h3>操作日志 / 登录日志</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>操作日志</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/log/lists</td><td>支持用户/操作类型/时间筛选</td></tr>
+          <tr><td>登录日志</td><td><span class="method method-get">GET</span></td><td>/adminapi/system/login_log/lists</td><td>支持账号/IP/时间筛选</td></tr>
+        </tbody>
+      </table>
+
+      <h3>系统配置</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>配置列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/system_config/lists</td><td>按分组获取所有配置</td></tr>
+          <tr><td>保存配置</td><td><span class="method method-post">POST</span></td><td>/adminapi/system_config/save</td><td>参数：{group: {...}}</td></tr>
+        </tbody>
+      </table>
+
+      <h3>文件上传</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>上传文件</td><td><span class="method method-post">POST</span></td><td>/adminapi/upload/file</td><td>FormData 字段：file，支持图片/文档/视频</td></tr>
+          <tr><td>上传图片</td><td><span class="method method-post">POST</span></td><td>/adminapi/upload/image</td><td>FormData 字段：image，仅图片</td></tr>
+          <tr><td>图片列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/upload/lists</td><td>分页浏览已上传文件</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - AI -->
+    <section class="doc-section" id="api-ai">
+      <h2 class="section-title"><span class="emoji">🤖</span> API 文档 - AI 智能</h2>
+
+      <h3>AI 对话</h3>
+      <div class="code-block">POST /adminapi/ai/chat/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    {"role": "user", "content": "查一下今天的新增用户"},
+    {"role": "assistant", "content": "抱歉，AI 服务暂时不可用..."},
+    {"role": "user", "content": "a"}
+  ],
+  "provider": "wenxin",        // wenxin | qwen | openai
+  "api_key": "",              // 可选：覆盖配置的 API Key
+  "base_url": "",             // 可选：覆盖 Base URL
+  "model": ""                 // 可选：覆盖模型名称
+}
+
+// 响应
+{
+  "code": 0,
+  "msg": "获取成功",
+  "data": {
+    "content": "根据今天的统计数据，新增用户共计 128 人...",
+    "usage": {
+      "prompt_tokens": 45,
+      "completion_tokens": 86,
+      "total_tokens": 131
+    }
+  }
+}</div>
+
+      <h3>获取 Provider 列表</h3>
+      <table class="doc-table">
+        <thead><tr><th>项</th><th>值</th></tr></thead>
+        <tbody>
+          <tr><td>方法</td><td><span class="method method-get">GET</span></td></tr>
+          <tr><td>路径</td><td><span class="inline-code">/adminapi/ai/chat/providers</span></td></tr>
+          <tr><td>认证</td><td>✅ 需要登录</td></tr>
+        </tbody>
+      </table>
+      <div class="code-block">响应:
+{
+  "code": 0,
+  "data": {
+    "wenxin": "文心一言",
+    "qwen": "通义千问",
+    "openai": "OpenAI GPT"
+  }
+}</div>
+
+      <h3>Prompt 管理</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>模板列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/ai/prompt/list</td><td>支持分页、名称搜索</td></tr>
+          <tr><td>模板详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/ai/prompt/detail</td><td>参数：id</td></tr>
+          <tr><td>新增模板</td><td><span class="method method-post">POST</span></td><td>/adminapi/ai/prompt/save</td><td>参数：name, code, description, system_prompt, model, status</td></tr>
+          <tr><td>编辑模板</td><td><span class="method method-post">POST</span></td><td>/adminapi/ai/prompt/update</td><td>参数：id + save 同款字段</td></tr>
+          <tr><td>删除模板</td><td><span class="method method-post">POST</span></td><td>/adminapi/ai/prompt/delete</td><td>参数：id</td></tr>
+        </tbody>
+      </table>
+
+      <h3>NL2SQL</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>获取表结构</td><td><span class="method method-get">GET</span></td><td>/pcapi/ai/tables</td><td>获取可查询的数据表</td></tr>
+          <tr><td>执行 NL2SQL</td><td><span class="method method-post">POST</span></td><td>/pcapi/ai/nl2sql</td><td>参数：question, table</td></tr>
+        </tbody>
+      </table>
+
+      <h3>AI 配置参数说明</h3>
+      <table class="doc-table">
+        <thead><tr><th>Provider</th><th>模型</th><th>API Key 格式</th><th>Base URL</th></tr></thead>
+        <tbody>
+          <tr><td>wenxin（文心一言）</td><td>ernie-4.0 / ernie-3.5</td><td>AK + SK（需填 WENXIN_AK/SK）</td><td>https://aip.baidubce.com</td></tr>
+          <tr><td>qwen（通义千问）</td><td>qwen-turbo / qwen-max</td><td>DASHSCOPE_API_KEY</td><td>https://dashscope.aliyuncs.com</td></tr>
+          <tr><td>openai / minimax</td><td>gpt-4 / MiniMax-M2.7-highspeed</td><td>API Key</td><td>对应平台 API 地址</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - 工作流 -->
+    <section class="doc-section" id="api-workflow">
+      <h2 class="section-title"><span class="emoji">🔄</span> API 文档 - 工作流</h2>
+
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>流程列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/workflow/lists</td><td>设计器列表</td></tr>
+          <tr><td>流程设计详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/workflow/design/detail</td><td>参数：id，含 JSON schema</td></tr>
+          <tr><td>保存流程设计</td><td><span class="method method-post">POST</span></td><td>/adminapi/workflow/design/save</td><td>参数：id, name, schema_json, form_items</td></tr>
+          <tr><td>流程实例列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/workflow/instance_lists</td><td>所有实例，支持状态筛选</td></tr>
+          <tr><td>实例详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/workflow/instance/detail</td><td>参数：id，含流程进度</td></tr>
+          <tr><td>发起流程</td><td><span class="method method-post">POST</span></td><td>/adminapi/workflow/instance/start</td><td>参数：flow_id, form_data</td></tr>
+          <tr><td>待办任务列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/workflow/todo_list</td><td>当前用户待审批任务</td></tr>
+          <tr><td>审批任务</td><td><span class="method method-post">POST</span></td><td>/adminapi/workflow/todo/approve</td><td>参数：task_id, action(agree/reject), comment</td></tr>
+        </tbody>
+      </table>
+
+      <h3>流程 Schema 示例</h3>
+      <div class="code-block">{
+  "nodes": [
+    {
+      "id": "start_1",
+      "type": "start",
+      "name": "开始",
+      "next": "approval_1"
+    },
+    {
+      "id": "approval_1",
+      "type": "approval",
+      "name": "部门主管审批",
+      "approver": "role:manager",
+      "next": "end_1"
+    },
+    {
+      "id": "end_1",
+      "type": "end",
+      "name": "结束"
+    }
+  ]
+}</div>
+    </section>
+
+    <!-- API 文档 - 支付 -->
+    <section class="doc-section" id="api-pay">
+      <h2 class="section-title"><span class="emoji">💳</span> API 文档 - 支付相关</h2>
+
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>支付配置详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/pay/config/detail</td><td>获取微信/支付宝配置</td></tr>
+          <tr><td>保存支付配置</td><td><span class="method method-post">POST</span></td><td>/adminapi/pay/config/save</td><td>参数：channel, config_json</td></tr>
+          <tr><td>订单列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/pay/order/lists</td><td>支持订单号/用户/状态/时间筛选</td></tr>
+          <tr><td>订单详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/pay/order/detail</td><td>参数：id</td></tr>
+          <tr><td>申请退款</td><td><span class="method method-post">POST</span></td><td>/adminapi/pay/order/refund</td><td>参数：id, reason</td></tr>
+          <tr><td>支付流水</td><td><span class="method method-get">GET</span></td><td>/adminapi/pay/statement/lists</td><td>支持交易单号/渠道/状态筛选，含统计</td></tr>
+          <tr><td>退款记录</td><td><span class="method method-get">GET</span></td><td>/adminapi/pay/refund/lists</td><td>支持订单号/时间筛选</td></tr>
+        </tbody>
+      </table>
+
+      <h3>订单状态码</h3>
+      <table class="doc-table">
+        <thead><tr><th>状态码</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><span class="status-err">0</span></td><td>待支付</td></tr>
+          <tr><td><span class="status-ok">1</span></td><td>已支付 / 成功</td></tr>
+          <tr><td><span class="status-err">2</span></td><td>已退款</td></tr>
+          <tr><td><span class="status-err">3</span></td><td>已关闭 / 失败</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - 微信 -->
+    <section class="doc-section" id="api-wechat">
+      <h2 class="section-title"><span class="emoji">📱</span> API 文档 - 微信相关</h2>
+
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>账号列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/wechat/account/lists</td><td></td></tr>
+          <tr><td>粉丝列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/wechat/fans/lists</td><td>支持标签/关注状态筛选</td></tr>
+          <tr><td>素材列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/wechat/material/lists</td><td>支持类型（图文/图片/视频/语音）筛选</td></tr>
+          <tr><td>上传素材</td><td><span class="method method-post">POST</span></td><td>/adminapi/wechat/material/upload</td><td>FormData 字段：file, type, title</td></tr>
+          <tr><td>删除素材</td><td><span class="method method-post">POST</span></td><td>/adminapi/wechat/material/delete</td><td>参数：media_id</td></tr>
+          <tr><td>菜单列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/wechat/menu/lists</td><td></td></tr>
+          <tr><td>保存菜单</td><td><span class="method method-post">POST</span></td><td>/adminapi/wechat/menu/save</td><td>参数：button[]</td></tr>
+          <tr><td>发布菜单</td><td><span class="method method-post">POST</span></td><td>/adminapi/wechat/menu/publish</td><td>发布到微信</td></tr>
+          <tr><td>自动回复规则</td><td><span class="method method-get">GET</span></td><td>/adminapi/wechat/reply/lists</td><td></td></tr>
+          <tr><td>保存自动回复</td><td><span class="method method-post">POST</span></td><td>/adminapi/wechat/reply/save</td><td>参数：rule_id, keyword, reply_type, content</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - 内容管理 -->
+    <section class="doc-section" id="api-content">
+      <h2 class="section-title"><span class="emoji">📰</span> API 文档 - 内容管理</h2>
+
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>文章列表</td><td><span class="method method-get">GET</span></td><td>/mobileapi/article/lists</td><td>支持分类/状态/关键字筛选，含分页</td></tr>
+          <tr><td>文章详情</td><td><span class="method method-get">GET</span></td><td>/mobileapi/article/detail</td><td>参数：id</td></tr>
+          <tr><td>新增/编辑文章</td><td><span class="method method-post">POST</span></td><td>/mobileapi/article/save</td><td>参数：title, category_id, content, cover_image, tags, status</td></tr>
+          <tr><td>删除文章</td><td><span class="method method-post">POST</span></td><td>/mobileapi/article/delete</td><td>参数：id</td></tr>
+          <tr><td>分类列表</td><td><span class="method method-get">GET</span></td><td>/mobileapi/category/lists</td><td>树形结构</td></tr>
+          <tr><td>保存分类</td><td><span class="method method-post">POST</span></td><td>/mobileapi/category/save</td><td>参数：name, code, pid, sort</td></tr>
+          <tr><td>删除分类</td><td><span class="method method-post">POST</span></td><td>/mobileapi/category/delete</td><td>参数：id</td></tr>
+          <tr><td>会员列表</td><td><span class="method method-get">GET</span></td><td>/adminapi/member/lists</td><td>支持手机/等级/状态筛选</td></tr>
+          <tr><td>会员详情</td><td><span class="method method-get">GET</span></td><td>/adminapi/member/detail</td><td>参数：id，含订单/积分记录</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API 文档 - 移动端 -->
+    <section class="doc-section" id="api-mobile">
+      <h2 class="section-title"><span class="emoji">📲</span> API 文档 - 移动端</h2>
+      <p>移动端 API Base URL 为 <span class="inline-code">/mobileapi/</span>，需在 Header 携带 <span class="inline-code">Authorization: Bearer xxx</span> 进行认证（部分接口如文章列表无需登录）。</p>
+
+      <h3>通用移动端接口</h3>
+      <table class="doc-table">
+        <thead><tr><th>接口</th><th>方法</th><th>路径</th><th>认证</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>文章列表</td><td><span class="method method-get">GET</span></td><td>/mobileapi/article/lists</td><td>❌</td><td>支持分类/关键字/分页</td></tr>
+          <tr><td>文章详情</td><td><span class="method method-get">GET</span></td><td>/mobileapi/article/detail</td><td>❌</td><td>参数：id，浏览量+1</td></tr>
+          <tr><td>分类列表</td><td><span class="method method-get">GET</span></td><td>/mobileapi/category/lists</td><td>❌</td><td></td></tr>
+          <tr><td>AI 对话</td><td><span class="method method-post">POST</span></td><td>/adminapi/ai/chat/chat</td><td>✅</td><td>同后台 AI 接口</td></tr>
+          <tr><td>登录</td><td><span class="method method-post">POST</span></td><td>/mobileapi/login</td><td>❌</td><td>参数：username, password</td></tr>
+          <tr><td>注册</td><td><span class="method method-post">POST</span></td><td>/mobileapi/register</td><td>❌</td><td>参数：username, password, mobile</td></tr>
+          <tr><td>用户信息</td><td><span class="method method-get">GET</span></td><td>/mobileapi/user/info</td><td>✅</td><td></td></tr>
+          <tr><td>编辑资料</td><td><span class="method method-post">POST</span></td><td>/mobileapi/user/update</td><td>✅</td><td>参数：nickname, avatar, mobile</td></tr>
+          <tr><td>我的收藏</td><td><span class="method method-get">GET</span></td><td>/mobileapi/favorites/lists</td><td>✅</td><td></td></tr>
+          <tr><td>添加收藏</td><td><span class="method method-post">POST</span></td><td>/mobileapi/favorites/add</td><td>✅</td><td>参数：type, item_id</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 部署说明 -->
+    <section class="doc-section" id="deploy">
+      <h2 class="section-title"><span class="emoji">📦</span> 部署说明</h2>
+
+      <h3>前端部署</h3>
+      <div class="code-block"># 后台管理
+cd frontend
+npm install
+npm run build
+# 产物在 dist/ 目录，复制到 nginx /var/www/admin
+
+# PC前台
+cd ../pc
+npm install
+npm run build
+# 产物复制到 /var/www/pc</div>
+
+      <h3>后端部署</h3>
+      <div class="code-block"># PHP-FPM + Nginx 方案
+# 1. PHP-FPM 配置（php-fpm.conf）
+[www]
+listen = 127.0.0.1:9000
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 5
+
+# 2. 上传代码到 /www/wwwroot/feiyuadmin/backend/
+# 3. 配置 .env
+# 4. 设置权限
+chown -R www:www /www/wwwroot/feiyuadmin/backend
+chmod -R 755 /www/wwwroot/feiyuadmin/backend
+chmod -R 777 /www/wwwroot/feiyuadmin/backend/runtime</div>
+
+      <h3>数据库部署</h3>
+      <div class="code-block"># 创建数据库
+CREATE DATABASE feiyuadmin DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON feiyuadmin.* TO 'feiyuadmin'@'%' IDENTIFIED BY 'your_password';
+FLUSH PRIVILEGES;
+
+# 导入初始数据
+mysql -u root -p feiyuadmin < /www/wwwroot/feiyuadmin/backend/database/feiyuadmin.sql</div>
+
+      <h3>Redis 部署</h3>
+      <div class="code-block"># 安装
+yum install redis -y   # CentOS
+apt install redis -y  # Ubuntu
+
+# 启动
+systemctl enable redis
+systemctl start redis
+
+# 配置密码（可选）
+vim /etc/redis.conf
+requirepass your_redis_password</div>
+    </section>
+
+    <!-- Nginx 配置 -->
+    <section class="doc-section" id="nginx">
+      <h2 class="section-title"><span class="emoji">🌐</span> Nginx 配置</h2>
+
+      <h3>完整配置示例</h3>
+      <div class="code-block">server {
+    listen 80;
+    server_name demo.fydev.cn;
+
+    root /www/wwwroot/feiyuadmin/backend/public;
+    index index.html index.php;
+
+    # 后台静态资源（Vue SPA）
+    location /admin/ {
+        try_files $uri $uri/ /admin/index.html;
+    }
+
+    # PC前台静态资源
+    location /pc/ {
+        try_files $uri $uri/ /pc/index.html;
+    }
+
+    # 技术文档
+    location /doc {
+        try_files $uri $uri/ /doc/index.html;
+    }
+
+    # 后端 API
+    location /adminapi/ {
+        try_files $uri $uri/ /index.php?s=$uri;
+    }
+
+    # 移动端 API
+    location /mobileapi/ {
+        try_files $uri $uri/ /index.php?s=$uri;
+    }
+
+    # PC前台 API
+    location /pcapi/ {
+        try_files $uri $uri/ /index.php?s=$uri;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_read_timeout 300;
+        fastcgi_buffer_size 64k;
+        fastcgi_buffers 16 64k;
+    }
+
+    # 静态资源缓存
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # ThinkPHP 伪静态
+    location / {
+        if (!-e $request_filename) {
+            rewrite  ^(.*)$  /index.php?s=$1  last;
+            break;
+        }
+    }
+
+    # 安全头
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-XSS-Protection "1; mode=block";
+}</div>
+
+      <h3>HTTPS 配置（推荐）</h3>
+      <div class="code-block">server {
+    listen 443 ssl http2;
+    server_name demo.fydev.cn;
+
+    ssl_certificate /etc/nginx/ssl/demo.fydev.cn.pem;
+    ssl_certificate_key /etc/nginx/ssl/demo.fydev.cn.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;
+    ssl_prefer_server_ciphers on;
+
+    # 其余配置同上...
+}
+
+# HTTP 重定向到 HTTPS
+server {
+    listen 80;
+    server_name demo.fydev.cn;
+    return 301 https://$server_name$request_uri;
+}</div>
+
+      <div class="warn-box"><p>⚠️ <strong>注意</strong>：安装向导需要单独配置 Nginx：<span class="inline-code">location /backend/public/install.php { ... }</span>，或临时关闭重定向规则后再执行安装。</p></div>
+    </section>
+
+    <!-- 常见问题 -->
+    <section class="doc-section" id="faq">
+      <h2 class="section-title"><span class="emoji">❓</span> 常见问题（FAQ）</h2>
+
+      <h3>Q1：提示 "Class not found" 错误？</h3>
+      <p>运行 <span class="inline-code">composer dump-autoload</span> 重建自动加载，并清除 runtime 缓存：<span class="inline-code">php think clear</span></p>
+
+      <h3>Q2：AI 对话返回 401 / 429 错误？</h3>
+      <p>检查 .env 中 AI 配置是否正确，API Key 是否有余额。429 = 余额不足，401 = Key 无效。可在前端页面右上角"API配置"填入有效 Key 测试。</p>
+
+      <h3>Q3：文件上传失败？</h3>
+      <p>检查 <span class="inline-code">backend/runtime/</span> 和 <span class="inline-code">backend/public/uploads/</span> 目录是否有写入权限：<span class="inline-code">chmod -R 777 runtime/ public/uploads/</span></p>
+
+      <h3>Q4：登录一直失败，验证码报错？</h3>
+      <p>检查 Redis 是否正常运行，验证码依赖 Redis 存储 key。也可在 .env 中设置 <span class="inline-code">CAPTCHA_DRIVER=none</span> 临时关闭验证码。</p>
+
+      <h3>Q5：如何获取百度文心一言 AK/SK？</h3>
+      <p>访问 <a href="https://console.bce.baidu.com/" target="_blank">百度智能云控制台</a> → 搜索「文心千帆」→ 创建应用，即可获取 AK 和 SK。</p>
+
+      <h3>Q6：如何获取通义千问 API Key？</h3>
+      <p>访问 <a href="https://dashscope.console.aliyun.com/" target="_blank">阿里云 DashScope 控制台</a> → 开通服务 → API-KEY 管理，即可获取。</p>
+
+      <h3>Q7：工作流设计器无法保存？</h3>
+      <p>检查数据库表 <span class="inline-code">sys_workflow_design</span> 是否存在，字段是否完整。运行 <span class="inline-code">php think migrate:run</span> 执行数据库迁移。</p>
+
+      <h3>Q8：如何二开新增模块？</h3>
+      <p>步骤：① 后端创建 Controller → ② 定义路由 → ③ 前端 views 新建页面组件 → ④ 在 router/index.js 注册路由 → ⑤ 在 sys_menu 表添加菜单记录（ pid=0 为顶级）</p>
+
+      <h3>Q9：权限菜单不显示？</h3>
+      <p>检查 <span class="inline-code">sys_menu</span> 表的 <span class="inline-code">status</span> 字段是否为 1，以及该角色的菜单权限是否关联了对应记录。</p>
+
+      <h3>Q10：如何关闭注册功能？</h3>
+      <p>在 .env 中设置 <span class="inline-code">REGISTER_ENABLED=false</span>，或在前端 router 中移除注册路由。</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="home-footer">
+  <p>© 2026 飞鱼Admin · MIT License · 开源免费 · 技术支持：admin@fydev.cn · 技术交流：767677830</p>
+</footer>
+
+<!-- Back to top -->
+<div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+// Tab切换
+function activateTab(btn, panelId) {
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+}
+
+// 侧边栏高亮
+const sections = document.querySelectorAll('.doc-section[id]');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>

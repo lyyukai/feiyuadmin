@@ -14,6 +14,18 @@ use think\response\Json;
 class Nl2SqlController extends BaseAdminController
 {
     /**
+     * NL2SQL 首页/列表
+     * GET /adminapi/ai/nl2sql/index
+     */
+    public function index(): Json
+    {
+        return $this->success('获取成功', [
+            'tables' => [],
+            'recent_conversions' => [],
+        ]);
+    }
+    
+    /**
      * 自然语言转SQL
      */
     public function convert(): Json

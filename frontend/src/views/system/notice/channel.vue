@@ -167,7 +167,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Search } from '@element-plus/icons-vue'
 import { getNoticeChannelLists, addNoticeChannel, editNoticeChannel, deleteNoticeChannel } from '@/api'
@@ -217,7 +217,12 @@ const loadData = async () => {
       page_size: pagination.pageSize,
       keyword: searchForm.keyword
     })
-    tableData.value = res.data || []
+    // 字段标准化：后端返回 channel_name/channel_type，前端用 name/type
+    tableData.value = (res.data || []).map(item => ({
+      ...item,
+      name: item.channel_name ?? item.name,
+      type: item.channel_type ?? item.type
+    }))
     pagination.total = parseInt(res.headers?.['x-total'] || 0)
   } catch (e) {
     console.error(e)

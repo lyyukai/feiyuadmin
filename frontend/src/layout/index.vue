@@ -157,6 +157,10 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
+                <el-dropdown-item @click="toggleLang">
+                  <span v-if="currentLang === 'zh-CN'">🌐 English</span>
+                  <span v-else>🌐 简体中文</span>
+                </el-dropdown-item>
                 <el-dropdown-item command="profile">
                   <el-icon><User /></el-icon>个人中心
                 </el-dropdown-item>
@@ -234,6 +238,14 @@ const searchResults = ref([])
 const tabs = ref([
   { path: '/dashboard', title: '工作台', pathText: '工作台', closable: false }
 ])
+
+// 语言切换
+const currentLang = ref(localStorage.getItem('locale') || 'zh-CN')
+const toggleLang = () => {
+  const newLang = currentLang.value === 'zh-CN' ? 'en' : 'zh-CN'
+  localStorage.setItem('locale', newLang)
+  location.reload()
+}
 
 // 计算当前路径
 const currentPath = computed(() => {

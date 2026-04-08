@@ -90,10 +90,44 @@ class LocalDriver implements StorageDriverInterface
         return 'local';
     }
 
+    public function getDisplayName(): string
+    {
+        return '本地存储';
+    }
+
+    public function test(): array
+    {
+        $rootPath = root_path() . 'public/';
+        $domain = request()->domain();
+
+        if (!is_dir($rootPath)) {
+            if (!mkdir($rootPath, 0755, true)) {
+                throw new \think\Exception('存储目录不存在且无法创建：' . $rootPath);
+            }
+        }
+
+        if (!is_writable($rootPath)) {
+            throw new \think\Exception('存储目录无写入权限：' . $rootPath);
+        }
+
+        // 写入测试
+        $testFile = $rootPath . '/.feiyu_test_' . time() . '.txt';
+        if (@file_put_contents($testFile, 'feiyuadmin test') === false) {
+            throw new \think\Exception('无法写入测试文件，请检查目录权限');
+        }
+        @unlink($testFile);
+
+        return [
+            'name' => '本地存储',
+            'root_path' => $rootPath,
+            'url' => '/uploads/',
+        ];
+    }
+
     /**
      * 处理上传文件
      */
-    public function handleUpload(UploadedFile $file, string $savePath): array
+    public function handleUpload($file, string $savePath): array
     {
         $extension = $file->getOriginalExtension();
         $fileName = md5((string) microtime(true) . $file->getPathname()) . '.' . $extension;

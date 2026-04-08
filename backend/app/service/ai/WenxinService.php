@@ -11,6 +11,17 @@ class WenxinService extends AiService
 {
     protected string $provider = 'wenxin';
     protected string $model = 'ernie-4.0';
+    protected string $wenxinAk = '';
+    protected string $wenxinSk = '';
+
+    public function __construct(array $configOverrides = [])
+    {
+        parent::__construct($configOverrides);
+        // 从配置或覆盖中获取 AK/SK
+        $aiConfig = \think\facade\Config::get('site.ai', []);
+        $this->wenxinAk = $configOverrides['wenxin_ak'] ?? $aiConfig['wenxin_ak'] ?? '';
+        $this->wenxinSk = $configOverrides['wenxin_sk'] ?? $aiConfig['wenxin_sk'] ?? '';
+    }
 
     /**
      * 发送聊天请求
@@ -55,8 +66,8 @@ class WenxinService extends AiService
         }
 
         // 调用百度Access Token API
-        $ak = config('site.ai.wenxin_ak', '');
-        $sk = config('site.ai.wenxin_sk', '');
+        $ak = $this->wenxinAk;
+        $sk = $this->wenxinSk;
         
         if (empty($ak) || empty($sk)) {
             throw new \Exception('文心一言 AK/SK 未配置');

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>飞鱼移动端</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-plus@2.4.4/dist/index.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body, #app { height: 100%; width: 100%; overflow-x: hidden; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f5f5f5; -webkit-tap-highlight-color: transparent; }
+    .page { display: none; min-height: 100vh; padding-bottom: 110px; }
+    .page.active { display: block; }
+    /* 搜索栏 */
+    .search-bar { padding: 20px 30px; background: linear-gradient(135deg, #409eff 0%, #66b1ff 100%); }
+    .search-input { width: 100%; height: 72px; border: none; border-radius: 36px; padding: 0 36px; font-size: 28px; outline: none; box-shadow: 0 4px 16px rgba(64,158,255,0.3); }
+    /* Banner */
+    .banner { height: 300px; margin: 20px; border-radius: 16px; overflow: hidden; position: relative; }
+    .banner img { width: 100%; height: 100%; object-fit: cover; }
+    .banner-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; }
+    .banner-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+    .banner-dot.active { background: #fff; width: 32px; border-radius: 6px; }
+    /* 功能入口 */
+    .entry-grid { display: flex; flex-wrap: wrap; padding: 30px; background: #fff; margin: 20px; border-radius: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .entry-item { width: 25%; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; cursor: pointer; }
+    .entry-icon { width: 96px; height: 96px; background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 48px; margin-bottom: 12px; transition: transform 0.2s; }
+    .entry-item:active .entry-icon { transform: scale(0.92); }
+    .entry-name { font-size: 24px; color: #333; }
+    /* 区块标题 */
+    .section-title { padding: 30px 30px 20px; font-size: 32px; font-weight: 600; color: #333; }
+    /* 文章列表 */
+    .article-list { padding: 0 30px; }
+    .article-item { display: flex; background: #fff; border-radius: 16px; margin-bottom: 20px; overflow: hidden; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); cursor: pointer; transition: transform 0.2s; }
+    .article-item:active { transform: scale(0.98); }
+    .article-cover { width: 200px; height: 150px; border-radius: 12px; flex-shrink: 0; object-fit: cover; }
+    .article-info { flex: 1; margin-left: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .article-title { font-size: 28px; color: #333; font-weight: 500; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .article-meta { font-size: 22px; color: #999; margin-top: 12px; }
+    /* 底部TabBar */
+    .tabbar { position: fixed; bottom: 0; left: 0; right: 0; height: 100px; background: #fff; border-top: 1px solid #eee; display: flex; padding-bottom: env(safe-area-inset-bottom); z-index: 1000; box-shadow: 0 -2px 12px rgba(0,0,0,0.05); }
+    .tabbar-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: #999; transition: color 0.2s; }
+    .tabbar-item.active { color: #409eff; }
+    .tabbar-icon { font-size: 44px; margin-bottom: 4px; }
+    .tabbar-item text { font-size: 20px; }
+    /* AI助手页 */
+    .ai-header { padding: 40px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); text-align: center; }
+    .ai-header h2 { color: #fff; font-size: 40px; margin-bottom: 12px; }
+    .ai-header p { color: rgba(255,255,255,0.8); font-size: 24px; }
+    .chat-container { padding: 30px; height: calc(100vh - 600px); overflow-y: auto; }
+    .chat-msg { margin-bottom: 30px; display: flex; align-items: flex-start; }
+    .chat-msg.robot { flex-direction: row; }
+    .chat-msg.user { flex-direction: row-reverse; }
+    .chat-avatar { width: 72px; height: 72px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
+    .chat-bubble { max-width: 70%; padding: 20px 28px; border-radius: 20px; font-size: 28px; line-height: 1.6; margin: 0 20px; }
+    .chat-msg.robot .chat-bubble { background: #fff; color: #333; border-bottom-left-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .chat-msg.user .chat-bubble { background: #409eff; color: #fff; border-bottom-right-radius: 6px; }
+    .chat-input-bar { position: fixed; bottom: 100px; left: 0; right: 0; background: #fff; padding: 20px 30px; display: flex; gap: 20px; border-top: 1px solid #eee; padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+    .chat-input { flex: 1; height: 80px; border: 2px solid #eee; border-radius: 40px; padding: 0 30px; font-size: 28px; outline: none; }
+    .chat-input:focus { border-color: #409eff; }
+    .chat-send { width: 80px; height: 80px; background: #409eff; border: none; border-radius: 50%; color: #fff; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    /* 文章详情页 */
+    .detail-cover { width: 100%; height: 400px; object-fit: cover; }
+    .detail-content { padding: 30px; background: #fff; margin: 20px; border-radius: 20px; }
+    .detail-title { font-size: 36px; font-weight: 600; color: #333; line-height: 1.4; margin-bottom: 20px; }
+    .detail-meta { font-size: 22px; color: #999; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
+    .detail-body { font-size: 28px; line-height: 1.8; color: #444; }
+    /* 用户中心 */
+    .user-header { padding: 60px 30px; background: linear-gradient(135deg, #409eff 0%, #66b1ff 100%); text-align: center; }
+    .user-avatar { width: 140px; height: 140px; border-radius: 50%; background: #fff; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-size: 72px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .user-name { color: #fff; font-size: 36px; font-weight: 600; }
+    .user-desc { color: rgba(255,255,255,0.8); font-size: 24px; margin-top: 8px; }
+    .user-menu { margin: 20px; background: #fff; border-radius: 20px; overflow: hidden; }
+    .user-menu-item { display: flex; align-items: center; padding: 30px; border-bottom: 1px solid #f5f5f5; cursor: pointer; }
+    .user-menu-item:last-child { border-bottom: none; }
+    .user-menu-icon { font-size: 36px; margin-right: 20px; }
+    .user-menu-text { flex: 1; font-size: 28px; color: #333; }
+    .user-menu-arrow { color: #ccc; font-size: 28px; }
+    .login-btn { display: block; width: 80%; height: 88px; background: linear-gradient(135deg, #409eff 0%, #66b1ff 100%); color: #fff; border: none; border-radius: 44px; font-size: 30px; margin: 40px auto; cursor: pointer; box-shadow: 0 4px 16px rgba(64,158,255,0.3); }
+    /* 加载更多 */
+    .load-more { text-align: center; padding: 30px; color: #999; font-size: 24px; }
+    .loading { display: flex; align-items: center; justify-content: center; padding: 30px; gap: 12px; color: #999; font-size: 24px; }
+    .spinner { width: 32px; height: 32px; border: 4px solid #eee; border-top-color: #409eff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* 骨架屏 */
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    /* 工具页跳转提示 */
+    .ext-link-tip { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center; }
+    .ext-link-tip.show { display: flex; }
+    .ext-link-box { background: #fff; border-radius: 24px; padding: 40px; text-align: center; max-width: 560px; margin: 0 30px; }
+    .ext-link-box h3 { font-size: 32px; margin-bottom: 16px; color: #333; }
+    .ext-link-box p { font-size: 26px; color: #666; margin-bottom: 30px; line-height: 1.5; }
+    .ext-link-box a { color: #409eff; word-break: break-all; }
+    .ext-link-close { background: #f5f5f5; border: none; padding: 20px 60px; border-radius: 44px; font-size: 28px; cursor: pointer; color: #666; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- ========== 首页 ========== -->
+    <div id="page-index" class="page active">
+      <div class="search-bar">
+        <input class="search-input" placeholder="搜索文章..." v-model="indexData.keyword" @keyup.enter="searchArticle">
+      </div>
+      <div class="banner" v-if="indexData.banners.length">
+        <img :src="indexData.banners[indexData.bannerIdx].image" @click="bannerClick(indexData.bannerIdx)">
+        <div class="banner-dots">
+          <span v-for="(b, i) in indexData.banners" :key="i" :class="['banner-dot', {active: i === indexData.bannerIdx}]" @click="indexData.bannerIdx = i"></span>
+        </div>
+      </div>
+      <div class="entry-grid">
+        <div class="entry-item" v-for="item in indexData.entries" :key="item.url" @click="goEntry(item)">
+          <div class="entry-icon">{{ item.icon }}</div>
+          <span class="entry-name">{{ item.name }}</span>
+        </div>
+      </div>
+      <div class="section-title">最新文章</div>
+      <div class="article-list">
+        <div class="article-item" v-for="item in indexData.articles" :key="item.id" @click="goArticle(item.id)">
+          <img class="article-cover" :src="item.cover" @error="e => e.target.style.display='none'" loading="lazy">
+          <div class="article-info">
+            <div class="article-title">{{ item.title }}</div>
+            <div class="article-meta">{{ item.date }} · {{ item.views }}阅读</div>
+          </div>
+        </div>
+        <div class="load-more" v-if="indexData.loading"><div class="loading"><div class="spinner"></div>加载中...</div></div>
+        <div class="load-more" v-else-if="indexData.hasMore === false">没有更多了</div>
+        <div class="load-more" v-else @click="loadMoreArticle">加载更多</div>
+      </div>
+    </div>
+
+    <!-- ========== AI助手 ========== -->
+    <div id="page-ai" class="page">
+      <div class="ai-header">
+        <h2>🤖 AI智能助手</h2>
+        <p>基于飞鱼后台AI能力，智能解答各类问题</p>
+      </div>
+      <div class="chat-container" ref="chatContainer" id="chat-list">
+        <div v-if="aiData.messages.length === 0" style="text-align:center;color:#999;padding:60px 0;font-size:26px;">发送消息开始对话~</div>
+        <div v-for="(msg, i) in aiData.messages" :key="i" :class="['chat-msg', msg.role]">
+          <div class="chat-avatar">{{ msg.role === 'robot' ? '🤖' : '👤' }}</div>
+          <div class="chat-bubble">{{ msg.content }}</div>
+        </div>
+        <div v-if="aiData.loading" class="chat-msg robot">
+          <div class="chat-avatar">🤖</div>
+          <div class="chat-bubble"><div class="loading"><div class="spinner"></div>思考中...</div></div>
+        </div>
+      </div>
+      <div class="chat-input-bar">
+        <input class="chat-input" v-model="aiData.input" placeholder="输入问题..." @keyup.enter="sendAiMsg" :disabled="aiData.loading">
+        <button class="chat-send" @click="sendAiMsg" :disabled="aiData.loading || !aiData.input.trim()">➤</button>
+      </div>
+    </div>
+
+    <!-- ========== 文章列表 ========== -->
+    <div id="page-article" class="page">
+      <div style="padding:30px;background:#fff;border-bottom:1px solid #f0f0f0;">
+        <div style="font-size:34px;font-weight:600;color:#333;">📝 文章列表</div>
+      </div>
+      <div style="padding:20px;">
+        <div class="article-item" v-for="item in articleData.list" :key="item.id" @click="goArticle(item.id)">
+          <img class="article-cover" :src="item.cover" @error="e => e.target.style.display='none'" loading="lazy">
+          <div class="article-info">
+            <div class="article-title">{{ item.title }}</div>
+            <div class="article-meta">{{ item.date }} · {{ item.views }}阅读</div>
+          </div>
+        </div>
+        <div class="load-more" v-if="articleData.loading"><div class="loading"><div class="spinner"></div>加载中...</div></div>
+        <div class="load-more" v-else-if="articleData.hasMore === false">没有更多了</div>
+        <div class="load-more" v-else @click="loadMoreArticleList">加载更多</div>
+      </div>
+    </div>
+
+    <!-- ========== 文章详情 ========== -->
+    <div id="page-article-detail" class="page">
+      <div v-if="detailData.loading" style="padding:60px;text-align:center;"><div class="loading"><div class="spinner"></div>加载中...</div></div>
+      <div v-else-if="detailData.article">
+        <img class="detail-cover" :src="detailData.article.cover" @error="e => e.target.style.display='none'">
+        <div class="detail-content">
+          <div class="detail-title">{{ detailData.article.title }}</div>
+          <div class="detail-meta">{{ detailData.article.date }} · {{ detailData.article.views }}阅读</div>
+          <div class="detail-body" v-html="detailData.article.content"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 个人中心 ========== -->
+    <div id="page-user" class="page">
+      <div class="user-header">
+        <div class="user-avatar">{{ userData.loggedIn ? '👤' : '👤' }}</div>
+        <div class="user-name">{{ userData.loggedIn ? userData.userinfo.nickname : '未登录' }}</div>
+        <div class="user-desc">{{ userData.loggedIn ? userData.userinfo.email : '点击下方按钮登录' }}</div>
+      </div>
+      <div v-if="!userData.loggedIn" style="padding:20px;">
+        <button class="login-btn" @click="doLogin">🔐 立即登录</button>
+      </div>
+      <div class="user-menu">
+        <div class="user-menu-item" @click="switchPage('page-user')">
+          <span class="user-menu-icon">📊</span><span class="user-menu-text">我的数据</span><span class="user-menu-arrow">›</span>
+        </div>
+        <div class="user-menu-item" @click="switchPage('page-user')">
+          <span class="user-menu-icon">⭐</span><span class="user-menu-text">我的收藏</span><span class="user-menu-arrow">›</span>
+        </div>
+        <div class="user-menu-item" @click="switchPage('page-user')">
+          <span class="user-menu-icon">⚙️</span><span class="user-menu-text">账号设置</span><span class="user-menu-arrow">›</span>
+        </div>
+        <div class="user-menu-item" v-if="userData.loggedIn" @click="doLogout">
+          <span class="user-menu-icon">🚪</span><span class="user-menu-text" style="color:#f56c6c;">退出登录</span><span class="user-menu-arrow">›</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 底部TabBar ========== -->
+    <div class="tabbar" id="tabbar">
+      <div class="tabbar-item active" data-page="page-index" @click="switchPage('page-index')">
+        <div class="tabbar-icon">🏠</div><text>首页</text>
+      </div>
+      <div class="tabbar-item" data-page="page-ai" @click="switchPage('page-ai')">
+        <div class="tabbar-icon">🤖</div><text>AI助手</text>
+      </div>
+      <div class="tabbar-item" data-page="page-article" @click="switchPage('page-article')">
+        <div class="tabbar-icon">📝</div><text>文章</text>
+      </div>
+      <div class="tabbar-item" data-page="page-user" @click="switchPage('page-user')">
+        <div class="tabbar-icon">👤</div><text>我的</text>
+      </div>
+    </div>
+
+    <!-- 外链提示 -->
+    <div class="ext-link-tip" id="extTip">
+      <div class="ext-link-box">
+        <h3>即将跳转到第三方页面</h3>
+        <p id="extTipText"></p>
+        <button class="ext-link-close" onclick="document.getElementById('extTip').classList.remove('show')">留在当前页</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
+  <script>
+    const API = 'http://demo.fydev.cn/adminapi';
+    const { createApp, ref, reactive, nextTick, onMounted } = Vue;
+
+    const app = createApp({
+      setup() {
+        // 首页数据
+        const indexData = reactive({
+          keyword: '',
+          banners: [
+            { id: 1, image: 'https://picsum.photos/750/300?random=10', url: '' },
+            { id: 2, image: 'https://picsum.photos/750/300?random=11', url: '' },
+          ],
+          bannerIdx: 0,
+          entries: [
+            { name: 'AI助手', icon: '🤖', url: '/pages/ai/index', type: 'page' },
+            { name: 'NL2SQL', icon: '🗃️', url: 'https://demo.fydev.cn/admin/tool/nl2sql', type: 'ext' },
+            { name: '表单设计', icon: '📋', url: 'https://demo.fydev.cn/admin/tool/form-design', type: 'ext' },
+            { name: '数据大屏', icon: '📊', url: 'https://demo.fydev.cn/admin/tool/data-screen', type: 'ext' },
+          ],
+          articles: [],
+          page: 1,
+          hasMore: null,
+          loading: false,
+        });
+
+        // AI助手数据
+        const aiData = reactive({
+          input: '',
+          messages: [],
+          loading: false,
+        });
+
+        // 文章列表数据
+        const articleData = reactive({
+          list: [],
+          page: 1,
+          hasMore: null,
+          loading: false,
+        });
+
+        // 文章详情数据
+        const detailData = reactive({
+          article: null,
+          loading: false,
+        });
+
+        // 用户数据
+        const userData = reactive({
+          loggedIn: !!localStorage.getItem('feiyu_token'),
+          userinfo: JSON.parse(localStorage.getItem('feiyu_userinfo') || 'null') || {},
+        });
+
+        // Banner轮播
+        let bannerTimer = null;
+        function startBanner() {
+          bannerTimer = setInterval(() => {
+            indexData.bannerIdx = (indexData.bannerIdx + 1) % indexData.banners.length;
+          }, 3000);
+        }
+
+        // 页面切换
+        function switchPage(pageId) {
+          document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+          document.getElementById(pageId)?.classList.add('active');
+          document.querySelectorAll('.tabbar-item').forEach(t => t.classList.remove('active'));
+          document.querySelector(`[data-page="${pageId}"]`)?.classList.add('active');
+          window.location.hash = '#' + pageId;
+          window.scrollTo(0, 0);
+        }
+
+        // 入口跳转
+        function goEntry(item) {
+          if (item.type === 'ext') {
+            const tip = document.getElementById('extTip');
+            document.getElementById('extTipText').textContent = item.url;
+            tip.classList.add('show');
+          } else {
+            switchPage(item.url.replace('/pages/', 'page-').replace('/index', ''));
+          }
+        }
+
+        function bannerClick(idx) {
+          const b = indexData.banners[idx];
+          if (b.url) window.location.href = b.url;
+        }
+
+        // 文章搜索
+        function searchArticle() {
+          if (!indexData.keyword.trim()) return;
+          switchPage('page-article');
+          articleData.list = [];
+          articleData.page = 1;
+          fetchArticleList(true);
+        }
+
+        // 文章详情
+        function goArticle(id) {
+          switchPage('page-article-detail');
+          fetchArticleDetail(id);
+        }
+
+        // 加载文章列表(首页)
+        async function loadMoreArticle() {
+          if (indexData.loading || indexData.hasMore === false) return;
+          await fetchArticleList();
+        }
+
+        // 加载文章列表(列表页)
+        async function loadMoreArticleList() {
+          if (articleData.loading || articleData.hasMore === false) return;
+          await fetchArticleList();
+        }
+
+        // 请求文章列表
+        async function fetchArticleList(reset = false) {
+          const target = reset ? articleData : indexData;
+          const page = reset ? 1 : target.page;
+          target.loading = true;
+          try {
+            const res = await fetch(`${API}/mobile/article/lists?page=${page}&page_size=10`);
+            const json = await res.json();
+            if (json.code === 1) {
+              const items = (json.data.list || json.data || []).map(a => ({
+                id: a.id,
+                title: a.title,
+                cover: a.image || a.cover || 'https://picsum.photos/200/150?random=' + a.id,
+                date: a.create_time ? a.create_time.split(' ')[0] : '',
+                views: a.views || 0,
+              }));
+              if (reset) {
+                target.list ? target.list = items : (indexData.articles = items);
+              } else {
+                target.list ? target.list.push(...items) : indexData.articles.push(...items);
+              }
+              target.hasMore = items.length >= 10;
+              target.page = page + 1;
+            } else {
+              // 接口未准备好时用mock
+              mockArticleList(target, reset);
+            }
+          } catch {
+            mockArticleList(target, reset);
+          }
+          target.loading = false;
+        }
+
+        function mockArticleList(target, reset) {
+          const mocks = [
+            { id: 1, title: 'ThinkPHP8完全开发指南', cover: 'https://picsum.photos/200/150?random=31', date: '2026-04-01', views: 1280 },
+            { id: 2, title: 'Vue3企业级实战技巧', cover: 'https://picsum.photos/200/150?random=32', date: '2026-04-02', views: 960 },
+            { id: 3, title: 'Element Plus组件库使用手册', cover: 'https://picsum.photos/200/150?random=33', date: '2026-04-03', views: 720 },
+            { id: 4, title: 'Docker容器化部署实战', cover: 'https://picsum.photos/200/150?random=34', date: '2026-04-04', views: 540 },
+            { id: 5, title: 'MySQL性能优化十大技巧', cover: 'https://picsum.photos/200/150?random=35', date: '2026-04-05', views: 480 },
+          ];
+          const page = reset ? 1 : target.page;
+          const start = (page - 1) * 5;
+          const items = mocks.slice(start, start + 5);
+          if (reset) {
+            target.list ? target.list = items : (indexData.articles = items);
+          } else {
+            target.list ? target.list.push(...items) : indexData.articles.push(...items);
+          }
+          target.hasMore = start + 5 < 20;
+          target.page = page + 1;
+        }
+
+        // 请求文章详情
+        async function fetchArticleDetail(id) {
+          detailData.loading = true;
+          try {
+            const res = await fetch(`${API}/mobile/article/detail?id=${id}`);
+            const json = await res.json();
+            if (json.code === 1) {
+              detailData.article = {
+                id: json.data.id,
+                title: json.data.title,
+                cover: json.data.image || json.data.cover,
+                date: json.data.create_time || '',
+                views: json.data.views || 0,
+                content: json.data.content || '<p>文章内容加载中...</p>',
+              };
+            } else {
+              mockArticleDetail(id);
+            }
+          } catch {
+            mockArticleDetail(id);
+          }
+          detailData.loading = false;
+        }
+
+        function mockArticleDetail(id) {
+          detailData.article = {
+            id: id,
+            title: 'ThinkPHP8完全开发指南',
+            cover: 'https://picsum.photos/750/400?random=50',
+            date: '2026-04-01',
+            views: 1280,
+            content: '<p>ThinkPHP8是最新一代的PHP框架，本指南将带你从零开始掌握TP8的核心特性...</p><p>第一章：环境搭建与目录结构</p><p>ThinkPHP8推荐使用Composer进行安装...</p>',
+          };
+        }
+
+        // AI聊天
+        async function sendAiMsg() {
+          const text = aiData.input.trim();
+          if (!text || aiData.loading) return;
+          aiData.messages.push({ role: 'user', content: text });
+          aiData.input = '';
+          aiData.loading = true;
+          await nextTick();
+          scrollChat();
+          try {
+            const res = await fetch(`${API}/ai/chat/chat`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: text }),
+            });
+            const json = await res.json();
+            aiData.messages.push({ role: 'robot', content: json.msg || json.data || '抱歉，暂时无法回答这个问题。' });
+          } catch {
+            aiData.messages.push({ role: 'robot', content: '网络异常，请检查网络连接后重试。' });
+          }
+          aiData.loading = false;
+          await nextTick();
+          scrollChat();
+        }
+
+        function scrollChat() {
+          const el = document.getElementById('chat-list');
+          if (el) el.scrollTop = el.scrollHeight;
+        }
+
+        // 登录
+        function doLogin() {
+          window.location.href = 'https://demo.fydev.cn/admin/login';
+        }
+
+        // 登出
+        function doLogout() {
+          localStorage.removeItem('feiyu_token');
+          localStorage.removeItem('feiyu_userinfo');
+          userData.loggedIn = false;
+          userData.userinfo = {};
+        }
+
+        // Hash路由解析
+        function handleHash() {
+          const hash = window.location.hash.replace('#', '');
+          if (hash && document.getElementById(hash)) {
+            switchPage(hash);
+          }
+        }
+
+        onMounted(() => {
+          startBanner();
+          handleHash();
+          window.addEventListener('hashchange', handleHash);
+          fetchArticleList(true);
+          if (userData.loggedIn) {
+            // 可在此刷新用户信息
+          }
+        });
+
+        return {
+          indexData, aiData, articleData, detailData, userData,
+          switchPage, goEntry, bannerClick, searchArticle, goArticle,
+          loadMoreArticle, loadMoreArticleList, sendAiMsg, doLogin, doLogout,
+        };
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>

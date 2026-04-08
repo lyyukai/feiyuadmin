@@ -27,7 +27,7 @@
             </svg>
           </div>
         </div>
-        <h1 class="brand-name">飞鱼后台管理系统</h1>
+        <h1 class="brand-name">{{ $t('login.title') }}</h1>
         <p class="brand-slogan">安全 · 高效 · 稳定</p>
       </div>
 
@@ -59,8 +59,8 @@
     <div class="login-right">
       <div class="login-box">
         <div class="login-header">
-          <h2>欢迎回来</h2>
-          <p>请登录您的账号继续使用</p>
+          <h2>{{ $t('login.welcomeBack') }}</h2>
+          <p>{{ $t('login.loginSubtitle') }}</p>
         </div>
 
         <el-form
@@ -76,7 +76,7 @@
               <el-icon class="input-icon"><User /></el-icon>
               <el-input
                 v-model="loginForm.username"
-                placeholder="请输入用户名 / 手机号"
+                :placeholder="$t('login.usernamePlaceholder')"
                 clearable
                 autofocus
               />
@@ -89,7 +89,7 @@
               <el-input
                 v-model="loginForm.password"
                 type="password"
-                placeholder="请输入密码"
+                :placeholder="$t('login.passwordPlaceholder')"
                 show-password
                 clearable
               />
@@ -102,7 +102,7 @@
                 <el-icon class="input-icon"><Key /></el-icon>
                 <el-input
                   v-model="loginForm.captcha"
-                  placeholder="请输入验证码"
+                  :placeholder="$t('login.captchaPlaceholder')"
                   clearable
                   style="flex: 1;"
                 />
@@ -115,8 +115,8 @@
           </el-form-item>
 
           <div class="form-options">
-            <el-checkbox v-model="loginForm.remember">记住密码</el-checkbox>
-            <el-link type="primary" :underline="false">忘记密码？</el-link>
+            <el-checkbox v-model="loginForm.remember">{{ $t('login.rememberMe') }}</el-checkbox>
+            <el-link type="primary" :underline="false">{{ $t('login.forgotPassword') }}</el-link>
           </div>
 
           <el-button
@@ -125,13 +125,13 @@
             :loading="loading"
             @click="handleLogin"
           >
-            <span v-if="!loading">登 录</span>
-            <span v-else>登录中...</span>
+            <span v-if="!loading">{{ $t('login.loginBtn') }}</span>
+            <span v-else>{{ $t('login.loggingIn') }}</span>
           </el-button>
         </el-form>
 
         <div class="login-footer">
-          <p>默认账号：<span>admin</span> / <span>admin123</span></p>
+          <p>{{ $t('login.defaultAccount') }}：<span>admin</span> / <span>admin123</span></p>
         </div>
       </div>
     </div>
@@ -140,12 +140,14 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { User, Lock, Key, Connection, DataAnalysis } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
 import { getCaptcha } from '@/api'
 
+const { t } = useI18n()
 const router = useRouter()
 const userStore = useUserStore()
 
@@ -164,14 +166,14 @@ const captchaUrl = ref('')
 
 const loginRules = {
   username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' }
+    { required: true, message: () => t('validate.username'), trigger: 'blur' }
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, message: '密码长度不能少于6位', trigger: 'blur' }
+    { required: true, message: () => t('validate.password'), trigger: 'blur' },
+    { min: 6, message: () => t('validate.passwordMin'), trigger: 'blur' }
   ],
   captcha: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { required: true, message: () => t('login.captchaPlaceholder'), trigger: 'blur' },
     { len: 4, message: '验证码为4位', trigger: 'blur' }
   ]
 }
@@ -215,11 +217,11 @@ const handleLogin = async () => {
       await userStore.getUserInfo()
       await userStore.getMenus()
 
-      ElMessage.success('登录成功')
+      ElMessage.success(t('login.loginSuccess'))
       router.push('/')
     }
   } catch (err) {
-    ElMessage.error(err.message || '登录失败，请检查账号密码')
+    ElMessage.error(err.message || t('login.loginFail'))
     refreshCaptcha()
     loginForm.captcha = ''
   } finally {

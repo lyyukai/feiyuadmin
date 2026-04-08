@@ -1,143 +1,236 @@
 <template>
   <div class="page-container">
-    <!-- 搜索栏：左操作右检索 -->
-    <div class="search-bar">
-      <div class="search-bar-left">
-        <el-button type="primary" :icon="Plus" @click="openForm()">新增支付方式</el-button>
-      </div>
-      <div class="search-bar-right">
-        <el-input v-model="searchForm.keyword" placeholder="支付方式名称" style="width: 200px" clearable @keyup.enter="loadData" />
-        <el-button type="primary" :icon="Search" @click="loadData">搜索</el-button>
-        <el-button :icon="Refresh" @click="resetSearch">重置</el-button>
-      </div>
+    <!-- 搜索栏 -->
+    <el-card class="search-card" shadow="never">
+      <el-form :inline="true" :model="searchForm" class="search-form">
+        <el-form-item label="交易单号">
+          <el-input v-model="searchForm.trade_no" placeholder="请输入交易单号" clearable style="width: 200px" @keyup.enter="loadData" />
+        </el-form-item>
+        <el-form-item label="订单号">
+          <el-input v-model="searchForm.order_no" placeholder="请输入订单号" clearable style="width: 180px" @keyup.enter="loadData" />
+        </el-form-item>
+        <el-form-item label="支付渠道">
+          <el-select v-model="searchForm.channel" placeholder="全部渠道" clearable style="width: 130px">
+            <el-option label="微信" :value="1" />
+            <el-option label="支付宝" :value="2" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="交易状态">
+          <el-select v-model="searchForm.status" placeholder="全部状态" clearable style="width: 130px">
+            <el-option label="待支付" :value="0" />
+            <el-option label="支付中" :value="1" />
+            <el-option label="成功" :value="2" />
+            <el-option label="失败" :value="3" />
+            <el-option label="已退款" :value="4" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="日期范围">
+          <el-date-picker
+            v-model="dateRange"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            value-format="YYYY-MM-DD"
+            style="width: 240px"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" :icon="Search" @click="loadData">搜索</el-button>
+          <el-button :icon="Refresh" @click="resetSearch">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
+    <!-- 统计卡片 -->
+    <div class="stat-cards">
+      <el-card class="stat-card" shadow="never">
+        <div class="stat-item">
+          <div class="stat-label">今日收入</div>
+          <div class="stat-value income">¥{{ stat.today_income?.toFixed(2) || '0.00' }}</div>
+        </div>
+      </el-card>
+      <el-card class="stat-card" shadow="never">
+        <div class="stat-item">
+          <div class="stat-label">本月收入</div>
+          <div class="stat-value income">¥{{ stat.month_income?.toFixed(2) || '0.00' }}</div>
+        </div>
+      </el-card>
+      <el-card class="stat-card" shadow="never">
+        <div class="stat-item">
+          <div class="stat-label">待结算</div>
+          <div class="stat-value pending">¥{{ stat.pending_settle?.toFixed(2) || '0.00' }}</div>
+        </div>
+      </el-card>
     </div>
 
     <!-- 表格 -->
     <el-card class="table-card" shadow="never">
-      <el-table :data="tableData" v-loading="loading" stripe>
-        <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="name" label="支付方式" min-width="120" />
-        <el-table-column prop="appId" label="应用ID" min-width="150" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="100" align="center" />
-        <el-table-column prop="status" label="状态" width="100" align="center">
-          <template #default="{ row }">
-            <el-switch v-model="row.status" :active-value="1" :inactive-value="0" @change="handleStatusChange(row)" />
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right" align="center">
-          <template #default="{ row }">
-            <el-button link type="primary" size="small" @click="openForm(row)">编辑</el-button>
-            <el-button link type="danger" size="small" @click="handleDelete(row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card>
-
-    <!-- 新增/编辑弹窗 -->
-    <el-dialog v-model="formVisible" :title="form.id ? '编辑支付方式' : '新增支付方式'" width="500px" destroy-on-close>
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
-        <el-form-item label="支付方式" prop="name">
-          <el-input v-model="form.name" placeholder="如：微信支付、支付宝" />
-        </el-form-item>
-        <el-form-item label="应用ID" prop="appId">
-          <el-input v-model="form.appId" placeholder="请输入应用ID" />
-        </el-form-item>
-        <el-form-item label="排序">
-          <el-input-number v-model="form.sort" :min="0" :max="999" />
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-radio-group v-model="form.status">
-            <el-radio :value="1">启用</el-radio>
-            <el-radio :value="0">禁用</el-radio>
-          </el-radio-group>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <el-button @click="formVisible = false">取消</el-button>
-        <el-button type="primary" :loading="submitLoading" @click="handleSubmit">确定</el-button>
+      <template #header>
+        <div class="card-header">
+          <span>支付流水</span>
+          <el-button type="success" :icon="Download" @click="handleExport" plain>导出</el-button>
+        </div>
       </template>
-    </el-dialog>
+      <el-table :data="tableData" v-loading="loading" stripe>
+        <el-table-column prop="trade_no" label="交易单号" min-width="180" show-overflow-tooltip />
+        <el-table-column prop="order_no" label="订单号" min-width="160" show-overflow-tooltip />
+        <el-table-column prop="merchant_no" label="商户单号" min-width="160" show-overflow-tooltip>
+          <template #default="{ row }">{{ row.merchant_no || '-' }}</template>
+        </el-table-column>
+        <el-table-column prop="channel" label="支付渠道" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag v-if="row.channel === '1'" type="success" size="small">微信</el-tag>
+            <el-tag v-else-if="row.channel === '2'" type="primary" size="small">支付宝</el-tag>
+            <span v-else>-</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="way" label="支付方式" width="110" align="center">
+          <template #default="{ row }">{{ row.way || '-' }}</template>
+        </el-table-column>
+        <el-table-column prop="amount" label="交易金额" width="110" align="right">
+          <template #default="{ row }"><span class="price">¥{{ row.amount }}</span></template>
+        </el-table-column>
+        <el-table-column prop="fee" label="手续费" width="100" align="right">
+          <template #default="{ row }"><span class="fee">¥{{ row.fee }}</span></template>
+        </el-table-column>
+        <el-table-column prop="net_amount" label="实收金额" width="110" align="right">
+          <template #default="{ row }"><span class="price">¥{{ row.net_amount }}</span></template>
+        </el-table-column>
+        <el-table-column prop="status" label="交易状态" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag :type="statusTagType[row.status]" size="small">{{ statusLabel[row.status] }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="trade_time" label="交易时间" width="170">
+          <template #default="{ row }">{{ row.trade_time || '-' }}</template>
+        </el-table-column>
+        <el-table-column prop="create_time" label="创建时间" width="170" />
+      </el-table>
+
+      <!-- 分页 -->
+      <div class="pagination-wrap">
+        <el-pagination
+          background
+          layout="total, prev, pager, next"
+          :total="pagination.total"
+          :current-page="pagination.page"
+          :page-size="pagination.limit"
+          @current-change="handlePageChange"
+        />
+      </div>
+    </el-card>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus, Search, Refresh } from '@element-plus/icons-vue'
+import { ref, reactive, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Search, Refresh, Download } from '@element-plus/icons-vue'
+import { getPayStatementList } from '@/api/pay'
 
 const loading = ref(false)
-const submitLoading = ref(false)
 const tableData = ref([])
-const formVisible = ref(false)
-const formRef = ref(null)
+const dateRange = ref([])
+const stat = reactive({ today_income: 0, month_income: 0, pending_settle: 0 })
 
-const searchForm = reactive({ keyword: '' })
+const searchForm = reactive({
+  trade_no: '',
+  order_no: '',
+  channel: '',
+  status: ''
+})
 
-const form = reactive({ id: null, name: '', appId: '', sort: 0, status: 1 })
-const rules = {
-  name: [{ required: true, message: '请输入支付方式', trigger: 'blur' }],
-  appId: [{ required: true, message: '请输入应用ID', trigger: 'blur' }]
-}
+const pagination = reactive({
+  page: 1,
+  limit: 10,
+  total: 0
+})
 
-const mockData = ref([
-  { id: 1, name: '微信支付', appId: 'wx123456', status: 1, sort: 1 },
-  { id: 2, name: '支付宝', appId: 'ali20260330', status: 1, sort: 2 }
-])
+const statusLabel = { 0: '待支付', 1: '支付中', 2: '成功', 3: '失败', 4: '已退款' }
+const statusTagType = { 0: 'info', 1: 'warning', 2: 'success', 3: 'danger', 4: 'warning' }
 
-const loadData = () => {
+const loadData = async () => {
   loading.value = true
-  let list = [...mockData.value]
-  if (searchForm.keyword) {
-    const kw = searchForm.keyword.toLowerCase()
-    list = list.filter(item => item.name && item.name.toLowerCase().includes(kw))
-  }
-  tableData.value = list
-  loading.value = false
-}
-
-const resetSearch = () => { searchForm.keyword = ''; loadData() }
-
-const openForm = (row) => {
-  if (row) Object.assign(form, { id: row.id, name: row.name, appId: row.appId, sort: row.sort, status: row.status })
-  else Object.assign(form, { id: null, name: '', appId: '', sort: 0, status: 1 })
-  formVisible.value = true
-}
-
-const handleSubmit = async () => {
-  const valid = await formRef.value.validate().catch(() => false)
-  if (!valid) return
-  submitLoading.value = true
   try {
-    if (form.id) {
-      const idx = mockData.value.findIndex(d => d.id === form.id)
-      if (idx !== -1) mockData.value[idx] = { ...mockData.value[idx], ...form }
-      ElMessage.success('编辑成功')
-    } else {
-      form.id = mockData.value.length ? Math.max(...mockData.value.map(d => d.id)) + 1 : 1
-      mockData.value.push({ ...form })
-      ElMessage.success('新增成功')
+    const params = {
+      page: pagination.page,
+      limit: pagination.limit,
+      trade_no: searchForm.trade_no,
+      order_no: searchForm.order_no,
+      channel: searchForm.channel,
+      status: searchForm.status,
+      start_time: dateRange.value?.[0] || '',
+      end_time: dateRange.value?.[1] || ''
     }
-    formVisible.value = false
-    loadData()
-  } catch { ElMessage.error('操作失败') } finally { submitLoading.value = false }
+    Object.keys(params).forEach(k => { if (params[k] === '') delete params[k] })
+
+    const res = await getPayStatementList(params)
+    tableData.value = res.data?.list || res.data || []
+    pagination.total = res.data?.total || res.total || 0
+
+    // Update stats from response extend
+    if (res.data?.extend) {
+      Object.assign(stat, res.data.extend)
+    }
+  } catch (e) {
+    ElMessage.error(e.message || '加载失败')
+  } finally {
+    loading.value = false
+  }
 }
 
-const handleDelete = async (row) => {
-  try {
-    await ElMessageBox.confirm(`确定删除支付方式"${row.name}"吗？`, '提示', { type: 'warning' })
-    const idx = mockData.value.findIndex(d => d.id === row.id)
-    if (idx !== -1) mockData.value.splice(idx, 1)
-    ElMessage.success('删除成功')
-    loadData()
-  } catch {}
+const handlePageChange = (page) => {
+  pagination.page = page
+  loadData()
 }
 
-const handleStatusChange = (row) => {
-  ElMessage.success(`已${row.status === 1 ? '启用' : '禁用'}"${row.name}"`)
+const resetSearch = () => {
+  searchForm.trade_no = ''
+  searchForm.order_no = ''
+  searchForm.channel = ''
+  searchForm.status = ''
+  dateRange.value = []
+  pagination.page = 1
+  loadData()
 }
 
-loadData()
+const handleExport = () => {
+  if (!tableData.value.length) { ElMessage.warning('暂无数据可导出'); return }
+  const header = ['交易单号', '订单号', '商户单号', '支付渠道', '支付方式', '交易金额', '手续费', '实收金额', '交易状态', '交易时间', '创建时间']
+  const rows = tableData.value.map(d => [
+    d.trade_no, d.order_no, d.merchant_no || '-',
+    d.channel === '1' ? '微信' : d.channel === '2' ? '支付宝' : '-',
+    d.way || '-', d.amount, d.fee, d.net_amount,
+    statusLabel[d.status] || d.status,
+    d.trade_time || '-', d.create_time
+  ])
+  const csv = [header.join(','), ...rows.map(r => r.join(','))].join('\n')
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `支付流水_${new Date().toISOString().slice(0, 10)}.csv`
+  a.click()
+  URL.revokeObjectURL(url)
+  ElMessage.success('导出成功')
+}
+
+onMounted(() => loadData())
 </script>
 
 <style scoped>
+.price { color: #F56C6C; font-weight: 500; }
+.fee { color: #909399; }
+.search-card { margin-bottom: 12px; }
+.stat-cards { display: flex; gap: 12px; margin-bottom: 12px; }
+.stat-card { flex: 1; }
+.stat-item { text-align: center; }
+.stat-label { font-size: 13px; color: #909399; margin-bottom: 6px; }
+.stat-value { font-size: 22px; font-weight: 600; }
+.stat-value.income { color: #67C23A; }
+.stat-value.pending { color: #E6A23C; }
+.table-card { margin-bottom: 12px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; }
+.pagination-wrap { display: flex; justify-content: flex-end; margin-top: 16px; }
 </style>

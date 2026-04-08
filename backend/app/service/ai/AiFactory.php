@@ -14,17 +14,18 @@ class AiFactory
     /**
      * 获取AI服务实例
      * @param string $provider wenxin|qwen|openai
+     * @param array $config 可选配置覆盖 ['api_key'=>'', 'base_url'=>'', 'model'=>'', 'wenxin_ak'=>'', 'wenxin_sk'=>'']
      */
-    public static function getService(string $provider = ''): AiService
+    public static function getService(string $provider = '', array $config = []): AiService
     {
         if (empty($provider)) {
             $provider = Config::get('site.ai.provider', 'wenxin');
         }
 
         return match ($provider) {
-            'qwen' => new QwenService(),
-            'openai' => new OpenaiService(),
-            default => new WenxinService(),
+            'qwen' => new QwenService($config),
+            'openai' => new OpenaiService($config),
+            default => new WenxinService($config),
         };
     }
 

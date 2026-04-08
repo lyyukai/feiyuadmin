@@ -40,6 +40,10 @@ const routes = [
       { path: '/system/generator', name: 'GeneratorManage', component: () => import('@/views/system/generator/index.vue'), meta: { title: '代码生成器', icon: 'Cpu', breadcrumb: '系统管理 / 代码生成器' } },
       { path: '/system/dict/type', name: 'DictTypeManage', component: () => import('@/views/system/dict/type/index.vue'), meta: { title: '字典类型', icon: 'Memo', breadcrumb: '系统管理 / 字典类型' } },
       { path: '/system/dict/data', name: 'DictDataManage', component: () => import('@/views/system/dict/data/index.vue'), meta: { title: '字典数据', icon: 'Grid', breadcrumb: '系统管理 / 字典数据' } },
+      // AI助手
+      { path: '/ai/chat', name: 'AiChat', component: () => import('@/views/ai/chat/index.vue'), meta: { title: 'AI助手', icon: 'MagicStick', breadcrumb: 'AI助手' } },
+      { path: '/ai/prompt', name: 'AiPrompt', component: () => import('@/views/ai/prompt/index.vue'), meta: { title: 'Prompt助手', icon: 'Document', breadcrumb: 'AI助手 / Prompt助手' } },
+      { path: '/ai/nl2sql', redirect: '/tool/nl2sql' },
       // 工具管理
       { path: '/tool/form-list', name: 'FormList', component: () => import('@/views/tool/form-list/index.vue'), meta: { title: '表单管理', icon: 'Tickets', breadcrumb: '工具管理 / 表单管理' } },
       { path: '/tool/form-design', name: 'FormDesign', component: () => import('@/views/tool/form-design/index.vue'), meta: { title: '表单设计', icon: 'Edit', breadcrumb: '工具管理 / 表单设计' } },

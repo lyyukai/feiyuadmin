@@ -50,6 +50,16 @@ Route::post('pcapi/ai/lowcode', function () {
     return invoke([$ctrl, 'lowcode']);
 });
 
+Route::post('pcapi/ai/execute', function () {
+    $ctrl = invoke(\app\adminapi\controller\pc\AiController::class);
+    return invoke([$ctrl, 'execute']);
+});
+
+Route::get('pcapi/ai/tables', function () {
+    $ctrl = invoke(\app\adminapi\controller\pc\AiController::class);
+    return invoke([$ctrl, 'tables']);
+});
+
 // ============================================================
 // 路由辅助函数
 // ============================================================
@@ -120,7 +130,21 @@ function resolveSimpleController($controller, $action) {
 }
 
 // ============================================================
-// adminapi 自动路由
+// AI 助手路由（显式路由，放在自动路由之前以确保优先匹配）
+// ============================================================
+Route::get('adminapi/ai/chat/index', [\app\adminapi\controller\ai\ChatController::class, 'index']);
+Route::post('adminapi/ai/chat/chat', [\app\adminapi\controller\ai\ChatController::class, 'chat']);
+Route::get('adminapi/ai/chat/providers', [\app\adminapi\controller\ai\ChatController::class, 'providers']);
+
+// ============================================================
+// 系统配置路由（显式路由，放在自动路由之前以确保优先匹配）
+// ============================================================
+Route::any('adminapi/system_config/lists', 'app\adminapi\controller\admin\SystemConfigController@lists');
+Route::any('adminapi/system_config/save', 'app\adminapi\controller\admin\SystemConfigController@save');
+Route::any('adminapi/system_config/testStorage', 'app\adminapi\controller\admin\SystemConfigController@testStorage');
+
+// ============================================================
+// adminapi 自动路由（仅处理未匹配的路由）
 // ============================================================
 Route::any('adminapi/:module/:controller/:action', function ($module, $controller, $action) {
     return resolveAdminController($module, $controller, $action);
@@ -143,7 +167,7 @@ Route::any('pcapi/:controller/:action', function ($controller, $action) {
 Route::any('mobileapi/:controller/:action', function ($controller, $action) {
     $controllerName = snakeToPascal($controller);
     $actionName = snakeToPascal($action);
-    $controllerClass = '\\app\\adminapi\\controller\\mobile\\' . $controllerName . 'Controller';
+    $controllerClass = '\\app\adminapi\controller\mobile\\' . $controllerName . 'Controller';
     return invokeController($controllerClass, $actionName);
 })->middleware(\app\adminapi\http\middleware\AuthMiddleware::class);
 

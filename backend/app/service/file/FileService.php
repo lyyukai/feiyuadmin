@@ -393,4 +393,41 @@ class FileService
         self::$configCache = [];
         self::$driver = null;
     }
+
+    /**
+     * 测试存储连接
+     * @param array $config 测试配置（从前端传入）
+     * @return array ['success' => bool, 'message' => string]
+     */
+    public static function testConnection(array $config = []): array
+    {
+        $type = $config['driver'] ?? 'local';
+        $driver = self::createDriver($type);
+
+        try {
+            $result = $driver->test();
+            return [
+                'success' => true,
+                'message' => '连接成功',
+                'data' => $result,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => '连接失败：' . $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * 获取存储驱动信息
+     */
+    public static function getDriverInfo(): array
+    {
+        $driver = self::getDriver();
+        return [
+            'name' => $driver->getName(),
+            'display_name' => $driver->getDisplayName(),
+        ];
+    }
 }

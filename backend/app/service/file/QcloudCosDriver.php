@@ -146,6 +146,54 @@ class QcloudCosDriver implements StorageDriverInterface
         return 'cos';
     }
 
+    public function getDisplayName(): string
+    {
+        return '腾讯云COS';
+    }
+
+    public function test(): array
+    {
+        if (!self::validateConfig($this->config)) {
+            throw new \think\Exception('COS配置不完整，请检查SecretId/SecretKey/Bucket/地域');
+        }
+
+        $secretId = $this->config['cos_secret_id'];
+        $secretKey = $this->config['cos_secret_key'];
+        $bucket = $this->config['cos_bucket'];
+        $region = $this->config['cos_region'];
+
+        try {
+            $cosClient = new CosClient([
+                '.region' => $region,
+                'credentials' => [
+                    'secretId' => $secretId,
+                    'secretKey' => $secretKey,
+                ],
+            ]);
+
+            // 测试写入
+            $testKey = '.feiyu_test_' . time() . '.txt';
+            $cosClient->putObject([
+                'Bucket' => $bucket,
+                'Key' => $testKey,
+                'Body' => 'feiyuadmin test connection',
+            ]);
+            $cosClient->deleteObject([
+                'Bucket' => $bucket,
+                'Key' => $testKey,
+            ]);
+
+            return [
+                'name' => '腾讯云COS',
+                'bucket' => $bucket,
+                'region' => $region,
+                'domain' => $this->config['cos_domain'] ?? '',
+            ];
+        } catch (\Exception $e) {
+            throw new \think\Exception('COS连接失败：' . $e->getMessage());
+        }
+    }
+
     /**
      * 处理上传文件
      */

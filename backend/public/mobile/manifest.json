@@ -1,0 +1,18 @@
+{
+  "name": "飞鱼移动端",
+  "appid": "__UNI__FEIYUADMIN",
+  "description": "飞鱼后台管理系统移动端 (H5 SPA)",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "h5": {
+    "title": "飞鱼移动端",
+    "router": {
+      "mode": "history",
+      "base": "/mobile/"
+    },
+    "devServer": {
+      "port": 5173,
+      "disableHostCheck": true
+    }
+  }
+}
