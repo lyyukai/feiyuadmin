@@ -17,7 +17,6 @@
           <a href="#tech">技术栈</a>
           <a href="#articles">文章资讯</a>
           <a href="#modules">系统模块</a>
-          <a href="/pc/ai/chat">AI助手</a>
           <a href="/doc/">技术文档</a>
           <a href="mailto:admin@fydev.cn">联系我们</a>
         </nav>
@@ -35,8 +34,7 @@
         <p class="hero-subtitle">Vue3 + ThinkPHP8 + NL2SQL，全栈开发者的省时利器。50+ 模块开箱即用，支持私有化部署，适合 ERP/CRM/OA 等各类业务系统开发。</p>
         <div class="hero-actions">
           <a href="/admin" target="_blank" class="btn-hero-primary">立即体验（免登录）</a>
-          <a href="/pc/ai/chat" target="_blank" class="btn-hero-secondary">🤖 AI助手</a>
-          <a href="https://gitee.com/gynet/feiyuadmin" target="_blank" class="btn-hero-secondary">查看源码（5000+ Stars）</a>
+          <a href="https://gitee.com/gynet/feiyuadmin" target="_blank" class="btn-hero-secondary">📥 下载源码（5000+ Stars）</a>
           <a href="/doc" target="_blank" class="btn-hero-secondary">📖 技术文档</a>
         </div>
         <div class="hero-stats">
@@ -192,6 +190,11 @@
         <p class="copyright">© 2026 飞鱼Admin · MIT License · 免费开源</p>
       </div>
     </footer>
+
+    <!-- 悬浮AI助手按钮 -->
+    <a href="/pc/ai/chat" target="_blank" class="floating-ai-btn" title="AI助手">
+      🤖
+    </a>
   </div>
 </template>
 
@@ -415,5 +418,38 @@ body { font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSys
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
   .article-grid { grid-template-columns: repeat(2, 1fr); }
   .header-nav { display: none; }
+}
+
+/* 悬浮AI助手按钮 */
+.floating-ai-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 80px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #409EFF, #2563EB);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+.floating-ai-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37, 99, 235, 0.5);
+}
+@media (max-width: 768px) {
+  .floating-ai-btn {
+    right: 16px;
+    bottom: 60px;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
 }
 </style>
