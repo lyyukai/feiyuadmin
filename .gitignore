@@ -4,6 +4,8 @@ backend/public/admin/
 backend/public/pc/
 frontend/dist/
 frontend/node_modules/
+pc/dist/
+pc/node_modules/
 *.log
 .DS_Store
 .env
@@ -12,5 +14,3 @@ frontend/node_modules/
 .idea/
 *.swp
 runtime/
-pc/
-pc/node_modules/

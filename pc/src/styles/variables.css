@@ -1,0 +1,239 @@
+/**
+ * CSS Variables & Breakpoints
+ * H5 Mobile-First Responsive Design System for FeiyuAdmin v3
+ * 
+ * Breakpoints:
+ * - mobile:  < 768px
+ * - tablet:   768px  - 1023px
+ * - desktop:  1024px - 1439px
+ * - wide:     ≥ 1440px
+ */
+
+/* ========================
+   CSS Custom Properties
+   ======================== */
+:root {
+  /* ---- Primary Brand ---- */
+  --fe-primary:         #409EFF;
+  --fe-primary-hover:   #79bbff;
+  --fe-primary-active:  #337ecc;
+  --fe-primary-light:   #ecf5ff;
+  --fe-primary-dark:    #2b5799;
+
+  /* ---- Backgrounds ---- */
+  --fe-bg-page:         #f5f7fa;
+  --fe-bg-card:         #ffffff;
+  --fe-bg-sidebar:      #ffffff;
+  --fe-bg-header:       #ffffff;
+  --fe-bg-hover:        #f5f7fa;
+  --fe-bg-active:       #ecf5ff;
+  --fe-bg-mask:         rgba(0, 0, 0, 0.5);
+
+  /* ---- Text ---- */
+  --fe-text-primary:    #303133;
+  --fe-text-regular:     #606266;
+  --fe-text-secondary:  #909399;
+  --fe-text-placeholder:#c0c4cc;
+  --fe-text-disabled:   #c0c4cc;
+
+  /* ---- Border ---- */
+  --fe-border:          #dcdfe6;
+  --fe-border-light:     #e4e7ed;
+  --fe-border-lighter:  #ebeef5;
+  --fe-border-extra:    #f2f6fc;
+
+  /* ---- Shadow ---- */
+  --fe-shadow:          0 2px 12px 0 rgba(0, 0, 0, 0.06);
+  --fe-shadow-sm:       0 1px 4px 0 rgba(0, 0, 0, 0.04);
+  --fe-shadow-lg:       0 6px 24px 0 rgba(0, 0, 0, 0.10);
+  --fe-shadow-overlay:  0 12px 40px 0 rgba(0, 0, 0, 0.15);
+
+  /* ---- Status ---- */
+  --fe-success:         #67c23a;
+  --fe-warning:         #e6a23c;
+  --fe-danger:          #f56c6c;
+  --fe-info:            #909399;
+
+  /* ---- Radius ---- */
+  --fe-radius-sm:       4px;
+  --fe-radius-md:       8px;
+  --fe-radius-lg:       12px;
+  --fe-radius-xl:       16px;
+  --fe-radius-round:     50%;
+  --fe-radius-circle:   50%;
+
+  /* ---- Spacing ---- */
+  --fe-space-xs:        4px;
+  --fe-space-sm:        8px;
+  --fe-space-md:        12px;
+  --fe-space-lg:        16px;
+  --fe-space-xl:        20px;
+  --fe-space-2xl:       24px;
+  --fe-space-3xl:       32px;
+
+  /* ---- Typography ---- */
+  --fe-font-size-xs:    12px;
+  --fe-font-size-sm:    13px;
+  --fe-font-size-base:  14px;
+  --fe-font-size-lg:    16px;
+  --fe-font-size-xl:    18px;
+  --fe-font-size-2xl:   20px;
+  --fe-font-size-3xl:   24px;
+  --fe-line-height-base: 1.5;
+
+  /* ---- Z-index ---- */
+  --fe-z-sidebar:       100;
+  --fe-z-header:        200;
+  --fe-z-dropdown:      300;
+  --fe-z-modal:         400;
+  --fe-z-drawer:        500;
+  --fe-z-tooltip:       600;
+
+  /* ---- Sidebar ---- */
+  --fe-sidebar-width:         220px;
+  --fe-sidebar-collapsed-width: 64px;
+
+  /* ---- Header ---- */
+  --fe-header-height: 60px;
+
+  /* ---- Tab nav ---- */
+  --fe-tab-nav-height: 44px;
+
+  /* ---- Transition ---- */
+  --fe-transition-fast:   all 0.2s ease;
+  --fe-transition-base:    all 0.3s ease;
+  --fe-transition-slow:     all 0.5s ease;
+
+  /* ========================
+     H5 / Mobile Overrides
+     ======================== */
+  --fe-sidebar-width-mobile: 0px;
+  --fe-drawer-width:         280px;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --fe-bg-page:         #0d1117;
+  --fe-bg-card:         #161b22;
+  --fe-bg-sidebar:      #161b22;
+  --fe-bg-header:       #161b22;
+  --fe-bg-hover:        #21262d;
+  --fe-bg-active:       #1f313a;
+  --fe-text-primary:    #e6edf3;
+  --fe-text-regular:    #c9d1d9;
+  --fe-text-secondary:  #8b949e;
+  --fe-text-placeholder:#484f58;
+  --fe-border:          #30363d;
+  --fe-border-light:    #21262d;
+  --fe-border-lighter:  #1c2128;
+  --fe-shadow:          0 2px 12px 0 rgba(0, 0, 0, 0.3);
+  --fe-shadow-lg:       0 6px 24px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ========================
+   Responsive Breakpoints
+   ======================== */
+
+/* Mobile: < 768px */
+@media screen and (max-width: 767px) {
+  :root {
+    --fe-sidebar-width: 0px;
+    --fe-header-height: 56px;
+    --fe-tab-nav-height: 0px; /* hide tab nav on mobile */
+    --fe-drawer-width: 85vw;
+  }
+
+  /* Disable horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Stack header elements */
+  .header {
+    padding: 0 12px !important;
+  }
+
+  .global-search {
+    display: none !important;
+  }
+
+  .username {
+    display: none !important;
+  }
+
+  .header-icon-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+/* Tablet: 768px - 1023px */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --fe-sidebar-width: 180px;
+  }
+}
+
+/* Desktop: 1024px - 1439px */
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  :root {
+    --fe-sidebar-width: 200px;
+  }
+}
+
+/* Wide: ≥ 1440px */
+@media screen and (min-width: 1440px) {
+  :root {
+    --fe-sidebar-width: 220px;
+  }
+}
+
+/* ========================
+   Utility Classes
+   ======================== */
+
+/* Flex helpers */
+.fe-flex { display: flex; }
+.fe-flex-col { flex-direction: column; }
+.fe-flex-wrap { flex-wrap: wrap; }
+.fe-items-center { align-items: center; }
+.fe-items-start { align-items: flex-start; }
+.fe-items-end { align-items: flex-end; }
+.fe-justify-between { justify-content: space-between; }
+.fe-justify-center { justify-content: center; }
+.fe-justify-end { justify-content: flex-end; }
+.fe-flex-1 { flex: 1; }
+.fe-flex-shrink-0 { flex-shrink: 0; }
+
+/* Spacing helpers */
+.fe-mt-sm { margin-top: var(--fe-space-sm); }
+.fe-mt-md { margin-top: var(--fe-space-md); }
+.fe-mt-lg { margin-top: var(--fe-space-lg); }
+.fe-mb-sm { margin-bottom: var(--fe-space-sm); }
+.fe-mb-md { margin-bottom: var(--fe-space-md); }
+.fe-mb-lg { margin-bottom: var(--fe-space-lg); }
+.fe-p-sm { padding: var(--fe-space-sm); }
+.fe-p-md { padding: var(--fe-space-md); }
+.fe-p-lg { padding: var(--fe-space-lg); }
+
+/* Text helpers */
+.fe-text-center { text-align: center; }
+.fe-text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Display helpers */
+.fe-hidden { display: none; }
+.fe-block { display: block; }
+.fe-inline-block { display: inline-block; }
+
+/* Responsive display helpers */
+@media screen and (max-width: 767px) {
+  .fe-hide-mobile { display: none !important; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .fe-hide-tablet { display: none !important; }
+}
+
+@media screen and (min-width: 1024px) {
+  .fe-hide-desktop { display: none !important; }
+}
