@@ -33,15 +33,15 @@
         <h1>3天上线后台系统，让你的团队专注业务</h1>
         <p class="hero-subtitle">Vue3 + ThinkPHP8 + NL2SQL，全栈开发者的省时利器。50+ 模块开箱即用，支持私有化部署，适合 ERP/CRM/OA 等各类业务系统开发。</p>
         <div class="hero-actions">
-          <a href="/admin" target="_blank" class="btn-hero-primary">立即体验（免登录）</a>
-          <a href="https://gitee.com/gynet/feiyuadmin" target="_blank" class="btn-hero-secondary">📥 下载源码（5000+ Stars）</a>
+          <a href="/admin" target="_blank" class="btn-hero-primary">立即体验</a>
+          <a href="https://gitee.com/gynet/feiyuadmin" target="_blank" class="btn-hero-secondary">📥 下载源码</a>
           <a href="/doc" target="_blank" class="btn-hero-secondary">📖 技术文档</a>
         </div>
         <div class="hero-stats">
           <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">功能模块</span></div>
           <div class="stat-item"><span class="stat-num">5000+</span><span class="stat-label">Stars</span></div>
           <div class="stat-item"><span class="stat-num">2000+</span><span class="stat-label">活跃用户</span></div>
-          <div class="stat-item"><span class="stat-num">767677830</span><span class="stat-label">QQ交流群</span></div>
+          <div class="stat-item"><span class="stat-num">767677830</span><span class="stat-label">QQ交流</span></div>
         </div>
       </div>
       <div class="hero-visual">
@@ -185,7 +185,7 @@
           <a href="mailto:admin@fydev.cn">联系我们</a>
         </div>
         <div class="footer-qq">
-          <span>技术交流QQ群：767677830</span>
+          <span>技术交流：767677830</span>
         </div>
         <p class="copyright">© 2026 飞鱼Admin · MIT License · 免费开源</p>
       </div>
