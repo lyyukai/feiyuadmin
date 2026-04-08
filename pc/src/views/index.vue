@@ -30,7 +30,7 @@
     <section id="hero" class="hero">
       <div class="hero-content">
         <div class="hero-badge">🚀 开源免费 · MIT协议</div>
-        <h1>即可上线后台系统，让你的团队专注业务</h1>
+        <h1>即刻上线后台系统，让你的团队专注业务</h1>
         <p class="hero-subtitle">Vue3 + ThinkPHP8 + NL2SQL，全栈开发者的省时利器。50+ 模块开箱即用，支持私有化部署，适合 ERP/CRM/OA 等各类业务系统开发。</p>
         <div class="hero-actions">
           <a href="/admin" target="_blank" class="btn-hero-primary">立即体验</a>
