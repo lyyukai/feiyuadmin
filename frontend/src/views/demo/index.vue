@@ -19,7 +19,7 @@
           <a href="#contact">联系我们</a>
         </nav>
         <div class="header-actions">
-          <el-button type="primary" @click="goLogin">获取源码</el-button>
+          <el-button type="primary" @click="goLogin">立即体验</el-button>
         </div>
       </div>
     </header>
@@ -35,19 +35,18 @@
           <span class="badge-dot"></span>
           v2.0 全新发布
         </div>
-        <h1 class="hero-title">新一代企业级<br/>Vue3 后台管理系统</h1>
+        <h1 class="hero-title">3天上线后台系统<br/>让你的团队专注业务</h1>
         <p class="hero-desc">
-          基于 Vue3 + Element Plus + Vite 构建的高效、稳定、安全的后台管理解决方案。
-          支持多租户、代码生成器、工作流等企业级功能。
+          Vue3 + ThinkPHP8 + NL2SQL，全栈开发者的省时利器。50+ 模块开箱即用，支持私有化部署，适合 ERP/CRM/OA 等各类业务系统开发。
         </p>
         <div class="hero-actions">
           <el-button type="primary" size="large" style="min-width: 160px;" @click="goLogin">
             <el-icon><ArrowRight /></el-icon>
-            获取源码
+            立即体验（免登录）
           </el-button>
           <el-button size="large" plain style="min-width: 160px;" @click="goGithub">
             <el-icon><Link /></el-icon>
-            文档中心
+            查看源码（5000+ Stars）
           </el-button>
         </div>
         <div class="hero-stats">
@@ -167,7 +166,7 @@
             <el-icon><Lock /></el-icon>
           </div>
           <h3>安全可靠</h3>
-          <p>完整权限体系，JWT 令牌认证，细粒度 RBAC 权限控制</p>
+          <p>JWT + RBAC，数据权限精确到每个按钮，金融级权限管控，保障业务数据安全</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon purple">
@@ -181,7 +180,14 @@
             <el-icon><Cpu /></el-icon>
           </div>
           <h3>代码生成器</h3>
-          <p>一键生成 CRUD 代码，支持自定义模板，开发效率翻倍</p>
+          <p>3分钟生成一套增删改查代码，开发效率提升 80%，把时间花在核心业务上</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon purple">
+            <el-icon><Lightning /></el-icon>
+          </div>
+          <h3>NL2SQL（自然语言查数据库）</h3>
+          <p>"这个月卖得怎么样？" —— NL2SQL 直接给你答案，说人话就能查数据库</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon teal">
@@ -356,7 +362,7 @@
           </div>
           <div class="doc-content">
             <h4>⚡ 代码生成器</h4>
-            <p>一键生成 CRUD 代码，开发效率提升 80%</p>
+            <p>3分钟生成一套增删改查代码，开发效率提升 80%</p>
             <div class="doc-tags">
               <span class="doc-tag green">免费</span>
               <span class="doc-tag">模板配置</span>
@@ -425,7 +431,7 @@
         <div class="cta-buttons">
           <el-button type="primary" size="large" style="min-width: 180px;" @click="goLogin">
             <el-icon><Link /></el-icon>
-            免费获取源码
+            立即体验（免登录）
           </el-button>
           <el-button size="large" plain @click="goContact">QQ: 767677830</el-button>
         </div>

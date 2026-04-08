@@ -116,6 +116,7 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { MagicStick, DocumentCopy, Document, VideoPlay } from '@element-plus/icons-vue'
+import request from '@/utils/request'
 
 const prompt = ref('')
 const converting = ref(false)
@@ -146,12 +147,15 @@ async function handleConvert() {
   executionResult.value = null
 
   try {
-    // Mock AI转换 — 替换为真实API
-    await new Promise(r => setTimeout(r, 1500))
-    generatedSql.value = `-- ${prompt.value}\nSELECT * FROM users WHERE status = 1 ORDER BY created_at DESC;`
-    explanation.value = `该SQL查询所有状态为启用(status=1)的用户，并按创建时间倒序排列。`
+    const res = await request.post('/pcapi/ai/nl2sql', { prompt: prompt.value })
+    if (res.code === 0) {
+      generatedSql.value = res.data.sql || ''
+      explanation.value = res.data.explanation || ''
+    } else {
+      ElMessage.error(res.msg || '转换失败')
+    }
   } catch (err) {
-    ElMessage.error('转换失败')
+    ElMessage.error('转换失败：' + (err?.msg || err?.message || '网络错误'))
   } finally {
     converting.value = false
   }
@@ -167,24 +171,25 @@ async function handleCopy() {
 }
 
 async function handleExecute() {
+  if (!generatedSql.value) return
   executing.value = true
   executionResult.value = null
 
   try {
-    // Mock执行结果
-    await new Promise(r => setTimeout(r, 800))
-    executionSuccess.value = true
-    executionResult.value = {
-      columns: ['id', 'username', 'email', 'status', 'created_at'],
-      data: [
-        { id: 1, username: 'admin', email: 'admin@example.com', status: 1, created_at: '2024-01-15 10:30:00' },
-        { id: 2, username: 'editor', email: 'editor@example.com', status: 1, created_at: '2024-01-14 09:20:00' },
-        { id: 3, username: 'viewer', email: 'viewer@example.com', status: 1, created_at: '2024-01-13 14:45:00' },
-      ]
+    const res = await request.post('/pcapi/ai/execute', { sql: generatedSql.value })
+    if (res.code === 0) {
+      executionSuccess.value = true
+      executionResult.value = {
+        columns: res.data.columns || [],
+        data: res.data.data || [],
+      }
+    } else {
+      executionSuccess.value = false
+      executionResult.value = { message: res.msg || '执行失败' }
     }
   } catch (err) {
     executionSuccess.value = false
-    executionResult.value = { message: 'SQL执行失败：语法错误' }
+    executionResult.value = { message: '执行失败：' + (err?.msg || err?.message || '网络错误') }
   } finally {
     executing.value = false
   }

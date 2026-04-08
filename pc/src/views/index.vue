@@ -289,23 +289,23 @@ body { font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSys
 .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; font-size: 18px; color: #1a1a2e; }
 .logo span { color: #2563EB; }
 .header-nav { display: flex; gap: 32px; flex: 1; }
-.header-nav a { color: #374151; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
-.header-nav a:hover { color: #2563EB; }
+.header-nav a { color: #4b5563; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
+.header-nav a:hover { color: #1d4ed8; }
 .btn-primary { display: inline-flex; align-items: center; padding: 8px 20px; background: #2563EB; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s; white-space: nowrap; }
 .btn-primary:hover { background: #1d4ed8; }
 
 /* Hero */
 .hero { max-width: 1200px; margin: 0 auto; padding: 80px 40px; display: flex; align-items: center; gap: 60px; min-height: 600px; }
 .hero-badge { display: inline-block; padding: 6px 16px; background: #dbeafe; color: #1e40af; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
-.hero h1 { font-size: 52px; font-weight: 800; color: #1a1a2e; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.02em; }
-.hero-subtitle { font-size: 18px; color: #4b5563; margin-bottom: 40px; line-height: 1.7; }
+.hero h1 { font-size: 52px; font-weight: 800; color: #1a1a2e; line-height: 1.25; margin-bottom: 24px; letter-spacing: -0.02em; }
+.hero-subtitle { font-size: 20px; color: #374151; margin-bottom: 40px; line-height: 1.8; font-weight: 500; }
 .hero-actions { display: flex; gap: 16px; margin-bottom: 48px; }
 .btn-hero-primary { display: inline-flex; padding: 14px 32px; background: #2563EB; color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; }
 .btn-hero-secondary { display: inline-flex; padding: 14px 32px; background: #fff; color: #374151; border: 1px solid #e5e7eb; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; }
 .hero-stats { display: flex; gap: 36px; align-items: flex-end; }
 .stat-item { display: flex; flex-direction: column; }
 .stat-num { font-size: 28px; font-weight: 800; color: #2563EB; font-variant-numeric: tabular-nums; }
-.stat-label { font-size: 13px; color: #6b7280; margin-top: 4px; }
+.stat-label { font-size: 13px; color: #52525b; margin-top: 4px; font-weight: 500; }
 
 /* Dashboard mock */
 .dashboard-mock { width: 520px; flex-shrink: 0; background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e5e7eb; }
